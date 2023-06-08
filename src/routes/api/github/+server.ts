@@ -1,5 +1,3 @@
-// /routes/api/github/+server.ts
-
 import { PRIVATE_GITHUB_TOKEN } from "$env/static/private";
 import { json } from "@sveltejs/kit";
 

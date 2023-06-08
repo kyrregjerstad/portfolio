@@ -1,31 +1,26 @@
-<script>
-	// @ts-nocheck
-
+<script lang="ts">
 	import "../styles/style.postcss";
 	import "@fontsource/jetbrains-mono";
 	import "@fontsource/material-icons-outlined";
 	import ThemeSwitcher from "$components/ThemeSwitcher.svelte";
 	import BackButton from "$components/BackButton.svelte";
 	import PageTransition from "$components/PageTransition.svelte";
-	import { initLenis } from "../scripts/init/initLenis";
 	import { page } from "$app/stores";
-	import { onMount } from "svelte";
-	/** @type {import('./$types').LayoutData} */
-
 	import { scrollPosition } from "$stores/scroll";
 	import OpenGraph from "$components/SEO/OpenGraph.svelte";
+
 	function handleScroll(e) {
 		scrollPosition.set(e.target.scrollTop);
 	}
 
 	export let data;
 
-	let main;
+	let main: HTMLElement | null;
 
 	// quick way to make sure the page is scrolled to the top when navigating
 	// also stops the page from scrolling to the top when submitting a form
-	let currentPage = "/";
-	page.subscribe(e => {
+	let currentPage: string | null = "/";
+	page.subscribe((e) => {
 		if (main) {
 			if (currentPage !== e.route.id) {
 				main.scrollTo(0, 0);

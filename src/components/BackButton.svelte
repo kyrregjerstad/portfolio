@@ -1,25 +1,15 @@
-<script>
+<script lang="ts">
 	import "@fontsource/material-icons-outlined";
-	import { onMount } from "svelte";
 	import { blur } from "svelte/transition";
 
-	let visible = false;
-
-	onMount(() => {
-		visible = true;
-	});
-
-	function onClick() {
-		this.style.transform = "scale(0.9)";
+	function onClick(e: MouseEvent) {
+		const target = e.currentTarget as HTMLElement;
+		target.style.transform = "scale(0.9)";
 	}
 </script>
 
-{#if visible}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<a href="/" transition:blur on:click={onClick}>
-		<span class="material-icons-outlined"> chevron_left </span></a
-	>
-{/if}
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<a href="/" transition:blur on:click={onClick}> <span class="material-icons-outlined"> chevron_left </span></a>
 
 <style>
 	.material-icons-outlined {

@@ -1,14 +1,14 @@
 <script>
 	import ProjectLink from "$components/project-pages/ProjectLink.svelte";
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
-	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
+	// import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 
-	const imagesSrc = [
-		"/images/spell/spell-1.webp",
-		"/images/spell/spell-2.webp",
-		"/images/spell/spell-3.webp",
-		"/images/spell/spell-4.webp"
-	];
+	// const imagesSrc = [
+	// 	"/images/spell/spell-1.webp",
+	// 	"/images/spell/spell-2.webp",
+	// 	"/images/spell/spell-3.webp",
+	// 	"/images/spell/spell-4.webp"
+	// ];
 </script>
 
 <ProjectPage>

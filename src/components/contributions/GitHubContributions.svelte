@@ -9,7 +9,6 @@
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
-	// @ts-ignore
 	export let data;
 
 	$: ({ totalContributions } = data.user.contributionsCollection.contributionCalendar);
@@ -21,7 +20,7 @@
 		easing: cubicOut
 	});
 
-	scrollPosition.subscribe(scrollY => {
+	scrollPosition.subscribe((scrollY) => {
 		scrollYTweened.set(scrollY);
 	});
 
@@ -34,8 +33,8 @@
 		const scene = new THREE.Scene();
 
 		let maxContributions = 0;
-		weeks.forEach(week => {
-			week.contributionDays.forEach(day => {
+		weeks.forEach((week) => {
+			week.contributionDays.forEach((day) => {
 				if (day.contributionCount > maxContributions) {
 					maxContributions = day.contributionCount;
 				}
@@ -170,7 +169,7 @@
 
 		scene.add(camera);
 
-		scrollYTweened.subscribe(scrollY => {
+		scrollYTweened.subscribe((scrollY) => {
 			// Change rotation of the cubeGroup or camera based on scrollY
 
 			if (scrollY > 300 && scrollY < 600) {
