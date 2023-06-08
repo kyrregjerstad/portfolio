@@ -1,11 +1,9 @@
-<script>
-	// @ts-nocheck
-
+<script lang="ts">
 	export let text = "Button";
 
 	function scrollToContact() {
-		const contactSection = document.querySelector("#contact");
-		const nameInput = document.querySelector("#name");
+		const contactSection = document.querySelector("#contact") as HTMLAnchorElement;
+		const nameInput = document.querySelector("#name") as HTMLInputElement;
 		contactSection.scrollIntoView({ behavior: "smooth" });
 
 		setTimeout(() => {

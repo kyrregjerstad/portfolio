@@ -21,7 +21,7 @@ export async function POST({ request }) {
 	};
 
 	try {
-		// await sgMail.send(msg);
+		await sgMail.send(msg);
 		return json({
 			status: 200,
 			body: {

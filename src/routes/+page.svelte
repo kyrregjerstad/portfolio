@@ -1,44 +1,11 @@
 <script>
-	// @ts-nocheck
 	import HorizontalRuler from "$components/HorizontalRuler.svelte";
-	import { onMount } from "svelte";
-	import GitHubIcon from "$components/GitHubIcon.svelte";
-	import { initLenis } from "../scripts/init/initLenis";
 	import GitHubContributions from "$components/contributions/GitHubContributions.svelte";
 	import Button from "$components/buttons/Button.svelte";
 	import ContactForm from "$components/forms/ContactForm.svelte";
 	import Footer from "$components/layout/Footer.svelte";
-	import { superForm } from "sveltekit-superforms/client";
-	import { page } from "$app/stores";
-
-	let visible = false;
 
 	export let data;
-
-	$: console.log(data.form);
-
-	onMount(() => {
-		visible = true;
-	});
-
-	function typewriter(node, { speed = 1, delay = 0 }) {
-		const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
-
-		if (!valid) {
-			throw new Error(`This transition only works on elements with a single text node child`);
-		}
-
-		const text = node.textContent;
-		const duration = text.length / (speed * 0.02);
-
-		return {
-			duration,
-			tick: (t) => {
-				const i = Math.trunc(text.length * t);
-				node.textContent = text.slice(0, i);
-			}
-		};
-	}
 </script>
 
 <div class="wrapper">

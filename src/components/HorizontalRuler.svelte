@@ -1,15 +1,5 @@
-<script>
-	// @ts-nocheck
-
-	import { fade, fly } from "svelte/transition";
-	import { onMount } from "svelte";
-
-	let visible = false;
+<script lang="ts">
 	export let size = "medium";
-
-	onMount(() => {
-		visible = true;
-	});
 </script>
 
 <div class:small={size === "small"} class:medium={size === "medium"} class:large={size === "large"}>

@@ -1,7 +1,6 @@
-<script>
-	// @ts-nocheck
+<script lang="ts">
 	import { onMount } from "svelte";
-	import { textEffect } from "$lib/animations/text-effect.js";
+	import { textEffect } from "$lib/animations/text-effect";
 
 	export let fontSize = 16;
 	let theme = "dark";
@@ -21,13 +20,13 @@
 	function handleClick() {
 		isChecked = !isChecked;
 		updateTheme(isChecked);
-		textEffect(text, effect => {
+		textEffect(text, (effect) => {
 			text = effect;
 		});
 		localStorage.setItem("theme", isChecked ? "dark" : "light");
 	}
 
-	function updateTheme(isChecked) {
+	function updateTheme(isChecked: boolean) {
 		theme = isChecked ? "dark" : "light";
 		text = isChecked ? "dark mode" : "light mode";
 		document.documentElement.setAttribute("data-theme", theme);
@@ -83,10 +82,6 @@
 		transition: transform calc(var(--transition-time) / 2) ease-in-out;
 	}
 
-	.s--slider button:focus {
-		/* box-shadow: 0 0px 0px 1px var(--accent-color); */
-	}
-
 	.s--slider button {
 		border-radius: 1.5em;
 	}
@@ -96,7 +91,6 @@
 	}
 
 	.s--slider button:focus {
-		/* box-shadow: 0 0px 8px var(--accent-color); */
 		border-radius: 1.5em;
 	}
 

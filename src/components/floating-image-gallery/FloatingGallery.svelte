@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import { onMount } from "svelte";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
 
-	export let imagesSrc = [];
+	export let imagesSrc: string[] = [];
 
 	let mousePos = { x: 0, y: 0 };
 	let windowSize = { x: 0, y: 0 };
@@ -38,11 +38,10 @@
 
 	let hoveredImage = -1;
 
-	function transformImage(i, hoveredImage) {
+	function transformImage(i: number, hoveredImage: number) {
 		const translateX = i * -1 + (-$mouseNormalizedTweened.x / scalingFactor) * 10;
 		const translateY = i * -10 + (-$mouseNormalizedTweened.y / scalingFactor) * 10;
-		const scaleValue =
-			hoveredImage !== -1 && hoveredImage !== i ? 1 - Math.abs(i - hoveredImage) * 0.1 : 1;
+		const scaleValue = hoveredImage !== -1 && hoveredImage !== i ? 1 - Math.abs(i - hoveredImage) * 0.1 : 1;
 		return `transform: translate3d(${translateX}%, ${translateY}%, 0) scale3d(${scaleValue}, ${scaleValue}, 1);`;
 	}
 </script>
@@ -52,9 +51,9 @@
 		mousePos.x = e.clientX;
 		mousePos.y = e.clientY;
 	}}
-	on:resize={(e) => {
-		windowSize.x = e.target.innerWidth;
-		windowSize.y = e.target.innerHeight;
+	on:resize={() => {
+		windowSize.x = window.innerWidth;
+		windowSize.y = window.innerHeight;
 	}}
 />
 
@@ -62,8 +61,7 @@
 	{#each imagesSrc as src, i}
 		<div
 			class="float-wrapper"
-			style="animation: float {10}s {i}s ease-in-out infinite, fade-in 1s {i / 3 +
-				0.5}s ease-in-out forwards;"
+			style="animation: float {10}s {i}s ease-in-out infinite, fade-in 1s {i / 3 + 0.5}s ease-in-out forwards;"
 		>
 			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 			<div
@@ -72,7 +70,7 @@
 				on:mouseover={() => (hoveredImage = i)}
 				on:mouseout={() => (hoveredImage = -1)}
 			>
-				<img {src} alt="" />
+				<img {src} alt="Floating Image {i}" />
 			</div>
 		</div>
 	{/each}

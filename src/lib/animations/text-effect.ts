@@ -1,16 +1,19 @@
-export function textEffect(target, callback, speed = 35) {
+export function textEffect(target: string, callback: (text: string) => void, speed = 35) {
+	/* spell-checker: disable */
 	const letters = "j?abcdefgvwxyzvq/@_jdu,q&[5=i%5i?n}c;*3ty4rnc*hecxai(4c$?&9@g[";
 
-	let interval = null;
+	let interval: number | null = null;
 	let iteration = 0;
 	let text = "";
 
-	clearInterval(interval);
+	if (interval) {
+		clearInterval(interval);
+	}
 
-	interval = setInterval(() => {
+	interval = window.setInterval(() => {
 		text = target
 			.split("")
-			.map((letter, index) => {
+			.map((_, index) => {
 				if (index < iteration) {
 					return target[index];
 				}
@@ -20,7 +23,7 @@ export function textEffect(target, callback, speed = 35) {
 
 		callback(text);
 
-		if (iteration >= target.length) {
+		if (iteration >= target.length && interval) {
 			clearInterval(interval);
 		}
 
