@@ -22,10 +22,16 @@
 
 	let main;
 
-	page.subscribe(() => {
+	// quick way to make sure the page is scrolled to the top when navigating
+	// also stops the page from scrolling to the top when submitting a form
+	let currentPage = "/";
+	page.subscribe(e => {
 		if (main) {
-			main.scrollTo(0, 0);
+			if (currentPage !== e.route.id) {
+				main.scrollTo(0, 0);
+			}
 		}
+		currentPage = e.route.id;
 	});
 </script>
 

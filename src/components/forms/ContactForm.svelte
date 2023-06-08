@@ -2,30 +2,37 @@
 	import { superForm } from "sveltekit-superforms/client";
 	import type { SuperValidated } from "sveltekit-superforms/index";
 	import type { ContactFormSchema } from "$lib/schemas";
-
-	// @ts-nocheck
+	import FormError from "./FormError.svelte";
+	import Icon from "@iconify/svelte";
 
 	export let data: SuperValidated<ContactFormSchema>;
 
-	const { form, errors, enhance } = superForm(data);
-
-	let formSubmitted = false;
+	const { form, errors, enhance, delayed, message } = superForm(data);
 </script>
 
-<form id="contact" action="" method="POST" use:enhance>
+<form id="contact" method="POST" use:enhance>
 	<label for="name">Name</label>
 	<input type="text" name="name" id="name" placeholder="Your name" required bind:value={$form.name} />
+	<FormError errors={$errors.name} />
 
 	<label for="subject">Subject</label>
 	<input type="text" name="subject" id="subject" placeholder="Subject" required bind:value={$form.subject} />
+	<FormError errors={$errors.subject} />
 
 	<label for="email">Email</label>
 	<input type="email" name="email" id="email" placeholder="Your email" required bind:value={$form.email} />
+	<FormError errors={$errors.email} />
 
 	<label for="message">Message</label>
 	<textarea name="message" id="message" placeholder="Your message" required bind:value={$form.message} />
+	<FormError errors={$errors.message} />
 
-	<button type="submit">{formSubmitted ? "Message Sent!" : "Send"}</button>
+	<button type="submit">
+		{$message || "Send"}
+		{#if $delayed}
+			<Icon icon="line-md:loading-loop" height={35} />
+		{/if}
+	</button>
 </form>
 
 <style>
@@ -90,7 +97,6 @@
 	}
 
 	button:hover {
-		/* background-color: var(--font-color); */
 		color: var(--background-color);
 		background-position: right bottom;
 	}

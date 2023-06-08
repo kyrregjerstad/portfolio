@@ -9,13 +9,13 @@
 	import ContactForm from "$components/forms/ContactForm.svelte";
 	import Footer from "$components/layout/Footer.svelte";
 	import { superForm } from "sveltekit-superforms/client";
+	import { page } from "$app/stores";
 
 	let visible = false;
 
 	export let data;
 
-	const { form, errors, enhance } = superForm(data.form);
-	$: console.log(data.contactForm);
+	$: console.log(data.form);
 
 	onMount(() => {
 		visible = true;
@@ -33,7 +33,7 @@
 
 		return {
 			duration,
-			tick: t => {
+			tick: (t) => {
 				const i = Math.trunc(text.length * t);
 				node.textContent = text.slice(0, i);
 			}
@@ -76,7 +76,7 @@
 
 	<section>
 		<h2>Contact:</h2>
-		<ContactForm data={data.contactForm} />
+		<ContactForm data={data.form} />
 	</section>
 </div>
 <Footer />

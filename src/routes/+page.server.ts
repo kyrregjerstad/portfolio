@@ -1,46 +1,29 @@
-import { PUBLIC_GITHUB_URL, PUBLIC_GITHUB_PROFILE } from "$env/static/public";
-import { PRIVATE_NOTION_API_TOKEN, PRIVATE_NOTION_DB_ID } from "$env/static/private";
-import { Client } from "@notionhq/client";
-
-import { setError, superValidate } from "sveltekit-superforms/server";
-import { fail, redirect } from "@sveltejs/kit";
+import { superValidate, message } from "sveltekit-superforms/server";
+import { fail } from "@sveltejs/kit";
 import { contactFormSchema } from "$lib/schemas";
 
-export const load = async ({ fetch, parent }) => {
+export const load = async (event) => {
 	const fetchGitHubContributions = async () => {
-		const response = await fetch("/api/github");
+		const response = await event.fetch("/api/github");
 		const data = await response.json();
 		return data;
 	};
-	const notion = new Client({
-		auth: PRIVATE_NOTION_API_TOKEN
-	});
 
-	async function getDatabasePages() {
-		const result = await notion.databases.query({
-			database_id: PRIVATE_NOTION_DB_ID
-		});
-
-		return result.results;
-	}
+	const contactForm = await superValidate(event, contactFormSchema);
 
 	return {
-		// projects: fetchProjects(),
 		gitHubContributions: fetchGitHubContributions(),
-		contactForm: superValidate(contactFormSchema, {
-			id: "contactForm"
-		})
-		// notion: getDatabasePages()
+		form: contactForm
 	};
 };
 
 export const actions = {
-	default: async event => {
-		const contactForm = await superValidate(event, contactFormSchema);
+	default: async (event) => {
+		const form = await superValidate(event, contactFormSchema);
 
-		if (!contactForm.valid) {
+		if (!form.valid) {
 			return fail(400, {
-				form: contactForm
+				form: form
 			});
 		}
 
@@ -49,20 +32,14 @@ export const actions = {
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify(contactForm.data)
+			body: JSON.stringify(form.data)
 		};
 
 		try {
-			const response = await event.fetch("./api/contact", options);
-			const data = await response.json();
-			return data;
+			await event.fetch("./api/contact", options);
+			return message(form, "Sent!");
 		} catch (error) {
-			return {
-				status: 500,
-				body: {
-					message: "There was an error sending the email."
-				}
-			};
+			return fail(500, message(form, "Error"));
 		}
 	}
 };

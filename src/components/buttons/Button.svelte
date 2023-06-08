@@ -23,8 +23,8 @@
 		font-size: 1.5rem;
 		padding: 1rem 2rem;
 		background-color: transparent;
-		border: 1px solid var(--font-color);
-		color: var(--font-color);
+		border: 1px solid var(--font-color, #ffffe3);
+		color: var(--font-color, #ffffe3);
 		border-radius: 0.1rem;
 		cursor: pointer;
 		font-family: "JetBrains Mono", monospace;
