@@ -1,0 +1,123 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--color-primary-dark: #10100e;
+	--color-primary-medium: #76766a;
+	--color-primary-light: #ffffe3;
+
+	--color-transparent-medium: #76766a79;
+
+	--primary-transparent-dark: #10100e98;
+	--primary-transparent-light: #ffffe320;
+
+	--transition-time: 500ms;
+}
+
+[data-theme="light"] {
+	--background-color: var(--color-primary-light);
+	--secondary-color: #818cab;
+	--font-color: var(--color-primary-dark);
+	--img-shadow: -1rem 1rem 2rem 0rem var(--primary-transparent-dark);
+}
+
+[data-theme="dark"] {
+	--background-color: var(--color-primary-dark);
+	--secondary-color: #818cab;
+	--font-color: var(--color-primary-light);
+	--img-shadow: -1rem 1rem 2rem 0rem var(--primary-transparent-light);
+}
+
+html {
+	font-family: "JetBrains Mono", monospace;
+	scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+}
+
+h1 {
+	font-size: 3rem;
+	line-height: 4rem;
+
+	margin-block-end: 1rem;
+}
+
+h2 {
+	font-size: 3rem;
+	line-height: 3rem;
+	margin-block-end: 1rem;
+}
+
+h3 {
+	font-size: 2rem;
+	line-height: 2rem;
+}
+
+p {
+	font-size: 1.1rem;
+	margin-block: 2rem;
+	max-width: 80ch;
+	line-height: 1.5;
+}
+
+ul {
+	display: inline-block;
+	font-size: 1.1rem;
+	/* margin-block: 2rem; */
+}
+
+li {
+	margin-block: 1rem;
+	list-style-position: inside;
+}
+
+p {
+	font-weight: 200;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+body {
+	background-color: var(--background-color, #10100e);
+	color: var(--font-color, #ffffe3);
+
+	border: solid 1rem var(--background-color, #10100e);
+
+	transition: background-color var(--transition-time) ease-in-out, color var(--transition-time) ease-in-out,
+		border-color var(--transition-time) ease-in-out;
+
+	height: 100vh;
+	height: 100dvh;
+}
+
+@media (min-width: 45rem) {
+	body {
+		border: solid 2.5rem var(--background-color, #10100e);
+	}
+
+	h1 {
+		font-size: 5rem;
+		line-height: 5rem;
+		margin-block-end: 3.5rem;
+	}
+}

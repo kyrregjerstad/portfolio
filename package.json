@@ -13,13 +13,20 @@
 		"postinstall": "find . -name '.gitkeep' -type f -delete"
 	},
 	"devDependencies": {
+		"@fontsource/material-icons-outlined": "^5.0.2",
+		"@iconify/svelte": "^3.1.4",
+		"@kitql/all-in": "^0.9.5",
+		"@sendgrid/mail": "^7.7.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-vercel": "^3.0.1",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/three": "^0.152.1",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.26.0",
+		"houdini": "^1.2.5",
 		"postcss-load-config": "^4.0.1",
 		"postcss-preset-env": "^8.4.1",
 		"prettier": "^2.8.0",
@@ -28,9 +35,22 @@
 		"stylelint-config-recommended": "^12.0.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
+		"svelte-preprocess": "^5.0.4",
+		"sveltekit-superforms": "1.0.0-rc.3",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
-		"vite": "^4.3.0"
+		"vite": "^4.3.0",
+		"zod": "^3.21.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@fontsource/jetbrains-mono": "^5.0.2",
+		"@notionhq/client": "^2.2.5",
+		"@studio-freight/lenis": "^1.0.14",
+		"graphql": "^16.6.0",
+		"graphql-request": "^6.1.0",
+		"gsap": "^3.12.1",
+		"lil-gui": "^0.18.1",
+		"three": "^0.153.0"
+	}
 }

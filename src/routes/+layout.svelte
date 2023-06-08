@@ -1,17 +1,67 @@
-<script lang="ts">
-	import * as config from "$config";
-	import MetaTags from "$lib/components/SEO/MetaTags.svelte";
-	import "$styles/app.css";
+<script>
+	// @ts-nocheck
+
+	import "../styles/style.postcss";
+	import "@fontsource/jetbrains-mono";
+	import "@fontsource/material-icons-outlined";
+	import ThemeSwitcher from "$components/ThemeSwitcher.svelte";
+	import BackButton from "$components/BackButton.svelte";
+	import PageTransition from "$components/PageTransition.svelte";
+	import { initLenis } from "../scripts/init/initLenis";
+	import { page } from "$app/stores";
+	import { onMount } from "svelte";
+	/** @type {import('./$types').LayoutData} */
+
+	import { scrollPosition } from "$stores/scroll";
+	import OpenGraph from "$components/SEO/OpenGraph.svelte";
+	function handleScroll(e) {
+		scrollPosition.set(e.target.scrollTop);
+	}
+
+	export let data;
+
+	let main;
+
+	page.subscribe(() => {
+		if (main) {
+			main.scrollTo(0, 0);
+		}
+	});
 </script>
 
-<svelte:head>
-	<title>{config.title}</title>
-</svelte:head>
-<MetaTags />
-
-<main>
-	<slot />
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<title>Kyrre.dev</title>
+<OpenGraph />
+<main class="page" on:scroll={handleScroll} bind:this={main}>
+	{#if $page.route.id !== "/"}
+		<BackButton />
+	{/if}
+	<ThemeSwitcher fontSize={16} />
+	<PageTransition pathname={data.pathname}>
+		<slot />
+	</PageTransition>
 </main>
 
 <style>
+	main {
+		position: relative;
+		border: solid 2px var(--font-color, #ffffe3);
+		height: 100%;
+		padding: 1rem;
+		overflow: auto;
+		transition: border var(--transition-time) ease-in-out;
+
+		-ms-overflow-style: none; /* Internet Explorer 10+ */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	main::-webkit-scrollbar {
+		display: none; /* Safari and Chrome */
+	}
+
+	@media (min-width: 45rem) {
+		main {
+			padding: 1rem 5rem;
+		}
+	}
 </style>
