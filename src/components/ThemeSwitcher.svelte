@@ -11,6 +11,11 @@
 
 	onMount(() => {
 		const themePreference = localStorage.getItem("theme");
+
+		if (!themePreference) {
+			localStorage.setItem("theme", "dark");
+		}
+
 		if (themePreference) {
 			isChecked = themePreference === "dark";
 			updateTheme(isChecked);
