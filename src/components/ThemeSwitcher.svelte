@@ -46,16 +46,20 @@
 		--gray: #777c84;
 	}
 
+	button {
+		padding: 0;
+	}
+
 	.s--slider {
 		display: flex;
 		align-items: center;
 	}
 
 	.s--slider button {
-		width: 3em;
-		height: 1.6em;
+		width: 3rem;
+		height: 1.6rem;
 		position: relative;
-		margin: 0 0 0 0.5em;
+		margin: 0 0 0 0.5rem;
 		background: var(--gray);
 		border: none;
 		cursor: pointer;
@@ -65,11 +69,11 @@
 	.s--slider button::before {
 		content: "";
 		position: absolute;
-		width: 1.3em;
-		height: 1.3em;
+		width: 1.3rem;
+		height: 1.3rem;
 		background: var(--color-primary-light);
-		top: 0.13em;
-		right: 1.5em;
+		top: 0.13rem;
+		right: 1.5rem;
 		transition: transform calc(var(--transition-time) / 2) ease-in-out;
 	}
 
@@ -78,12 +82,12 @@
 	}
 
 	.s--slider button[aria-checked="true"]::before {
-		transform: translateX(1.3em);
+		transform: translateX(1.3rem);
 		transition: transform calc(var(--transition-time) / 2) ease-in-out;
 	}
 
 	.s--slider button {
-		border-radius: 1.5em;
+		border-radius: 1.5rem;
 	}
 
 	.s--slider button::before {
@@ -91,7 +95,7 @@
 	}
 
 	.s--slider button:focus {
-		border-radius: 1.5em;
+		border-radius: 1.5rem;
 	}
 
 	#button-wrapper {
