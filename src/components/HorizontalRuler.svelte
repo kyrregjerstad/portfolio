@@ -6,7 +6,7 @@
 	<hr />
 </div>
 
-<style>
+<style lang="postcss">
 	.small {
 		margin-block: 1rem;
 	}
@@ -21,7 +21,7 @@
 		width: 66.66%;
 	}
 
-	@media (min-width: 45rem) {
+	@media (--viewport-sm) {
 		.small {
 			margin-block: 3rem;
 		}

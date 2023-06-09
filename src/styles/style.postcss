@@ -1,9 +1,17 @@
 @font-face {
 	font-family: "Recursive Variable";
-	src: url("fonts/recursive/woff2/Recursive_vaiable_subset.woff2") format("woff2");
+	src: url("$fonts/recursive/woff2/Recursive_vaiable_subset.woff2") format("woff2");
 	font-weight: 100 - 1000;
 	font-style: swap;
 }
+
+/* PostCss Breakpoints */
+@custom-media --viewport-xs (min-width: 32rem);
+@custom-media --viewport-sm (min-width: 40rem);
+@custom-media --viewport-md (min-width: 48rem);
+@custom-media --viewport-lg (min-width: 64rem);
+@custom-media --viewport-xl (min-width: 80rem);
+@custom-media --viewport-2xl (min-width: 96rem);
 
 *,
 *::before,
@@ -46,12 +54,6 @@
 }
 
 html {
-	--mono: "MONO" 1;
-	--casl: "CASL" 0;
-	--wght: "wght" 500;
-	--slnt: "slnt" 0;
-	--CRSV: "CRSV" 0.5;
-
 	font-family: var(--font-primary);
 	font-variation-settings: var(--font-primary-settings);
 	scroll-behavior: smooth;
