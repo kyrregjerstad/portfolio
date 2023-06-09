@@ -14,9 +14,12 @@
 		<h1 class="page-title">Hello World!</h1>
 		<p>
 			If you're here, you're probably looking for a front-end developer who can think outside the box, colour outside
-			the lines and mix metaphors... Well, you're in luck! <br />
-			<br />I'm Kyrre Gjerstad, a creative professional from Norway, currently living in Berlin. I have a passion for
-			making things and exploring new technologies.
+			the lines and mix metaphors... Well, you're in luck!
+		</p>
+
+		<p>
+			I'm Kyrre Gjerstad, a creative professional from Norway, currently living in Berlin. I have a passion for making
+			things and exploring new technologies.
 		</p>
 
 		<p>Are you ready to bring your next project to life?</p>
@@ -37,7 +40,12 @@
 </div>
 <Footer />
 
-<style>
+<style lang="postcss">
+	h1,
+	p {
+		margin-block: 2rlh;
+	}
+
 	.wrapper {
 		overflow: hidden;
 		margin-block: 2rem;

@@ -19,7 +19,7 @@
 <style>
 	button {
 		font-variation-settings: var(--font-thin-settings);
-		margin-top: 1.5rem;
+		margin-block-start: 1.5rem;
 
 		background: linear-gradient(
 			var(--background-color) 0%,
