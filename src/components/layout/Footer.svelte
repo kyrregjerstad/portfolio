@@ -9,12 +9,15 @@
 	<div class="social-icons">
 		<a href="https://github.com/kyrregjerstad" target="_blank">
 			<Icon icon="simple-icons:github" />
+			<span class="visually-hidden">GitHub</span>
 		</a>
 		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
 			<Icon icon="simple-icons:linkedin" />
+			<span class="visually-hidden">LinkedIn</span>
 		</a>
 		<a href="https://www.twitter.com/kyrregjerstad" target="_blank">
 			<Icon icon="simple-icons:twitter" />
+			<span class="visually-hidden">Twitter</span>
 		</a>
 	</div>
 </footer>
