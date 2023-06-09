@@ -40,10 +40,10 @@
 <style>
 	.wrapper {
 		overflow: hidden;
+		margin-block: 2rem;
 	}
 
 	.page-title {
 		font-size: 4rem;
-		margin-block-start: 2rem;
 	}
 </style>

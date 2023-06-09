@@ -19,6 +19,7 @@
 		display: grid;
 		gap: 5rem;
 		width: 100%;
+		margin-block: 2rem;
 	}
 
 	:global(.right-side) {
