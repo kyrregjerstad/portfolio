@@ -21,7 +21,8 @@ const config = {
 			$types: "./src/types.ts",
 			$styles: "./src/styles",
 			$assets: "./src/assets",
-			$images: "./src/assets/images"
+			$images: "./src/assets/images",
+			$fonts: "./static/fonts"
 		}
 	},
 	vitePlugin: {

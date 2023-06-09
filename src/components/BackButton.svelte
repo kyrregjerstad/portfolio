@@ -11,7 +11,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <a href="/" transition:blur on:click={onClick}> <span class="material-icons-outlined"> chevron_left </span></a>
 
-<style>
+<style lang="postcss">
 	.material-icons-outlined {
 		font-size: 3rem; /* Preferred icon size */
 		padding: 0;
@@ -38,7 +38,7 @@
 		transition: transform calc(var(--transition-time) / 4) ease-in-out;
 	}
 
-	@media (min-width: 45rem) {
+	@media (--viewport-sm) {
 		a {
 			top: 4rem;
 			left: 4rem;
