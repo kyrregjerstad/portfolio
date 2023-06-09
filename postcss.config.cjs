@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const postcssPresetEnv = require("postcss-preset-env");
+const postcssOKLabFunction = require("@csstools/postcss-oklab-function");
 
 /** @type {import('postcss-load-config').Config} */
 const config = {
@@ -11,7 +12,8 @@ const config = {
 				"custom-media-queries": true,
 				"media-query-ranges": true
 			}
-		})
+		}),
+		postcssOKLabFunction()
 	]
 };
 

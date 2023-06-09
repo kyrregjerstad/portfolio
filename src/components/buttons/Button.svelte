@@ -18,16 +18,7 @@
 
 <style>
 	button {
-		font-size: 1.5rem;
-		padding: 1rem 2rem;
-		background-color: transparent;
-		border: 1px solid var(--font-color, #ffffe3);
-		color: var(--font-color, #ffffe3);
-		border-radius: 0.1rem;
-		cursor: pointer;
-		font-family: "JetBrains Mono", monospace;
-		font-weight: 100;
-
+		font-variation-settings: "wght" 100, "slnt" 0, "MONO" 1, "CASL" 0;
 		margin-top: 1.5rem;
 
 		background: linear-gradient(
@@ -43,8 +34,8 @@
 	}
 
 	button:hover {
-		/* background-color: var(--font-color); */
 		color: var(--background-color);
 		background-position: right bottom;
+		font-variation-settings: "wght" 800, "slnt" -12, "MONO" 1, "CASL" 0;
 	}
 </style>
