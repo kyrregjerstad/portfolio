@@ -212,7 +212,7 @@
 </script>
 
 <div class="canvas-wrapper">
-	<h4>{totalContributions} contributions in the last year</h4>
+	<h2>{totalContributions} contributions in the last year</h2>
 	<canvas class="webgl" />
 </div>
 
@@ -228,7 +228,7 @@
 		height: 100%;
 	}
 
-	h4 {
+	h2 {
 		font-size: 0.8rem;
 		position: absolute;
 		bottom: 0;
