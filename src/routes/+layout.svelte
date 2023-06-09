@@ -8,13 +8,15 @@
 	import { scrollPosition } from "$stores/scroll";
 	import OpenGraph from "$components/SEO/OpenGraph.svelte";
 
-	function handleScroll(e) {
-		scrollPosition.set(e.target.scrollTop);
-	}
-
 	export let data;
 
 	let main: HTMLElement | null;
+
+	function handleScroll() {
+		if (main) {
+			scrollPosition.set(main.scrollTop);
+		}
+	}
 
 	// quick way to make sure the page is scrolled to the top when navigating
 	// also stops the page from scrolling to the top when submitting a form
