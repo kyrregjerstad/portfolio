@@ -1,3 +1,10 @@
+@font-face {
+	font-family: "Recursive Variable";
+	src: url("fonts/recursive/woff2/Recursive_vaiable_subset.woff2") format("woff2");
+	font-weight: 100 - 1000;
+	font-style: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -17,6 +24,9 @@
 	--primary-transparent-light: #ffffe320;
 
 	--transition-time: 500ms;
+
+	--font-primary: "Recursive Variable", monospace;
+	--font-primary-settings: "wght" 500, "slnt" 0, "MONO" 1, "CASL" 0;
 }
 
 [data-theme="light"] {
@@ -34,7 +44,14 @@
 }
 
 html {
-	font-family: "JetBrains Mono", monospace;
+	--mono: "MONO" 1;
+	--casl: "CASL" 0;
+	--wght: "wght" 500;
+	--slnt: "slnt" 0;
+	--CRSV: "CRSV" 0.5;
+
+	font-family: var(--font-primary);
+	font-variation-settings: var(--font-primary-settings);
 	scroll-behavior: smooth;
 }
 
@@ -44,7 +61,8 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: 700;
+	/* font-weight: 700; */
+	font-variation-settings: "wght" 500, "slnt" 0, "MONO" 1, "CASL" 0;
 }
 
 h1 {
@@ -95,6 +113,17 @@ a {
 img {
 	max-width: 100%;
 	height: auto;
+}
+
+button {
+	font-size: 1.5rem;
+	padding: 1rem 2rem;
+	border: 1px solid var(--font-color, #ffffe3);
+	color: var(--font-color, #ffffe3);
+	font-family: var(--font-primary);
+	border-radius: 0.15rem;
+	background-color: transparent;
+	cursor: pointer;
 }
 
 body {
