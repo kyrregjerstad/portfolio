@@ -38,7 +38,7 @@
 		transition: transform calc(var(--transition-time) / 4) ease-in-out;
 	}
 
-	@media (--viewport-sm) {
+	@media (min-width: 45rem) {
 		a {
 			top: 4rem;
 			left: 4rem;
