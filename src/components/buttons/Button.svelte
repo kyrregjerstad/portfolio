@@ -18,7 +18,7 @@
 
 <style>
 	button {
-		font-variation-settings: "wght" 100, "slnt" 0, "MONO" 1, "CASL" 0;
+		font-variation-settings: var(--font-thin-settings);
 		margin-top: 1.5rem;
 
 		background: linear-gradient(
@@ -36,6 +36,6 @@
 	button:hover {
 		color: var(--background-color);
 		background-position: right bottom;
-		font-variation-settings: "wght" 800, "slnt" -12, "MONO" 1, "CASL" 0;
+		font-variation-settings: var(--font-hover-settings);
 	}
 </style>
