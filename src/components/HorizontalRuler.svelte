@@ -21,7 +21,7 @@
 		width: 66.66%;
 	}
 
-	@media (--viewport-sm) {
+	@media (min-width: 45rem) {
 		.small {
 			margin-block: 3rem;
 		}

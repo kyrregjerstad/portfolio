@@ -59,10 +59,9 @@
 		display: none; /* Safari and Chrome */
 	}
 
-	@media (--viewport-xs) {
+	@media (min-width: 45rem) {
 		main {
 			padding: 1rem 5rem;
-			display: none;
 		}
 	}
 </style>

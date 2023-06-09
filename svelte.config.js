@@ -22,7 +22,7 @@ const config = {
 			$styles: "./src/styles",
 			$assets: "./src/assets",
 			$images: "./src/assets/images",
-			$fonts: "./static/fonts"
+			$fonts: "/fonts"
 		}
 	},
 	vitePlugin: {
