@@ -55,9 +55,7 @@
 		padding: 0.5rem 1rem;
 		background-color: transparent;
 		border: 1px solid var(--font-color);
-		color: var(--font-color);
 		border-radius: 0.1rem;
-		font-family: "JetBrains Mono", monospace;
 		font-weight: 100;
 		margin-top: 0.5rem;
 	}

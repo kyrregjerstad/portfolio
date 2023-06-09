@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@fontsource/jetbrains-mono':
-    specifier: ^5.0.2
-    version: 5.0.2
   '@notionhq/client':
     specifier: ^2.2.5
     version: 2.2.5
@@ -1349,10 +1346,6 @@ packages:
     resolution: {integrity: sha512-6SWlXpWU5AvId8Ac7zjzmIOqMOba/JWY8XZ4A7q7Gn1Vlfg/SFFIlrtHXt9nPn4op9ZPAkl91Jao+QQv3r/ukw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
-
-  /@fontsource/jetbrains-mono@5.0.2:
-    resolution: {integrity: sha512-2otc4BSOJ94gFkG4o7fjmARaIcI76wmMIyyY7SbPnM2EqA8lr5I/cu9KofoAUSc5haBJExK6DlWGVMfRGKnDIA==}
-    dev: false
 
   /@fontsource/material-icons-outlined@5.0.2:
     resolution: {integrity: sha512-OZBTpmB/jNLxgqTt+H4f/CV7djlbimugOtjnmF5bu0ZEo5qm4VdXNDZroIISYxPlhVO9P4upA95UzYRKAiSW6Q==}

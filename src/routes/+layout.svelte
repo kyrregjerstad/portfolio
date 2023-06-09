@@ -1,6 +1,5 @@
 <script lang="ts">
 	import "../styles/style.postcss";
-	import "@fontsource/jetbrains-mono";
 	import "@fontsource/material-icons-outlined";
 	import ThemeSwitcher from "$components/ThemeSwitcher.svelte";
 	import BackButton from "$components/BackButton.svelte";
@@ -43,7 +42,7 @@
 	</PageTransition>
 </main>
 
-<style>
+<style lang="postcss">
 	main {
 		position: relative;
 		border: solid 2px var(--font-color, #ffffe3);

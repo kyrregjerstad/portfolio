@@ -63,7 +63,6 @@ h3,
 h4,
 h5,
 h6 {
-	/* font-weight: 700; */
 	font-variation-settings: "wght" 500, "slnt" 0, "MONO" 1, "CASL" 0;
 }
 
@@ -92,10 +91,16 @@ p {
 	line-height: 1.5;
 }
 
+input,
+textarea {
+	font-family: var(--font-primary);
+	font-variation-settings: var(--font-primary-settings);
+	color: var(--font-color, #ffffe3);
+}
+
 ul {
 	display: inline-block;
 	font-size: 1.1rem;
-	/* margin-block: 2rem; */
 }
 
 li {
