@@ -54,10 +54,11 @@
 	}
 
 	li {
-		transition: transform calc(var(--transition-time) / 4) ease-in-out;
+		transition: all calc(var(--transition-time) / 4) ease-in-out;
 	}
 	li:has(a):hover {
 		transform: translate(0.5rem, 0);
+		font-variation-settings: "wght" 800, "slnt" -12, "MONO" 1, "CASL" 0;
 	}
 
 	li:hover::marker {
