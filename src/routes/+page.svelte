@@ -58,7 +58,7 @@
 	}
 	li:has(a):hover {
 		transform: translate(0.5rem, 0);
-		font-variation-settings: "wght" 800, "slnt" -12, "MONO" 1, "CASL" 0;
+		font-variation-settings: var(--font-hover-settings);
 	}
 
 	li:hover::marker {
