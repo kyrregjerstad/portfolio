@@ -35,7 +35,7 @@
 	</div>
 	<div slot="page-links">
 		<ProjectLink url={"https://rainy-days.kyrre.dev/"} title={"rainy-days.kyrre.dev"} />
-		<ViewOnGitHub href="https://github.com/kyrregjerstad/rainy-days-new" />
+		<ViewOnGitHub href="https://github.com/kyrregjerstad/rainy-days" />
 	</div>
 	<div slot="page-images" class="right-side">
 		<Gallery {imagesSrc} />
