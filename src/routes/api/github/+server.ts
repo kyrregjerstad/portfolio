@@ -1,5 +1,6 @@
 import { PRIVATE_GITHUB_TOKEN } from "$env/static/private";
 import { json } from "@sveltejs/kit";
+import type { GitHubData } from "$lib/types/gitHubTypes";
 
 export async function GET() {
 	const token = PRIVATE_GITHUB_TOKEN;
@@ -48,7 +49,7 @@ export async function GET() {
 	});
 
 	if (response.ok) {
-		const data = await response.json();
+		const data = (await response.json()) as GitHubData;
 		return json(data);
 	} else {
 		return { body: { error: response.statusText }, status: response.status };
