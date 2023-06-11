@@ -13,24 +13,42 @@ export class CubeAnimator {
 		this.config = config;
 	}
 
-	animate(): void {
+	grow(): void {
 		const { group, initialHeight } = this.config;
 
 		group.children.forEach((cube, index) => {
-			const targetHeight = cube.scale.y; // Target height is the cube's current height
-			const delay = index * 0.005; // Add a small delay between each cube
+			const targetHeight = cube.scale.y;
+			const delay = index * 0.0005;
 			const duration = index * 0.01;
 
 			cube.scale.y = initialHeight;
 			cube.position.y = initialHeight / 2;
 
-			// Animate the cube's height to the target height using GSAP
 			gsap.fromTo(cube.scale, { y: initialHeight }, { y: targetHeight, duration, delay, ease: "power2.out" });
 			gsap.fromTo(
 				cube.position,
 				{ y: initialHeight / 2 },
 				{ y: (targetHeight * cube.userData.scaledContributionCount) / 2, duration, delay, ease: "power2.out" }
 			);
+		});
+	}
+
+	rotate(): void {
+		const { group } = this.config;
+
+		gsap.to(group.rotation, {
+			duration: 2.5,
+			x: 0.1,
+			y: Math.PI / 2 - 0.75,
+			z: Math.PI / 2 - 1.5,
+			ease: "power1.out"
+		});
+		gsap.to(group.position, {
+			duration: 2.5,
+			x: -50,
+			y: -15,
+			z: -10,
+			ease: "power1.out"
 		});
 	}
 }

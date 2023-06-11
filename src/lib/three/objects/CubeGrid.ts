@@ -1,10 +1,10 @@
 // CubeGrid.ts
 import * as THREE from "three";
 
-import { CubeGridCreator } from "$lib/three/CubeGridCreator";
-import { ContributionData } from "$lib/three/ContributionData";
+import { CubeGridCreator } from "$lib/three/objects/CubeGridCreator";
+import { ContributionData } from "$lib/three/data/ContributionData";
 import type { GitHubData } from "$lib/types/gitHubTypes";
-import type { Initializable } from "./types";
+import type { Initializable } from "../types";
 
 interface CubeGridConfig {
 	data: GitHubData;
@@ -39,7 +39,7 @@ export class CubeGrid implements Initializable {
 		});
 
 		// Position and rotation
-		this.cubeGroup.position.set(-50, -10, 0);
+		this.cubeGroup.position.set(-60, -10, 0);
 		this.cubeGroup.rotation.z = Math.PI / 2;
 		this.cubeGroup.rotation.y = Math.PI / 2;
 	}

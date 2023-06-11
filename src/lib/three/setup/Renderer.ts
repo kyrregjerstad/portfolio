@@ -1,6 +1,6 @@
 import type { ResizeHandler } from "./ResizeHandler";
 import * as THREE from "three";
-import type { Initializable } from "./types";
+import type { Initializable } from "../types";
 
 export class Renderer implements Initializable {
 	#resizeHandler: ResizeHandler;
@@ -9,7 +9,8 @@ export class Renderer implements Initializable {
 	constructor(resizeHandler: ResizeHandler, canvas: HTMLCanvasElement) {
 		this.#resizeHandler = resizeHandler;
 		this.#renderer = new THREE.WebGLRenderer({
-			canvas: canvas
+			canvas: canvas,
+			antialias: true
 		});
 	}
 

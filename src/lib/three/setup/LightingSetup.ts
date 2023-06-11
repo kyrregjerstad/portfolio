@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import type { Initializable } from "./types";
+import type { Initializable } from "../types";
 
 export class LightingSetup implements Initializable {
 	scene: THREE.Scene;

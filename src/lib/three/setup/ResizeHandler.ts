@@ -1,4 +1,4 @@
-import type { Initializable } from "./types";
+import type { Initializable } from "../types";
 
 export class ResizeHandler implements Initializable {
 	#container: HTMLElement;

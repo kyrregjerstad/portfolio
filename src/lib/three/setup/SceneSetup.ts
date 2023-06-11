@@ -1,12 +1,13 @@
 import * as THREE from "three";
-import { LightingSetup } from "./LightingSetup";
 import type { CameraSetup } from "./CameraSetup";
+import { LightingSetup } from "./LightingSetup";
+import { CubeAnimator } from "../animation/CubeAnimator";
+import type { CubeGrid } from "../objects/CubeGrid";
 import type { ResizeHandler } from "./ResizeHandler";
 import type { Renderer } from "./Renderer";
+import type { Initializable } from "../types";
+import { ScrollObserver } from "./ScrollObserver";
 import type { GitHubData } from "$lib/types/gitHubTypes";
-import type { CubeGrid } from "./CubeGrid";
-import type { Initializable } from "./types";
-import { CubeAnimator } from "./CubeAnimator";
 
 interface SceneConfig {
 	data: GitHubData;
@@ -21,14 +22,14 @@ interface SceneConfig {
 export class SceneSetup {
 	#config: SceneConfig;
 	#scene: THREE.Scene;
-	#cubeGroup: THREE.Group;
 	#resizeHandler: ResizeHandler;
 	#cubeGrid: CubeGrid;
 	#renderer: Renderer;
 	#cameraSetup: CameraSetup;
 	#lightingSetup: LightingSetup;
 
-	#cubeAnimator: CubeAnimator;
+	#cubeAnimator!: CubeAnimator;
+	#scrollObserver: ScrollObserver;
 
 	constructor(
 		config: SceneConfig,
@@ -39,16 +40,16 @@ export class SceneSetup {
 	) {
 		this.#config = config;
 		this.#scene = new THREE.Scene();
-		this.#cubeGroup = new THREE.Group();
 		this.#resizeHandler = resizeHandler;
 		this.#cubeGrid = cubeGrid;
 		this.#renderer = renderer;
 		this.#cameraSetup = cameraSetup;
 		this.#lightingSetup = new LightingSetup(this.#scene);
 
-		this.#cubeAnimator = new CubeAnimator({
-			group: this.#cubeGroup,
-			initialHeight: config.initialHeight
+		this.#scrollObserver = new ScrollObserver({
+			target: this.#config.canvas,
+			callback: () => this.#cubeAnimator.rotate(),
+			rootMargin: "0px 0px -25% 0px"
 		});
 	}
 
@@ -57,23 +58,6 @@ export class SceneSetup {
 			this.#renderer.setSize(this.#resizeHandler.sizes);
 			this.#cameraSetup.setAspectRatio(this.#resizeHandler.sizes);
 		});
-	}
-
-	#rotateCubeGroup() {
-		const rotationSpeed = 0.001; // Adjust the rotation speed as desired
-
-		this.#cubeGroup.rotation.x += rotationSpeed;
-		this.#cubeGroup.rotation.y += rotationSpeed;
-		this.#cubeGroup.rotation.z += rotationSpeed;
-	}
-
-	#startRotation() {
-		const rotate = () => {
-			this.#rotateCubeGroup();
-			window.requestAnimationFrame(rotate);
-		};
-
-		rotate();
 	}
 
 	init() {
@@ -87,12 +71,16 @@ export class SceneSetup {
 
 		initializables.forEach((item) => item.init());
 
+		this.#cubeAnimator = new CubeAnimator({
+			group: this.#cubeGrid.cubeGroup,
+			initialHeight: this.#config.initialHeight
+		});
+
 		this.#scene.add(this.#cubeGrid.cubeGroup);
-		this.#cubeAnimator.animate();
 
 		this.#handleResize();
 
 		this.#renderer.start(this.#scene, this.#cameraSetup.instance);
-		this.#startRotation();
+		this.#scrollObserver.observe();
 	}
 }

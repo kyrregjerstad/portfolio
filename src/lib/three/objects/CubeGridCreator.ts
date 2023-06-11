@@ -42,7 +42,7 @@ export class CubeGridCreator {
 					cube,
 					weekIndex,
 					dayIndex,
-					gapSize: 2,
+					gapSize: 2.25,
 					initialHeight: config.initialHeight
 				};
 
