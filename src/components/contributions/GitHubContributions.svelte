@@ -1,22 +1,15 @@
 <script>
 	// @ts-nocheck
 
-	import * as THREE from "three";
-	import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 	import { scrollPosition } from "$stores/scroll";
 	import { onMount } from "svelte";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
-
-	import { ContributionData } from "$lib/three/ContributionData";
-
-	import { CubeGridCreator } from "$lib/three/CubeGridCreator";
-	import { CubeAnimator } from "$lib/three/CubeAnimator";
 	import { CameraSetup } from "$lib/three/CameraSetup";
-	import { LightingSetup } from "$lib/three/LightingSetup";
 	import { ResizeHandler } from "$lib/three/ResizeHandler";
 	import { Renderer } from "$lib/three/Renderer";
 	import { SceneSetup } from "$lib/three/SceneSetup";
+	import { CubeGrid } from "$lib/three/CubeGrid";
 
 	export let data;
 
@@ -39,17 +32,23 @@
 		const canvas = document.querySelector("canvas.webgl");
 		const container = document.querySelector(".canvas-wrapper");
 
-		const sceneSetupConfig = {
+		const config = {
 			data: data,
-			maxHeight: 10,
-			minHeight: 0,
-			initialHeight: 1,
-			contributionCap: 40,
-			canvas,
-			container
+			maxHeight: 5,
+			minHeight: 1,
+			initialHeight: 3,
+			contributionCap: 200,
+			canvas: canvas,
+			container: container
 		};
 
-		const sceneSetup = new SceneSetup(sceneSetupConfig);
+		const resizeHandler = new ResizeHandler(container);
+		const cubeGrid = new CubeGrid(config);
+		const renderer = new Renderer(resizeHandler, canvas);
+		const cameraSetup = new CameraSetup(resizeHandler, 2.5);
+
+		const sceneSetup = new SceneSetup(config, resizeHandler, cubeGrid, renderer, cameraSetup);
+
 		sceneSetup.init();
 
 		// scrollYTweened.subscribe((scrollY) => {
@@ -69,14 +68,6 @@
 		// 	initialHeight: 0
 		// });
 		// cubeAnimator.animate();
-
-		// const tick = () => {
-		// 	controls.update();
-		// 	renderer.render(sceneSetup.scene, camera);
-		// 	window.requestAnimationFrame(tick);
-		// };
-
-		// tick();
 	});
 </script>
 

@@ -1,7 +1,8 @@
 import type { ResizeHandler } from "./ResizeHandler";
 import * as THREE from "three";
+import type { Initializable } from "./types";
 
-export class CameraSetup {
+export class CameraSetup implements Initializable {
 	#camera: THREE.OrthographicCamera;
 	#zoom: number;
 
@@ -32,5 +33,9 @@ export class CameraSetup {
 
 	get instance() {
 		return this.#camera;
+	}
+
+	init() {
+		this.#camera.position.set(0, 0, 50);
 	}
 }

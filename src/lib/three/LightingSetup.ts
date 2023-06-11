@@ -1,6 +1,7 @@
 import * as THREE from "three";
+import type { Initializable } from "./types";
 
-export class LightingSetup {
+export class LightingSetup implements Initializable {
 	scene: THREE.Scene;
 
 	constructor(scene: THREE.Scene) {
@@ -10,5 +11,9 @@ export class LightingSetup {
 	configureAmbientLight() {
 		const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 		this.scene.add(ambientLight);
+	}
+
+	init() {
+		this.configureAmbientLight();
 	}
 }

@@ -1,11 +1,12 @@
 import * as THREE from "three";
-import { ContributionData } from "$lib/three/ContributionData";
-import { CubeGridCreator } from "$lib/three/CubeGridCreator";
 import { LightingSetup } from "./LightingSetup";
-import { CameraSetup } from "./CameraSetup";
-import { ResizeHandler } from "./ResizeHandler";
-import { Renderer } from "./Renderer";
+import type { CameraSetup } from "./CameraSetup";
+import type { ResizeHandler } from "./ResizeHandler";
+import type { Renderer } from "./Renderer";
 import type { GitHubData } from "$lib/types/gitHubTypes";
+import type { CubeGrid } from "./CubeGrid";
+import type { Initializable } from "./types";
+import { CubeAnimator } from "./CubeAnimator";
 
 interface SceneConfig {
 	data: GitHubData;
@@ -18,66 +19,80 @@ interface SceneConfig {
 }
 
 export class SceneSetup {
-	private config: SceneConfig;
-	public scene: THREE.Scene;
-	public cubeGroup: THREE.Group;
-	private resizeHandler: ResizeHandler;
+	#config: SceneConfig;
+	#scene: THREE.Scene;
+	#cubeGroup: THREE.Group;
+	#resizeHandler: ResizeHandler;
+	#cubeGrid: CubeGrid;
+	#renderer: Renderer;
+	#cameraSetup: CameraSetup;
+	#lightingSetup: LightingSetup;
 
-	constructor(config: SceneConfig) {
-		this.config = config;
-		this.scene = new THREE.Scene();
-		this.cubeGroup = new THREE.Group();
-		this.resizeHandler = new ResizeHandler(this.config.container);
+	#cubeAnimator: CubeAnimator;
+
+	constructor(
+		config: SceneConfig,
+		resizeHandler: ResizeHandler,
+		cubeGrid: CubeGrid,
+		renderer: Renderer,
+		cameraSetup: CameraSetup
+	) {
+		this.#config = config;
+		this.#scene = new THREE.Scene();
+		this.#cubeGroup = new THREE.Group();
+		this.#resizeHandler = resizeHandler;
+		this.#cubeGrid = cubeGrid;
+		this.#renderer = renderer;
+		this.#cameraSetup = cameraSetup;
+		this.#lightingSetup = new LightingSetup(this.#scene);
+
+		this.#cubeAnimator = new CubeAnimator({
+			group: this.#cubeGroup,
+			initialHeight: config.initialHeight
+		});
+	}
+
+	#handleResize() {
+		window.addEventListener("resize", () => {
+			this.#renderer.setSize(this.#resizeHandler.sizes);
+			this.#cameraSetup.setAspectRatio(this.#resizeHandler.sizes);
+		});
+	}
+
+	#rotateCubeGroup() {
+		const rotationSpeed = 0.001; // Adjust the rotation speed as desired
+
+		this.#cubeGroup.rotation.x += rotationSpeed;
+		this.#cubeGroup.rotation.y += rotationSpeed;
+		this.#cubeGroup.rotation.z += rotationSpeed;
+	}
+
+	#startRotation() {
+		const rotate = () => {
+			this.#rotateCubeGroup();
+			window.requestAnimationFrame(rotate);
+		};
+
+		rotate();
 	}
 
 	init() {
-		const contributionData = new ContributionData(this.config.data);
-		const maxContributions = contributionData.getMaxContributions();
-		const weeks = this.config.data.user.contributionsCollection.contributionCalendar.weeks;
+		const initializables: Initializable[] = [
+			this.#resizeHandler,
+			this.#cubeGrid,
+			this.#renderer,
+			this.#cameraSetup,
+			this.#lightingSetup
+		];
 
-		const cubeGridCreator = new CubeGridCreator();
-		this.cubeGroup = cubeGridCreator.createGrid({
-			maxContributions,
-			contributionCap: this.config.contributionCap,
-			maxHeight: this.config.maxHeight,
-			minHeight: this.config.minHeight,
-			initialHeight: this.config.initialHeight,
-			weeks
-		});
+		initializables.forEach((item) => item.init());
 
-		// Add the cubeGroup to the scene
-		this.cubeGroup.position.set(-50, -10, 0); // Center the cubeGroup
-		this.cubeGroup.rotation.z = Math.PI / 2;
-		this.cubeGroup.rotation.y = Math.PI / 2;
-		this.scene.add(this.cubeGroup);
+		this.#scene.add(this.#cubeGrid.cubeGroup);
+		this.#cubeAnimator.animate();
 
-		// Lighting
-		const lightingSetup = new LightingSetup(this.scene);
-		lightingSetup.configureAmbientLight();
+		this.#handleResize();
 
-		// Camera Setup
-		const cameraSetup = new CameraSetup(this.resizeHandler, 3);
-		const camera = cameraSetup.instance;
-
-		// Renderer Setup
-		const rendererObj = new Renderer(this.resizeHandler, this.config.canvas);
-		const renderer = rendererObj.instance;
-
-		// Resizing event listener
-		window.addEventListener("resize", () => {
-			rendererObj.setSize(this.resizeHandler.sizes);
-			cameraSetup.setAspectRatio(this.resizeHandler.sizes);
-		});
-
-		// Animation
-		const tick = () => {
-			// Render
-			renderer.render(this.scene, camera);
-
-			// Call tick again on the next frame
-			window.requestAnimationFrame(tick);
-		};
-
-		tick();
+		this.#renderer.start(this.#scene, this.#cameraSetup.instance);
+		this.#startRotation();
 	}
 }

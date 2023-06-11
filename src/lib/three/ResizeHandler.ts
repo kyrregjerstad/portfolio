@@ -1,4 +1,6 @@
-export class ResizeHandler {
+import type { Initializable } from "./types";
+
+export class ResizeHandler implements Initializable {
 	#container: HTMLElement;
 	#sizes: { width: number; height: number } = { width: 0, height: 0 };
 
@@ -17,5 +19,9 @@ export class ResizeHandler {
 
 	get sizes() {
 		return this.#sizes;
+	}
+
+	init() {
+		this.#resize();
 	}
 }
