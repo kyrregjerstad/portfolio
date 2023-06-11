@@ -11,9 +11,20 @@ export class ResizeHandler implements Initializable {
 	}
 
 	#resize() {
+		let width = this.#container.offsetWidth;
+		let height = this.#container.offsetHeight - 4;
+
+		// enforcing minimum size
+		width = Math.max(width, 300);
+		height = Math.max(height, 300);
+
+		// enforcing maximum size
+		width = Math.min(width, 800);
+		height = Math.min(height, 800);
+
 		this.#sizes = {
-			width: this.#container.offsetWidth,
-			height: this.#container.offsetHeight
+			width: width,
+			height: height
 		};
 	}
 

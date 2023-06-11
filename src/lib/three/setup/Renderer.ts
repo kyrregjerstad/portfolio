@@ -18,10 +18,6 @@ export class Renderer implements Initializable {
 		this.#renderer.setSize(sizes.width, sizes.height);
 	}
 
-	get instance() {
-		return this.#renderer;
-	}
-
 	start(scene: THREE.Scene, camera: THREE.Camera) {
 		const render = () => {
 			this.#renderer.render(scene, camera);

@@ -28,7 +28,7 @@
 		const resizeHandler = new ResizeHandler(container);
 		const cubeGrid = new CubeGrid(config);
 		const renderer = new Renderer(resizeHandler, canvas);
-		const cameraSetup = new CameraSetup(resizeHandler, 2.5);
+		const cameraSetup = new CameraSetup(resizeHandler, 2);
 
 		const sceneSetup = new SceneSetup(config, resizeHandler, cubeGrid, renderer, cameraSetup);
 
@@ -44,18 +44,19 @@
 <style>
 	.canvas-wrapper {
 		width: 100%;
-		height: 12rem;
 		user-select: none;
 		position: relative;
 	}
 
 	canvas {
-		height: 100%;
+		margin: 0;
+		padding: 0;
 	}
 
 	h2 {
 		font-size: 0.8rem;
 		position: absolute;
 		bottom: 0;
+		line-height: 0;
 	}
 </style>

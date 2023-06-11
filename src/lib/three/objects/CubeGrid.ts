@@ -1,4 +1,3 @@
-// CubeGrid.ts
 import * as THREE from "three";
 
 import { CubeGridCreator } from "$lib/three/objects/CubeGridCreator";
@@ -38,7 +37,6 @@ export class CubeGrid implements Initializable {
 			weeks
 		});
 
-		// Position and rotation
 		this.cubeGroup.position.set(-60, -10, 0);
 		this.cubeGroup.rotation.z = Math.PI / 2;
 		this.cubeGroup.rotation.y = Math.PI / 2;

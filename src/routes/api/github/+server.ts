@@ -12,11 +12,9 @@ export async function GET() {
 		Accept: "application/json"
 	};
 
-	// Current date
 	const today = new Date();
 	const todayString = today.toISOString();
 
-	// Date one year ago
 	const oneYearAgo = new Date();
 	oneYearAgo.setFullYear(today.getFullYear() - 1);
 	const oneYearAgoString = oneYearAgo.toISOString();
