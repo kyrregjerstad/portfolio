@@ -11,7 +11,7 @@
 
 <style>
 	li {
-		font-size: 3rem;
+		font-size: 1.5rem;
 		list-style: none;
 	}
 
@@ -29,5 +29,17 @@
 
 	li:hover::marker {
 		content: ">";
+	}
+
+	@media (min-width: 30rem) {
+		li {
+			font-size: 3rem;
+		}
+	}
+
+	@media (min-width: 40rem) {
+		li {
+			font-size: 4rem;
+		}
 	}
 </style>
