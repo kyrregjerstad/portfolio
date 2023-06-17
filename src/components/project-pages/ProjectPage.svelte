@@ -43,6 +43,7 @@
 
 	:global(h1) {
 		margin-block-start: 3rem;
+		font-size: 2rem;
 	}
 
 	@media (min-width: 45rem) {
@@ -59,6 +60,7 @@
 
 		:global(h1) {
 			margin-block-start: unset;
+			font-size: 4rem;
 		}
 	}
 </style>
