@@ -1,6 +1,8 @@
 <script>
-	import AnimatedSvg from "$components/AnimatedSvg.svelte";
+	import AnimatedIconLinkedIn from "$components/AnimatedIconLinkedIn.svelte";
+	import AnimatedIconTwitter from "$components/AnimatedIconTwitter.svelte";
 	import Icon from "@iconify/svelte";
+	import AnimatedIconGitHub from "$components/AnimatedIconGitHub.svelte";
 
 	const year = new Date().getFullYear();
 </script>
@@ -9,16 +11,17 @@
 	<p>Kyrre Gjerstad - {year}</p>
 	<div class="social-icons">
 		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
-			<Icon icon="simple-icons:linkedin" height="40" />
+			<!-- <Icon icon="simple-icons:linkedin" height="40" /> -->
+			<AnimatedIconLinkedIn />
 			<span class="visually-hidden">LinkedIn</span>
 		</a>
 		<a href="https://github.com/kyrregjerstad" target="_blank">
-			<AnimatedSvg />
+			<AnimatedIconGitHub size={4.5} />
 			<!-- <Icon icon="simple-icons:github" /> -->
 			<span class="visually-hidden">GitHub</span>
 		</a>
 		<a href="https://www.twitter.com/kyrregjerstad" target="_blank">
-			<Icon icon="simple-icons:twitter" height="40" />
+			<AnimatedIconTwitter />
 			<span class="visually-hidden">Twitter</span>
 		</a>
 	</div>
@@ -39,7 +42,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		gap: 1rem;
+		gap: 1.5rem;
 		margin-block: 1rem;
 
 		font-size: 2rem;
