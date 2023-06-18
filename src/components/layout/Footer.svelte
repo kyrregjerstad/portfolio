@@ -1,4 +1,5 @@
 <script>
+	import AnimatedSvg from "$components/AnimatedSvg.svelte";
 	import Icon from "@iconify/svelte";
 
 	const year = new Date().getFullYear();
@@ -7,16 +8,17 @@
 <footer>
 	<p>Kyrre Gjerstad - {year}</p>
 	<div class="social-icons">
-		<a href="https://github.com/kyrregjerstad" target="_blank">
-			<Icon icon="simple-icons:github" />
-			<span class="visually-hidden">GitHub</span>
-		</a>
 		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
-			<Icon icon="simple-icons:linkedin" />
+			<Icon icon="simple-icons:linkedin" height="40" />
 			<span class="visually-hidden">LinkedIn</span>
 		</a>
+		<a href="https://github.com/kyrregjerstad" target="_blank">
+			<AnimatedSvg />
+			<!-- <Icon icon="simple-icons:github" /> -->
+			<span class="visually-hidden">GitHub</span>
+		</a>
 		<a href="https://www.twitter.com/kyrregjerstad" target="_blank">
-			<Icon icon="simple-icons:twitter" />
+			<Icon icon="simple-icons:twitter" height="40" />
 			<span class="visually-hidden">Twitter</span>
 		</a>
 	</div>
@@ -41,6 +43,12 @@
 		margin-block: 1rem;
 
 		font-size: 2rem;
+	}
+
+	a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	p {
