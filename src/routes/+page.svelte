@@ -5,6 +5,7 @@
 	import ContactForm from "$components/forms/ContactForm.svelte";
 	import Footer from "$components/layout/Footer.svelte";
 	import ProjectsSection from "$components/ProjectsSection.svelte";
+	import AnimatedIconGitHub from "$components/AnimatedIconGitHub.svelte";
 
 	export let data;
 </script>
