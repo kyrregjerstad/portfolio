@@ -47,7 +47,7 @@
 	"dependencies": {
 		"@notionhq/client": "^2.2.5",
 		"@studio-freight/lenis": "^1.0.14",
-		"graphql": "^16.6.0",
+		"graphql": "^16.7.1",
 		"graphql-request": "^6.1.0",
 		"gsap": "^3.12.1",
 		"lil-gui": "^0.18.1",
