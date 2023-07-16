@@ -1,14 +1,17 @@
 <section>
 	<h2>Projects:</h2>
 	<ul>
-		<li><a href="./Projects/Spell">Spell Web</a></li>
+		<li><a href="./Projects/plugin-surf">Plugin Surf</a></li>
+		<li><a href="./Projects/spell">Spell Web</a></li>
+		<li><a href="./Projects/game-hub">Game Hub</a></li>
 		<li><a href="./Projects/okolors">OKolors</a></li>
+		<li><a href="./Projects/tom-wobbe">Tom Wobbe</a></li>
 		<li><a href="./Projects/ai-web">AI // WEB</a></li>
-		<!-- <li><a href="./Projects/Rainy_Days">Rainy Days</a></li> -->
-		<li><a href="./Projects/ARTic_Exploration">ARTic Exploration</a></li>
-		<li><a href="./Projects/RENAME">R.E.N.A.M.E</a></li>
-		<li><a href="./Projects/Futeum">Futeum</a></li>
-		<li><a href="./Projects/Square_Eyes">Square Eyes</a></li>
+		<!-- <li><a href="./Projects/rainy-days">Rainy Days</a></li> -->
+		<li><a href="./Projects/artic-exploration">ARTic Exploration</a></li>
+		<li><a href="./Projects/rename">R.E.N.A.M.E</a></li>
+		<li><a href="./Projects/futeum">Futeum</a></li>
+		<li><a href="./Projects/square-eyes">Square Eyes</a></li>
 	</ul>
 </section>
 
