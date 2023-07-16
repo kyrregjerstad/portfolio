@@ -1,17 +1,17 @@
 <section>
 	<h2>Projects:</h2>
 	<ul>
-		<li><a href="./Projects/plugin-surf">Plugin Surf</a></li>
-		<li><a href="./Projects/spell">Spell Web</a></li>
-		<li><a href="./Projects/game-hub">Game Hub</a></li>
-		<li><a href="./Projects/okolors">OKolors</a></li>
-		<li><a href="./Projects/tom-wobbe">Tom Wobbe</a></li>
-		<li><a href="./Projects/ai-web">AI // WEB</a></li>
-		<!-- <li><a href="./Projects/rainy-days">Rainy Days</a></li> -->
-		<li><a href="./Projects/artic-exploration">ARTic Exploration</a></li>
-		<li><a href="./Projects/rename">R.E.N.A.M.E</a></li>
-		<li><a href="./Projects/futeum">Futeum</a></li>
-		<li><a href="./Projects/square-eyes">Square Eyes</a></li>
+		<li><a href="./projects/plugin-surf">Plugin Surf</a></li>
+		<li><a href="./projects/spell">Spell Web</a></li>
+		<li><a href="./projects/game-hub">Game Hub</a></li>
+		<li><a href="./projects/okolors">OKolors</a></li>
+		<li><a href="./projects/tom-wobbe">Tom Wobbe</a></li>
+		<li><a href="./projects/ai-web">AI // WEB</a></li>
+		<!-- <li><a href="./projects/rainy-days">Rainy Days</a></li> -->
+		<li><a href="./projects/artic-exploration">ARTic Exploration</a></li>
+		<li><a href="./projects/rename">R.E.N.A.M.E</a></li>
+		<li><a href="./projects/futeum">Futeum</a></li>
+		<li><a href="./projects/square-eyes">Square Eyes</a></li>
 	</ul>
 </section>
 
