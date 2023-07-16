@@ -31,7 +31,7 @@
 	</div>
 	<div slot="page-links">
 		<ProjectLink url={"https://spell.so/"} title={"spell.so"} />
-		<ViewOnGitHub href="" />
+		<!-- <ViewOnGitHub href="" /> -->
 	</div>
 	<div slot="page-images" class="right-side">
 		<Gallery {imagesSrc} />
