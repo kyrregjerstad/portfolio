@@ -7,8 +7,7 @@
 	const imagesSrc = [
 		"/images/plugin-surf/plugin-surf-1.webp",
 		"/images/plugin-surf/plugin-surf-2.webp",
-		"/images/plugin-surf/plugin-surf-3.webp",
-		"/images/plugin-surf/plugin-surf-4.webp"
+		"/images/plugin-surf/plugin-surf-3.webp"
 	];
 </script>
 
