@@ -37,7 +37,7 @@
 </script>
 
 <div class="canvas-wrapper">
-	<h2>{totalContributions} contributions in the last year</h2>
+	<h2>{totalContributions} GitHub contributions in the last year</h2>
 	<canvas class="webgl" />
 </div>
 
