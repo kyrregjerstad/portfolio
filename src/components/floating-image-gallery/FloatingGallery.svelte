@@ -76,7 +76,7 @@
 				>
 					<img
 						src={urlFor(image).width(1056).auto("format").url()}
-						alt="Screenshot {i} of {project.title}, can be found at: {project.href}"
+						alt="Screenshot {i} of {project.title}, by Kyrre Gjerstad. Can be visited at: {project.href}"
 					/>
 				</div>
 			</div>
