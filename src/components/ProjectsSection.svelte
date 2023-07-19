@@ -7,7 +7,7 @@
 	<h2>Projects:</h2>
 	<ul>
 		{#each projects as project}
-			<li><a href="./projects/{project.slug.current}">{project.title}</a></li>
+			<li><a href="./projects/{project.slug}">{project.title}</a></li>
 		{/each}
 	</ul>
 </section>

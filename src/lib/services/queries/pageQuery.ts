@@ -7,13 +7,12 @@ export const pageQuery = q("*", { isArray: true })
 	.grab({
 		heading: q.string(),
 		description: q.string(),
-		projects: q("*", { isArray: true })
-			.filterByType("project")
+		projects: q("projects")
+			.filter()
+			.deref()
 			.grab({
 				title: q.string(),
-				slug: q.object({
-					current: q.string()
-				})
+				slug: q.slug("slug")
 			})
 	});
 
