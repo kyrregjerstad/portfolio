@@ -4,12 +4,6 @@
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
 
-	const imagesSrc = [
-		"/images/tom-wobbe/tom-wobbe-1.webp",
-		"/images/tom-wobbe/tom-wobbe-2.webp",
-		"/images/tom-wobbe/tom-wobbe-3.webp"
-	];
-
 	export let data;
 
 	$: ({ project } = data);
