@@ -1,17 +1,14 @@
+<script lang="ts">
+	import type { Project } from "$lib/services/queries/pageQuery";
+	export let projects: Project[] = [];
+</script>
+
 <section>
 	<h2>Projects:</h2>
 	<ul>
-		<li><a href="./projects/plugin-surf">Plugin Surf</a></li>
-		<li><a href="./projects/spell">Spell Web</a></li>
-		<li><a href="./projects/game-hub">Game Hub</a></li>
-		<li><a href="./projects/okolors">OKolors</a></li>
-		<li><a href="./projects/tom-wobbe">Tom Wobbe</a></li>
-		<li><a href="./projects/ai-web">AI // WEB</a></li>
-		<!-- <li><a href="./projects/rainy-days">Rainy Days</a></li> -->
-		<li><a href="./projects/artic-exploration">ARTic Exploration</a></li>
-		<li><a href="./projects/rename">R.E.N.A.M.E</a></li>
-		<li><a href="./projects/futeum">Futeum</a></li>
-		<li><a href="./projects/square-eyes">Square Eyes</a></li>
+		{#each projects as project}
+			<li><a href="./projects/{project.slug.current}">{project.title}</a></li>
+		{/each}
 	</ul>
 </section>
 

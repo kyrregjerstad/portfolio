@@ -1,6 +1,7 @@
 import { superValidate, message } from "sveltekit-superforms/server";
 import { fail } from "@sveltejs/kit";
 import { contactFormSchema } from "$lib/schemas";
+import { getPageData } from "$lib/services/getPageData";
 
 export const load = async (event) => {
 	const fetchGitHubContributions = async () => {
@@ -11,7 +12,10 @@ export const load = async (event) => {
 
 	const contactForm = await superValidate(event, contactFormSchema);
 
+	const pageData = await getPageData("Home");
+
 	return {
+		pageData,
 		gitHubContributions: fetchGitHubContributions(),
 		form: contactForm
 	};
