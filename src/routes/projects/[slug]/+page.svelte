@@ -40,7 +40,7 @@
 	</div>
 	<div slot="page-images" class="right-side">
 		{#if project.images}
-			<Gallery images={project.images} />
+			<Gallery {project} />
 		{/if}
 	</div>
 </ProjectPage>
