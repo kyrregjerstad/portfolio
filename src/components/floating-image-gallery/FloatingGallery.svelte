@@ -2,8 +2,10 @@
 	import { onMount } from "svelte";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
+	import { urlFor } from "$lib/utils/image";
+	import type { Image } from "$lib/services/queries/projectQuery";
 
-	export let imagesSrc: string[] = [];
+	export let images: Image[] = [];
 
 	let mousePos = { x: 0, y: 0 };
 	let windowSize = { x: 0, y: 0 };
@@ -58,7 +60,7 @@
 />
 
 <div class="container">
-	{#each imagesSrc as src, i}
+	{#each images as image, i}
 		<div
 			class="float-wrapper"
 			style="animation: float {10}s {i}s ease-in-out infinite, fade-in 1s {i / 3 + 0.5}s ease-in-out forwards;"
@@ -70,7 +72,7 @@
 				on:mouseover={() => (hoveredImage = i)}
 				on:mouseout={() => (hoveredImage = -1)}
 			>
-				<img {src} alt="Floating Image {i}" />
+				<img src={urlFor(image).url()} alt="Floating Image {i}" />
 			</div>
 		</div>
 	{/each}

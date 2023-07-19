@@ -7,7 +7,7 @@ export const pageQuery = q("*", { isArray: true })
 	.grab({
 		heading: q.string(),
 		description: q.string(),
-		projects: q("projects")
+		projects: q("projects[]", { isArray: true })
 			.filter()
 			.deref()
 			.grab({

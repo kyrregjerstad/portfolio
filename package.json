@@ -47,6 +47,7 @@
 	"dependencies": {
 		"@notionhq/client": "^2.2.5",
 		"@sanity/client": "^6.1.7",
+		"@sanity/image-url": "^1.0.2",
 		"@studio-freight/lenis": "^1.0.14",
 		"graphql": "^16.6.0",
 		"graphql-request": "^6.1.0",
