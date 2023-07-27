@@ -8,6 +8,10 @@
 	import AnimatedIconGitHub from "$components/AnimatedIconGitHub.svelte";
 
 	export let data;
+
+	$: ({ projects } = data.pageData);
+
+	$: console.log(projects);
 </script>
 
 <div class="wrapper">
@@ -29,7 +33,7 @@
 	</section>
 	<HorizontalRuler />
 
-	<ProjectsSection />
+	<ProjectsSection {projects} />
 	<HorizontalRuler />
 	<GitHubContributions data={data.gitHubContributions.data} />
 	<HorizontalRuler />

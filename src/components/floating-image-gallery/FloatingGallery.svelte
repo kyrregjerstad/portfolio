@@ -2,8 +2,11 @@
 	import { onMount } from "svelte";
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from "svelte/easing";
+	import { urlFor } from "$lib/utils/image";
+	import type { Image } from "$lib/services/queries/projectQuery";
+	import type { Project } from "$lib/services/queries/projectQuery";
 
-	export let imagesSrc: string[] = [];
+	export let project: Project | null = null;
 
 	let mousePos = { x: 0, y: 0 };
 	let windowSize = { x: 0, y: 0 };
@@ -58,22 +61,27 @@
 />
 
 <div class="container">
-	{#each imagesSrc as src, i}
-		<div
-			class="float-wrapper"
-			style="animation: float {10}s {i}s ease-in-out infinite, fade-in 1s {i / 3 + 0.5}s ease-in-out forwards;"
-		>
-			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+	{#if project && project?.images}
+		{#each project.images as image, i}
 			<div
-				class="image-wrapper"
-				style={transformImage(i, hoveredImage)}
-				on:mouseover={() => (hoveredImage = i)}
-				on:mouseout={() => (hoveredImage = -1)}
+				class="float-wrapper"
+				style="animation: float {10}s {i}s ease-in-out infinite, fade-in 1s {i / 3 + 0.5}s ease-in-out forwards;"
 			>
-				<img {src} alt="Floating Image {i}" />
+				<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+				<div
+					class="image-wrapper"
+					style={transformImage(i, hoveredImage)}
+					on:mouseover={() => (hoveredImage = i)}
+					on:mouseout={() => (hoveredImage = -1)}
+				>
+					<img
+						src={urlFor(image).width(1056).auto("format").url()}
+						alt="Screenshot {i} of {project.title}, by Kyrre Gjerstad. Can be visited at: {project.href}"
+					/>
+				</div>
 			</div>
-		</div>
-	{/each}
+		{/each}
+	{/if}
 </div>
 
 <style>
