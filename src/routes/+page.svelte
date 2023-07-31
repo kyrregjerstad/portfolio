@@ -1,38 +1,23 @@
 <script>
 	import HorizontalRuler from "$components/HorizontalRuler.svelte";
-	import GitHubContributions from "$components/contributions/GitHubContributions.svelte";
+	import ProjectsSection from "$components/ProjectsSection.svelte";
 	import Button from "$components/buttons/Button.svelte";
+	import GitHubContributions from "$components/contributions/GitHubContributions.svelte";
 	import ContactForm from "$components/forms/ContactForm.svelte";
 	import Footer from "$components/layout/Footer.svelte";
-	import ProjectsSection from "$components/ProjectsSection.svelte";
-	import AnimatedIconGitHub from "$components/AnimatedIconGitHub.svelte";
 
 	export let data;
 
-	$: ({ projects } = data.pageData);
-
-	$: console.log(projects);
+	$: ({ projects, description, heading } = data.pageData);
 </script>
 
 <div class="wrapper">
 	<section>
-		<h1 class="page-title">Hello World!</h1>
-		<p>
-			If you're here, you're probably looking for a front-end developer who can think outside the box, colour outside
-			the lines and mix metaphors... Well, you're in luck!
-		</p>
-
-		<p>
-			I'm Kyrre Gjerstad, a creative professional from Norway, currently living in Berlin. I have a passion for making
-			things and exploring new technologies.
-		</p>
-
-		<p>Are you ready to bring your next project to life?</p>
-
+		<h1 class="page-title">{heading}</h1>
+		<p>{description}</p>
 		<Button text="Let's Talk" />
 	</section>
 	<HorizontalRuler />
-
 	<ProjectsSection {projects} />
 	<HorizontalRuler />
 	<GitHubContributions data={data.gitHubContributions.data} />
