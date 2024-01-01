@@ -48,7 +48,7 @@
 		"@notionhq/client": "^2.2.9",
 		"@sanity/client": "^6.2.0",
 		"@sanity/image-url": "^1.0.2",
-		"@studio-freight/lenis": "^1.0.19",
+		"@studio-freight/lenis": "^1.0.33",
 		"graphql": "^16.7.1",
 		"graphql-request": "^6.1.0",
 		"groqd": "^0.15.7",
