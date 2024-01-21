@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-	<script defer data-domain="kyrre.dev" src="http://139.59.205.253:8000/js/script.js"></script>
+	<script defer data-domain="kyrre.dev" src="https://analytics.kyrre.dev/js/script.js"></script>
 </svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
