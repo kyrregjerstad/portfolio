@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.0.2
     version: 1.0.2
   '@studio-freight/lenis':
-    specifier: ^1.0.19
-    version: 1.0.19
+    specifier: ^1.0.34
+    version: 1.0.34
   graphql:
     specifier: ^16.7.1
     version: 16.7.1
@@ -2488,8 +2488,8 @@ packages:
       - debug
     dev: true
 
-  /@studio-freight/lenis@1.0.19:
-    resolution: {integrity: sha512-0DZdjDaJqhYVxzcbj6Dpv/BHS/RLc4f6XYu/n0t0fUKatuvO5vtXW4gW4GHgJPiPIpamct7bg8hpihbjZ6fqpw==}
+  /@studio-freight/lenis@1.0.34:
+    resolution: {integrity: sha512-sEyzEjfAsTlFgDebMYT5G7tlB0ZHhWkHEoJj0g7W0YYZO093Mh4MU65o1qbNKwRacspdU04ZrA+5Wxwt4dsS7Q==}
     dev: false
 
   /@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.22.3):
