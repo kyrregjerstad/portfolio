@@ -22,11 +22,11 @@
 	<HorizontalRuler />
 	<GitHubContributions data={data.gitHubContributions.data} />
 	<HorizontalRuler />
-	<!-- 
+
 	<section>
 		<h2>Contact:</h2>
 		<ContactForm data={data.form} />
-	</section> -->
+	</section>
 </div>
 <Footer />
 
