@@ -3,13 +3,6 @@
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/ai-web/ai-web-1.webp",
-		"/images/ai-web/ai-web-2.webp",
-		"/images/ai-web/ai-web-3.webp",
-		"/images/ai-web/ai-web-4.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -40,7 +33,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/noroff-exam-blog-year-1" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

@@ -3,8 +3,6 @@
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = ["/images/rename/rename-1.webp"];
 </script>
 
 <ProjectPage>
@@ -22,7 +20,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/RENAME" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

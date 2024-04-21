@@ -3,13 +3,6 @@
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/futeum/futeum-1.webp",
-		"/images/futeum/futeum-2.webp",
-		"/images/futeum/futeum-3.webp",
-		"/images/futeum/futeum-4.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -34,7 +27,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/Futeum" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

@@ -3,13 +3,6 @@
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/rainy-days/rainy-days-1.webp",
-		"/images/rainy-days/rainy-days-2.webp",
-		"/images/rainy-days/rainy-days-3.webp",
-		"/images/rainy-days/rainy-days-4.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -38,7 +31,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/rainy-days" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 
