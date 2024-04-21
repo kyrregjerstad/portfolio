@@ -3,8 +3,6 @@
 	import ProjectLink from "$components/project-pages/ProjectLink.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = ["/images/artic/artic-1.webp", "/images/artic/artic-2.webp", "/images/artic/artic-3.webp"];
 </script>
 
 <ProjectPage>
@@ -25,7 +23,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/ARTic-Exploration" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

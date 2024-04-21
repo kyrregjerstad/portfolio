@@ -1,15 +1,7 @@
 <script>
+	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ProjectLink from "$components/project-pages/ProjectLink.svelte";
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
-	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
-	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/spell/spell-1.webp",
-		"/images/spell/spell-2.webp",
-		"/images/spell/spell-3.webp",
-		"/images/spell/spell-4.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -34,7 +26,7 @@
 		<!-- <ViewOnGitHub href="" /> -->
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

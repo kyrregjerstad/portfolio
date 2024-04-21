@@ -9,7 +9,7 @@ export const pageQuery = q("*", { isArray: true })
 		description: q.string(),
 		projects: q("projects[]", { isArray: true })
 			.filter()
-			.deref()
+			.deref()!
 			.grab({
 				title: q.string(),
 				slug: q.slug("slug")
