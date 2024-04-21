@@ -3,12 +3,6 @@
 	import ProjectPage from "$components/project-pages/ProjectPage.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/game-hub/game-hub-1.webp",
-		"/images/game-hub/game-hub-2.webp",
-		"/images/game-hub/game-hub-3.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -32,7 +26,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/game-hub" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

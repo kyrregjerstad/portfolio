@@ -3,13 +3,6 @@
 	import ProjectLink from "$components/project-pages/ProjectLink.svelte";
 	import Gallery from "$components/floating-image-gallery/FloatingGallery.svelte";
 	import ViewOnGitHub from "$components/ViewOnGitHub.svelte";
-
-	const imagesSrc = [
-		"/images/square-eyes/square-eyes-1.webp",
-		"/images/square-eyes/square-eyes-2.webp",
-		"/images/square-eyes/square-eyes-3.webp",
-		"/images/square-eyes/square-eyes-4.webp"
-	];
 </script>
 
 <ProjectPage>
@@ -27,7 +20,7 @@
 		<ViewOnGitHub href="https://github.com/kyrregjerstad/square-eyes" />
 	</div>
 	<div slot="page-images" class="right-side">
-		<Gallery {imagesSrc} />
+		<Gallery />
 	</div>
 </ProjectPage>
 

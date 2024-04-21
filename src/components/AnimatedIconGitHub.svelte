@@ -55,10 +55,6 @@
 </div>
 
 <style>
-	#github-logo-3:hover #octocatGroup {
-		/* animation: groupScaleAnimation 1200ms linear normal forwards infinite; */
-	}
-
 	#github-logo-3:hover #octocatIcon {
 		animation: octocatIconAnimation 1500ms linear normal forwards infinite;
 	}

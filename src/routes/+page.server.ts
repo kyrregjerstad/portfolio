@@ -10,14 +10,10 @@ export const load = async (event) => {
 		return data;
 	};
 
-	const contactForm = await superValidate(event, contactFormSchema);
-
-	const pageData = await getPageData("Home");
-
 	return {
-		pageData,
-		gitHubContributions: fetchGitHubContributions(),
-		form: contactForm
+		pageData: await getPageData("Home"),
+		gitHubContributions: await fetchGitHubContributions(),
+		form: await superValidate(event, contactFormSchema)
 	};
 };
 
