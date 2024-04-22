@@ -50,7 +50,7 @@
 		"@studio-freight/lenis": "^1.0.42",
 		"graphql": "^16.8.1",
 		"graphql-request": "^6.1.0",
-		"groqd": "0.15.07",
+		"groqd": "0.15.11",
 		"gsap": "^3.12.5",
 		"lil-gui": "^0.18.2",
 		"three": "^0.153.0"
