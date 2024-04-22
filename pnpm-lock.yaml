@@ -74,8 +74,8 @@ devDependencies:
     specifier: ^8.57.0
     version: 8.57.0
   eslint-config-prettier:
-    specifier: ^8.10.0
-    version: 8.10.0(eslint@8.57.0)
+    specifier: ^9.1.0
+    version: 9.1.0(eslint@8.57.0)
   eslint-plugin-svelte:
     specifier: ^2.37.0
     version: 2.37.0(eslint@8.57.0)(svelte@3.59.2)(ts-node@10.9.2)
@@ -4094,8 +4094,8 @@ packages:
       semver: 7.6.0
     dev: true
 
-  /eslint-config-prettier@8.10.0(eslint@8.57.0):
-    resolution: {integrity: sha512-SM8AMJdeQqRYT9O9zguiruQZaN7+z+E4eAP9oiLNGKMtomwaB1E9dcgUD6ZAn/eQAb52USbvezbiljfZUhbJcg==}
+  /eslint-config-prettier@9.1.0(eslint@8.57.0):
+    resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
