@@ -1,1 +1,0 @@
-<slot name="page-text" />
