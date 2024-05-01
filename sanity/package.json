@@ -16,6 +16,7 @@
 	],
 	"dependencies": {
 		"@sanity/vision": "^3.40.0",
+		"groqd-playground": "^0.0.19",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-is": "^18.3.1",
