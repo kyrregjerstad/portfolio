@@ -12,7 +12,7 @@ export const load = async ({ params }) => {
 				.slice(0)
 				.grab({
 					title: q.string(),
-					description: q.string(),
+					description: q.string().nullable(),
 					href: q.string(),
 					linkTitle: q.string(),
 					gitHubLink: q.string().nullable(),

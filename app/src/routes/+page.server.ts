@@ -4,12 +4,23 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	return {
-		projects: await runQuery(
-			q('*', { isArray: true })
-				.filterByType('project')
+		page: await runQuery(
+			q('*')
+				.filterByType('page')
+				.filter("title == 'Home'")
+				.slice(0)
 				.grab({
+					projects: q('projects')
+						.filter()
+						.deref()
+						.grab({
+							title: q.string(),
+							description: q.string().nullable(),
+							slug: q.slug('slug'),
+						}),
 					title: q.string(),
-					slug: q.slug('slug'),
+					heading: q.string(),
+					description: q.string(),
 				})
 		),
 	};

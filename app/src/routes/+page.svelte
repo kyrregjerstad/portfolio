@@ -1,26 +1,21 @@
 <script>
 	const { data } = $props();
+	const { projects, title, heading, description } = data.page;
 </script>
 
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
-<ul class="ml-3 list-disc">
-	{#each data.projects as project}
-		<li class="transition-transform hover:translate-x-2 hover:font-bold hover:italic">
+<div class="prose">
+	<h1>{heading}</h1>
+	<p>{description}</p>
+</div>
+<h2 class="pb-4 pt-8 text-2xl font-bold">Projects</h2>
+<ul class="flex flex-col gap-2 sm:gap-1">
+	{#each projects as project}
+		<li class="group inline w-fit transition-transform hover:translate-x-2 hover:font-bold hover:italic">
+			<span class="group-hover:hidden">&bull;</span>
+			<span class="hidden group-hover:inline-block">&raquo;</span>
 			<a href="projects/{project.slug}">
 				{project.title}
 			</a>
 		</li>
 	{/each}
 </ul>
-<div class="prose">
-	<p>
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat iste enim tenetur molestiae nostrum a minus laborum
-		incidunt accusantium, sint tempore officia dolore, optio ipsum quod eaque modi maiores error! Lorem ipsum dolor sit
-		amet consectetur adipisicing elit. Quaerat iste enim tenetur molestiae nostrum a minus laborum incidunt accusantium,
-		sint tempore officia dolore, optio ipsum quod eaque modi maiores error! Lorem ipsum dolor sit amet consectetur
-		adipisicing elit. Quaerat iste enim tenetur molestiae nostrum a minus laborum incidunt accusantium, sint tempore
-		officia dolore, optio ipsum quod eaque modi maiores error! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-		Quaerat iste enim tenetur molestiae nostrum a minus laborum incidunt accusantium, sint tempore officia dolore, optio
-		ipsum quod eaque modi maiores error!
-	</p>
-</div>
