@@ -19,7 +19,7 @@
 		{#if prevProject}
 			<div class="group grid">
 				<span class="transition-all hover:-translate-x-1 hover:font-bold hover:text-teal-500">
-					<a href={`${prevProject.slug}`} class="flex items-center gap-1">
+					<a href={`${prevProject.slug}`} class="flex items-center gap-1 text-nowrap">
 						<ChevronLeft size={20} />
 						{prevProject.title}</a
 					>
@@ -36,7 +36,7 @@
 		{#if nextProject}
 			<div class="group grid">
 				<span class="relative transition-all hover:translate-x-1 hover:font-bold hover:text-teal-500">
-					<a href={`${nextProject.slug}`} class="flex items-center gap-1"
+					<a href={`${nextProject.slug}`} class="flex items-center gap-1 text-nowrap"
 						>{nextProject.title}
 						<ChevronRight size={20} />
 					</a>

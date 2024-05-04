@@ -1,4 +1,5 @@
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import { fontFamily, screens } from 'tailwindcss/defaultTheme';
+
 import type { Config } from 'tailwindcss';
 
 const config = {
@@ -14,6 +15,10 @@ const config = {
 			},
 		},
 		extend: {
+			screens: {
+				xs: '480px',
+				...screens,
+			},
 			colors: {
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
