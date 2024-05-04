@@ -37,6 +37,11 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
+			name: 'client',
+			title: 'Client',
+			type: 'string',
+		}),
+		defineField({
 			name: 'description',
 			title: 'Description',
 			type: 'text',
@@ -46,6 +51,21 @@ export default defineType({
 			title: 'Short Description',
 			type: 'text',
 		}),
+		defineField({
+			name: 'type',
+			title: 'Type',
+			type: 'string',
+			validation: (Rule) => Rule.required(),
+			options: {
+				list: [
+					{ title: 'Academic', value: 'academic' },
+					{ title: 'Professional', value: 'professional' },
+					{ title: 'Personal', value: 'personal' },
+				],
+				layout: 'dropdown',
+			},
+		}),
+
 		defineField({
 			name: 'keyFeatures',
 			title: 'Key Features',
@@ -57,6 +77,12 @@ export default defineType({
 			title: 'Images',
 			type: 'array',
 			of: [{ type: 'image' }],
+		}),
+		defineField({
+			name: 'technologies',
+			title: 'Technologies',
+			type: 'array',
+			of: [{ type: 'reference', to: [{ type: 'technology' }] }],
 		}),
 		defineField({
 			name: 'color',

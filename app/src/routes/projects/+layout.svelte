@@ -5,10 +5,10 @@
 </script>
 
 <div>
-  <a href="/">
+  <!-- <a href="/">
     <ChevronLeftIcon class="size-10" />
     <span class="sr-only">back home</span>
-  </a>
+  </a> -->
 
   {@render children()}
 </div>

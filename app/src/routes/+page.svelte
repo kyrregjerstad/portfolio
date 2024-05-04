@@ -7,7 +7,7 @@
 	const { projects, title, heading, description } = data.page;
 </script>
 
-<div class="prose">
+<div class="prose max-w-[800px]">
 	<h1>{heading}</h1>
 	<p>{description}</p>
 </div>
