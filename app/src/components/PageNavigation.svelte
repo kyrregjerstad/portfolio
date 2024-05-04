@@ -14,7 +14,7 @@
 	let { nextProject, prevProject, class: className }: Props = $props();
 </script>
 
-<div class={cn('group flex h-fit grid-cols-[1fr_10px_1fr] gap-2 text-sm', className)}>
+<div class={cn('group flex justify-between gap-2 text-sm', className)}>
 	<div class="justify-self-end opacity-50 transition-opacity hover:opacity-100">
 		{#if prevProject}
 			<div class="group grid">

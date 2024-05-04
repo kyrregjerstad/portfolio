@@ -9,11 +9,11 @@
 	const { project, nextProject, prevProject } = $derived(data);
 </script>
 
-<div class="flex flex-col-reverse justify-between sm:flex-row">
-	<h1 class="text-pretty break-words pb-8 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+<div class="flex flex-col-reverse justify-between pb-8 sm:flex-row">
+	<h1 class="text-pretty break-words text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
 		{project.title}
 	</h1>
-	<div class="flex flex-row-reverse justify-between gap-2 sm:flex-col sm:justify-normal">
+	<div class="flex flex-row-reverse justify-between gap-2 sm:flex-col">
 		<a
 			href="/"
 			class="flex items-center gap-2 self-end opacity-50 transition-opacity hover:scale-110 hover:opacity-100"
