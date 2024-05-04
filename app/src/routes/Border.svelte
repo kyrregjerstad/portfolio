@@ -13,7 +13,7 @@
 
 {#if mounted}
 	<svg
-		class="stroke-foreground pointer-events-none fixed inset-0 h-[calc(100dvh_-_5rem)] w-[calc(100vw_-_5rem)] translate-x-[2.5rem] translate-y-[2.5rem]"
+		class="stroke-foreground pointer-events-none fixed inset-0 z-50 h-[calc(100dvh_-_5rem)] w-[calc(100vw_-_5rem)] translate-x-[2.5rem] translate-y-[2.5rem]"
 		viewBox="0 0 100 100"
 		preserveAspectRatio="none"
 	>
