@@ -12,6 +12,7 @@ export const load = async ({ params }) => {
 			.grab({
 				title: q.string(),
 				description: q.string().nullable(),
+				richDescription: q.array(q.contentBlock()).nullable(),
 				href: q.string(),
 				linkTitle: q.string(),
 				gitHubLink: q.string().nullable(),

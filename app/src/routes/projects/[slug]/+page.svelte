@@ -4,6 +4,7 @@
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
 	import { ExternalLinkIcon, GithubIcon, GraduationCap, Handshake, Heart, X } from 'lucide-svelte';
+	import { PortableText } from '@portabletext/svelte';
 
 	const { data } = $props();
 	const { project, nextProject, prevProject } = $derived(data);
@@ -76,6 +77,13 @@
 		{project.description}
 	</p>
 </section>
+
+<PortableText
+	value={project.richDescription ?? undefined}
+	components={{
+		block: {},
+	}}
+/>
 
 {#if project.images && project.images.length > 0}
 	<Gallery

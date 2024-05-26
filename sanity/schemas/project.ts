@@ -47,9 +47,10 @@ export default defineType({
 			type: 'text',
 		}),
 		defineField({
-			name: 'shortDescription',
-			title: 'Short Description',
-			type: 'text',
+			name: 'richDescription',
+			title: 'Rich Description',
+			type: 'array',
+			of: [{ type: 'block' }],
 		}),
 		defineField({
 			name: 'type',
