@@ -78,12 +78,14 @@
 	</p>
 </section>
 
-<PortableText
-	value={project.richDescription ?? undefined}
-	components={{
-		block: {},
-	}}
-/>
+{#if project.richDescription}
+	<PortableText
+		value={project.richDescription ?? undefined}
+		components={{
+			block: {},
+		}}
+	/>
+{/if}
 
 {#if project.images && project.images.length > 0}
 	<Gallery
