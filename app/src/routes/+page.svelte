@@ -1,5 +1,6 @@
 <script>
 	import ContactForm from '@/components/ContactForm.svelte';
+	import Divider from '@/components/Divider.svelte';
 
 	const { data } = $props();
 
@@ -7,11 +8,12 @@
 	const { projects, title, heading, description } = data.page;
 </script>
 
-<div class="prose max-w-[800px]">
-	<h1>{heading}</h1>
-	<p>{description}</p>
+<div>
+	<h1 class="mb-7 text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">{heading}</h1>
+	<p class="prose w-full max-w-4xl text-justify">{description}</p>
 </div>
-<h2 class="pb-4 pt-8 text-2xl font-bold">Projects</h2>
+<Divider />
+<h2 class="pb-4 text-2xl font-bold">Projects</h2>
 <ul class="flex flex-col gap-2 sm:gap-1">
 	{#each projects as project}
 		<li
@@ -25,6 +27,8 @@
 		</li>
 	{/each}
 </ul>
-<section class="py-8">
+<Divider />
+
+<section>
 	<ContactForm {contactForm} />
 </section>

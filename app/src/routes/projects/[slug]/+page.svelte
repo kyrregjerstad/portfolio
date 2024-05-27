@@ -7,13 +7,14 @@
 
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
+	import Divider from '@/components/Divider.svelte';
 
 	const { data } = $props();
 	const { project, nextProject, prevProject } = $derived(data);
 </script>
 
 <div class="flex flex-col-reverse justify-between pb-8 sm:flex-row">
-	<h1 class="text-pretty break-words text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+	<h1 class="text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
 		{project.title}
 	</h1>
 	<div class="flex flex-row-reverse justify-between gap-2 sm:flex-col">
@@ -62,9 +63,9 @@
 	</div>
 </section>
 
-<hr class="border-foreground my-12 opacity-50" />
+<Divider />
 
-<section class="prose w-full max-w-full pb-8 text-justify leading-loose">
+<section class="prose mx-auto w-full max-w-4xl pb-8 text-justify">
 	{#if project.richDescription}
 		<PortableText portableText={project.richDescription} />
 	{:else}
@@ -83,7 +84,7 @@
 	/>
 {/if}
 <div class="flex-1"></div>
-<hr class="border-foreground my-12 opacity-50" />
+<Divider />
 <div class="flex w-full justify-center self-end justify-self-end pb-6">
 	<div class="flex flex-col items-center justify-center gap-2">
 		<PageNavigation {nextProject} {prevProject} class="grid grid-cols-[1fr_10px_1fr]" />

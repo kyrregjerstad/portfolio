@@ -9,7 +9,7 @@
     <ChevronLeftIcon class="size-10" />
     <span class="sr-only">back home</span>
   </a> -->
-	<div class="flex h-full w-full max-w-[900px] flex-col">
+	<div class="flex h-full w-full max-w-5xl flex-col">
 		{@render children()}
 	</div>
 </div>
