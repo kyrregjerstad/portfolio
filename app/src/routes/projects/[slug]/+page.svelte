@@ -3,8 +3,10 @@
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
-	import { ExternalLinkIcon, GithubIcon, GraduationCap, Handshake, Heart, X } from 'lucide-svelte';
-	import { PortableText } from '@portabletext/svelte';
+	import { ExternalLinkIcon, GithubIcon, X } from 'lucide-svelte';
+
+	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
+	import PortableText from '@/lib/portableText/PortableText.svelte';
 
 	const { data } = $props();
 	const { project, nextProject, prevProject } = $derived(data);
@@ -31,17 +33,7 @@
 		<h2 class="text-md pb-2">Meta:</h2>
 		<div class="flex flex-wrap gap-2">
 			{#if project.type}
-				<Chip class="flex gap-2">
-					{#if project.type === 'personal'}
-						<Heart size={20} />
-					{:else if project.type === 'professional'}
-						<Handshake size={20} />
-					{:else if project.type === 'academic'}
-						<GraduationCap size={20} />
-					{/if}
-
-					{project.type}
-				</Chip>
+				<ProjectTypeChip type={project.type} />
 			{/if}
 			{#if project.client}
 				<Chip>{project.client}</Chip>
@@ -72,20 +64,15 @@
 
 <hr class="border-foreground my-12 opacity-50" />
 
-<section class="prose max-w-[900px]">
-	<p class="pb-8 text-justify">
-		{project.description}
-	</p>
+<section class="prose w-full max-w-full pb-8 text-justify leading-loose">
+	{#if project.richDescription}
+		<PortableText portableText={project.richDescription} />
+	{:else}
+		<p>
+			{project.description}
+		</p>
+	{/if}
 </section>
-
-{#if project.richDescription}
-	<PortableText
-		value={project.richDescription ?? undefined}
-		components={{
-			block: {},
-		}}
-	/>
-{/if}
 
 {#if project.images && project.images.length > 0}
 	<Gallery

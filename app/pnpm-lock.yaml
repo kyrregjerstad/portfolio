@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@portabletext/toolkit':
+        specifier: ^2.0.15
+        version: 2.0.15
+      '@portabletext/types':
+        specifier: ^2.0.13
+        version: 2.0.13
       '@sanity/client':
         specifier: ^6.18.3
         version: 6.18.3
