@@ -6,11 +6,11 @@
 		"dev": "pnpm -r dev",
 		"format": "prettier --cache --write .",
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
-				"prettier-check": "prettier --plugin-search-dir . --check ."
+		"prettier-check": "prettier --plugin-search-dir . --check ."
 	},
 	"devDependencies": {
 		"prettier": "3.2.5",
 		"prettier-plugin-tailwindcss": "^0.5.14"
 	},
-	"packageManager": "pnpm@9.0.6"
+	"packageManager": "pnpm@9.0.0"
 }
