@@ -28,7 +28,6 @@
 	{/each}
 </ul>
 <Divider />
-
 <section>
 	<ContactForm {contactForm} />
 </section>
