@@ -12,7 +12,9 @@
 		"lint": "eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"generate": "drizzle-kit generate",
+		"migrate": "drizzle-kit migrate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.44.1",
@@ -26,6 +28,7 @@
 		"@typescript-eslint/eslint-plugin": "^7.10.0",
 		"@typescript-eslint/parser": "^7.10.0",
 		"autoprefixer": "^10.4.19",
+		"drizzle-kit": "^0.21.4",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.39.0",
@@ -46,12 +49,15 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@libsql/client": "^0.6.0",
 		"@portabletext/toolkit": "^2.0.15",
 		"@portabletext/types": "^2.0.13",
 		"@sanity/client": "^6.18.3",
 		"@sanity/image-url": "^1.0.2",
 		"@sendgrid/mail": "^8.1.3",
 		"clsx": "^2.1.1",
+		"dotenv": "^16.4.5",
+		"drizzle-orm": "^0.30.10",
 		"groqd": "^0.15.11",
 		"install": "^0.13.0",
 		"lucide-svelte": "^0.376.1",

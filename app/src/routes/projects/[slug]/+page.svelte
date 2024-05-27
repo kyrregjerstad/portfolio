@@ -1,16 +1,18 @@
 <script lang="ts">
+	import Likes from './Likes.svelte';
+
 	import Chip from '@/components/Chip.svelte';
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
 	import { ExternalLinkIcon, GithubIcon, X } from 'lucide-svelte';
 
+	import Divider from '@/components/Divider.svelte';
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
-	import Divider from '@/components/Divider.svelte';
 
 	const { data } = $props();
-	const { project, nextProject, prevProject } = $derived(data);
+	const { project, nextProject, prevProject, likes } = $derived(data);
 </script>
 
 <div class="flex flex-col-reverse justify-between pb-8 sm:flex-row">
@@ -83,6 +85,10 @@
 		}))}
 	/>
 {/if}
+<div class="flex w-full items-center justify-center pt-12">
+	<Likes {likes} />
+</div>
+
 <div class="flex-1"></div>
 <Divider />
 <div class="flex w-full justify-center self-end justify-self-end pb-6">

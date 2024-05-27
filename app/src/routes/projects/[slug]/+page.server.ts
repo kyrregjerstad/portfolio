@@ -1,9 +1,15 @@
+import { db } from '@/lib/db/db.js';
+import { likesTable } from '@/lib/db/schema.js';
 import { runQuery } from '@/lib/services/sanity';
+import type { Actions } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
+
 import { q, sanityImage } from 'groqd';
 
 export const load = async ({ params }) => {
 	const { slug } = params;
 
+	// TODO: refactor to be parallel
 	const project = await runQuery(
 		q('*')
 			.filterByType('project')
@@ -50,5 +56,38 @@ export const load = async ({ params }) => {
 		project,
 		nextProject,
 		prevProject,
+		likes: await getPageLikes(slug),
 	};
 };
+
+export const actions: Actions = {
+	default: async (event) => {
+		const slug = event.params.slug || 'unknown';
+		const clientAddress = event.getClientAddress() || 'unknown';
+
+		await likePage(slug, clientAddress);
+	},
+};
+
+async function getPageLikes(slug: string) {
+	try {
+		const likes = await db.query.likesTable.findMany({
+			where: eq(likesTable.pageId, slug),
+		});
+		return likes.length;
+	} catch (error) {
+		console.error(error);
+		return 0;
+	}
+}
+
+async function likePage(slug: string, userId: string) {
+	try {
+		await db.insert(likesTable).values({
+			pageId: slug,
+			userId,
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
