@@ -5,7 +5,7 @@
 	const { data } = $props();
 
 	const { contactForm } = data;
-	const { projects, title, heading, description } = data.page;
+	const { projects, heading, description } = data.page;
 </script>
 
 <div>
