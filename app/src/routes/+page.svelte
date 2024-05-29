@@ -13,7 +13,7 @@
 	<p class="prose w-full max-w-4xl text-justify">{description}</p>
 </div>
 <Divider />
-<h2 class="pb-4 text-2xl font-bold">Projects</h2>
+<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 <ul class="flex flex-col gap-2 sm:gap-1">
 	{#each projects as project}
 		<li
