@@ -5,20 +5,18 @@ import { presentationTool } from 'sanity/presentation';
 import { groqdPlaygroundTool } from 'groqd-playground';
 
 import { schemaTypes } from './schemas';
-
-export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
-export const dataset = process.env.SANITY_STUDIO_DATASET!;
+import env from './env';
 
 export default defineConfig({
 	name: 'portfolio',
 	title: 'Portfolio',
-	projectId,
-	dataset,
+	projectId: env.SANITY_STUDIO_PROJECT_ID,
+	dataset: env.SANITY_STUDIO_DATASET,
 	plugins: [
 		structureTool(),
 		presentationTool({
 			previewUrl: {
-				origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',
+				origin: env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',
 				previewMode: {
 					enable: '/preview/enable',
 					disable: '/preview/disable',
