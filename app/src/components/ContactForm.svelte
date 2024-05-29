@@ -40,7 +40,7 @@
 			id="name"
 			placeholder="Your name"
 			required
-			class="bg-background border p-2 focus:border-teal-500 focus:outline-none"
+			class="bg-background border-primary border border-opacity-50 p-2 focus:border-teal-500 focus:outline-none"
 			bind:value={$formData.name}
 		/>
 		<div>
@@ -58,7 +58,7 @@
 			id="subject"
 			placeholder="Subject"
 			required
-			class="bg-background border p-2 focus:border-teal-500 focus:outline-none"
+			class="bg-background border-primary border border-opacity-50 p-2 focus:border-teal-500 focus:outline-none"
 			bind:value={$formData.subject}
 		/>
 		<div>
@@ -76,7 +76,7 @@
 			id="email"
 			placeholder="Your email"
 			required
-			class="bg-background border p-2 focus:border-teal-500 focus:outline-none"
+			class="bg-background border-primary border border-opacity-50 p-2 focus:border-teal-500 focus:outline-none"
 			bind:value={$formData.email}
 		/>
 		<div>
@@ -93,7 +93,7 @@
 			id="message"
 			placeholder="Your message"
 			required
-			class="bg-background border p-2 focus:border-teal-500 focus:outline-none"
+			class="bg-background border-primary border border-opacity-50 p-2 focus:border-teal-500 focus:outline-none"
 			rows="10"
 			bind:value={$formData.message}
 		>
@@ -109,5 +109,7 @@
 		<label for="botCheck"> I'm not a robot </label>
 	</div>
 
-	<button type="submit" class="border p-4 focus:border-teal-500 focus:outline-none">send</button>
+	<button type="submit" class="border-primary border border-opacity-50 p-4 focus:border-teal-500 focus:outline-none"
+		>send</button
+	>
 </form>

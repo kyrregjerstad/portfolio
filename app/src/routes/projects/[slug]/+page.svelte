@@ -67,7 +67,7 @@
 
 <Divider />
 
-<section class="prose mx-auto w-full max-w-4xl pb-8 text-justify">
+<section class="prose w-full max-w-4xl pb-8 text-left">
 	{#if project.richDescription}
 		<PortableText portableText={project.richDescription} />
 	{:else}
