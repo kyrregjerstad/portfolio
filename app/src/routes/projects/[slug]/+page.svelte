@@ -11,8 +11,10 @@
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
 
-	const { data } = $props();
+	const { data, form: likeFormAction } = $props();
 	const { project, nextProject, prevProject, likes } = $derived(data);
+
+	$inspect('page ', likeFormAction);
 </script>
 
 <div class="flex flex-col-reverse justify-between pb-8 sm:flex-row">
@@ -86,7 +88,7 @@
 	/>
 {/if}
 <div class="flex w-full items-center justify-center pt-12">
-	<Likes {likes} />
+	<Likes {likes} {likeFormAction} />
 </div>
 
 <div class="flex-1"></div>

@@ -2,7 +2,7 @@ import { db } from '@/lib/db/db.js';
 import { likesTable } from '@/lib/db/schema.js';
 import { runQuery } from '@/lib/services/sanity';
 import type { Actions } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 
 import { q, sanityImage } from 'groqd';
 
@@ -65,16 +65,23 @@ export const actions: Actions = {
 		const slug = event.params.slug || 'unknown';
 		const clientAddress = event.getClientAddress() || 'unknown';
 
-		await likePage(slug, clientAddress);
+		const success = await likePage(slug, clientAddress);
+
+		return success;
 	},
 };
 
 async function getPageLikes(slug: string) {
 	try {
-		const likes = await db.query.likesTable.findMany({
-			where: eq(likesTable.pageId, slug),
-		});
-		return likes.length;
+		const likes = await db
+			.select({
+				count: sql<number>`COUNT(*)`.as('count'),
+			})
+			.from(likesTable)
+			.where(eq(likesTable.pageId, slug))
+			.limit(1);
+
+		return likes[0].count;
 	} catch (error) {
 		console.error(error);
 		return 0;
@@ -82,6 +89,17 @@ async function getPageLikes(slug: string) {
 }
 
 async function likePage(slug: string, userId: string) {
+	const previousLikes = await getPreviousLikesByUser(slug, userId);
+	const likeCount = await getPageLikes(slug);
+	console.log('previousLikes', previousLikes);
+
+	if (previousLikes >= 3) {
+		return {
+			success: false,
+			message: 'Thank you for your support! But you have already liked this page 3 times ;)',
+			likeCount,
+		};
+	}
 	try {
 		await db.insert(likesTable).values({
 			pageId: slug,
@@ -89,5 +107,24 @@ async function likePage(slug: string, userId: string) {
 		});
 	} catch (error) {
 		console.error(error);
+		return {
+			success: false,
+			message: 'An error occurred while trying to like this page. Please try again later.',
+			likeCount,
+		};
 	}
+
+	return {
+		success: true,
+		message: 'Thank you for your support!',
+		likeCount: likeCount + 1,
+	};
+}
+
+async function getPreviousLikesByUser(slug: string, userId: string) {
+	const likesByUser = await db.query.likesTable.findMany({
+		where: and(eq(likesTable.pageId, slug), eq(likesTable.userId, userId)),
+	});
+
+	return likesByUser.length;
 }
