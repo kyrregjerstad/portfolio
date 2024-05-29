@@ -3,15 +3,27 @@
 	import { superForm } from 'sveltekit-superforms';
 	import { toast } from 'svelte-sonner';
 	import type { ContactForm } from '$lib/schema/contactSchema';
+	import CustomToast from './CustomToast.svelte';
 
 	let { contactForm }: { contactForm: SuperValidated<Infer<ContactForm>> } = $props();
 
 	const form = superForm(contactForm, {
 		onResult: ({ result }) => {
 			if (result.status === 200) {
-				toast.success('Message sent successfully, we will get back to you soon!');
+				toast.custom(CustomToast, {
+					componentProps: {
+						title: 'Success',
+						message: `Roger that, I'll get back to you soon!`,
+					},
+				});
 			} else if (result.status === 500) {
-				toast.error('Failed to send message, please try again later.');
+				toast.custom(CustomToast, {
+					componentProps: {
+						title: 'Error',
+						message: 'Failed to send message, please try again later.',
+						error: true,
+					},
+				});
 			}
 		},
 	});
@@ -91,6 +103,10 @@
 				<p class="text-red-500">{$errors.message}</p>
 			{/if}
 		</div>
+	</div>
+	<div class="absolute opacity-0">
+		<input type="checkbox" id="botCheck" name="botCheck" tabindex="-1" />
+		<label for="botCheck"> I'm not a robot </label>
 	</div>
 
 	<button type="submit" class="border p-4 focus:border-teal-500 focus:outline-none">send</button>

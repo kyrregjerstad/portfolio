@@ -1,6 +1,7 @@
 <script>
 	import '@/app.pcss';
 	import Border from './Border.svelte';
+	import { Toaster } from 'svelte-sonner';
 
 	const { children } = $props();
 </script>
@@ -12,4 +13,5 @@
 			{@render children()}
 		</div>
 	</main>
+	<Toaster />
 </div>
