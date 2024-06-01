@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Geist Mono Variants */
 @font-face {
 	font-family: 'GeistMono';
 	src:
@@ -12,8 +11,8 @@
 
 @layer base {
 	:root {
-		--background: 60 7.5% 5.85%;
-		--foreground: 60 100% 95%;
+		--background: 60 100% 95%;
+		--foreground: 60 7.5% 5.85%;
 
 		--muted: 240 4.8% 95.9%;
 		--muted-foreground: 240 3.8% 46.1%;
@@ -44,7 +43,7 @@
 		--radius: 0.5rem;
 	}
 
-	.dark {
+	[data-theme='dark'] {
 		--background: 60 7.5% 5.85%;
 		--foreground: 60 100% 95%;
 

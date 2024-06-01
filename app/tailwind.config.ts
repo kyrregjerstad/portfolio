@@ -3,7 +3,7 @@ import { fontFamily, screens } from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
 const config = {
-	darkMode: ['class'],
+	darkMode: ['class', '[data-theme="dark"]'],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	safelist: ['dark'],
 	theme: {

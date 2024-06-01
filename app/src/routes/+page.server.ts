@@ -5,7 +5,7 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { contactSchema } from '@/lib/schema/contactSchema';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ cookies }) => {
 	return {
 		page: await runQuery(
 			q('*')
@@ -27,15 +27,15 @@ export const load: PageServerLoad = async () => {
 				})
 		),
 		contactForm: await superValidate(zod(contactSchema)),
+		darkMode: cookies.get('theme') === 'dark',
 	};
 };
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	submitContactForm: async ({ request, fetch }) => {
 		const form = await superValidate(request, zod(contactSchema));
 
 		console.log(form);
-
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -59,5 +59,15 @@ export const actions = {
 		}
 
 		return message(form, 'Form posted successfully!');
+	},
+
+	setTheme: async ({ cookies, request }) => {
+		const data = await request.formData();
+		const theme = data.get('dark-mode') ? 'dark' : 'light';
+
+		cookies.set('theme', theme, {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 365, // 1 year
+		});
 	},
 };

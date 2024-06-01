@@ -9,7 +9,7 @@
 	const { projects, heading, description } = data.page;
 </script>
 
-<ThemeSwitcher class="self-end" />
+<ThemeSwitcher class="self-end" darkMode={data.darkMode} />
 
 <div>
 	<h1 class="mb-7 text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">{heading}</h1>
