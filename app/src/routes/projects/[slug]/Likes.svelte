@@ -1,19 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
 
 	type Props = {
 		likes: number;
 		likeFormAction: {
-			success: boolean;
 			likeCount: number;
 			message?: string;
 		} | null;
 	};
 
 	let { likes, likeFormAction }: Props = $props();
-
-	$inspect('like button', likeFormAction?.success);
 
 	$effect(() => {
 		if (likeFormAction) {
@@ -22,7 +18,6 @@
 	});
 
 	const handleMouseDown = () => {
-		console.log('like button clicked');
 		likes++; // Optimistically increment likes
 	};
 </script>
