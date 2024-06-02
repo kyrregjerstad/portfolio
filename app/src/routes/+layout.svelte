@@ -1,11 +1,11 @@
 <script>
-	import '@/app.pcss';
-	import Border from './Border.svelte';
-	import { Toaster } from 'svelte-sonner';
-	import posthog from 'posthog-js';
 	import { browser } from '$app/environment';
-	import { beforeNavigate, afterNavigate } from '$app/navigation';
-	import ThemeSwitcher from '@/components/ThemeSwitcher.svelte';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import '@/app.pcss';
+	import Analytics from '@/components/Analytics.svelte';
+	import posthog from 'posthog-js';
+	import { Toaster } from 'svelte-sonner';
+	import Border from './Border.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -15,6 +15,7 @@
 	const { children } = $props();
 </script>
 
+<Analytics />
 <div class="border-background relative h-dvh border-[2.5rem]">
 	<Border />
 
