@@ -20,7 +20,7 @@
 	<Border />
 
 	<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto p-10">
-		<div class="mx-auto flex max-w-5xl flex-col">
+		<div class="mx-auto flex w-full max-w-5xl flex-col">
 			{@render children()}
 		</div>
 	</main>

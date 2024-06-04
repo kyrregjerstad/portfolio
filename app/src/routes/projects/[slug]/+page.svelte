@@ -17,7 +17,7 @@
 	$inspect('page ', likeFormAction);
 </script>
 
-<div class="flex flex-col-reverse justify-between pb-8 sm:flex-row">
+<div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
 	<h1 class="text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
 		{project.title}
 	</h1>
