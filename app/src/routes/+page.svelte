@@ -2,6 +2,7 @@
 	import ContactForm from '@/components/ContactForm.svelte';
 	import Divider from '@/components/Divider.svelte';
 	import ThemeSwitcher from '@/components/ThemeSwitcher.svelte';
+	import PortableText from '@/lib/portableText/PortableText.svelte';
 
 	const { data } = $props();
 
@@ -15,7 +16,7 @@
 	</h1>
 	<ThemeSwitcher class="justify-end self-start" darkMode={data.darkMode} />
 </div>
-<p class="prose w-full max-w-4xl text-justify">{description}</p>
+<PortableText portableText={description} class="prose max-w-4xl text-pretty" />
 <Divider />
 <h2 class="pb-4 text-3xl font-bold">Projects</h2>
 <ul class="flex flex-col gap-2 sm:gap-1">

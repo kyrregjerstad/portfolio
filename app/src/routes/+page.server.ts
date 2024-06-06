@@ -18,12 +18,11 @@ export const load: PageServerLoad = async ({ cookies }) => {
 						.deref()
 						.grab({
 							title: q.string(),
-							description: q.string().nullable(),
 							slug: q.slug('slug'),
 						}),
 					title: q.string(),
 					heading: q.string(),
-					description: q.string(),
+					description: q.array(q.contentBlock()),
 				})
 		),
 		contactForm: await superValidate(zod(contactSchema)),
