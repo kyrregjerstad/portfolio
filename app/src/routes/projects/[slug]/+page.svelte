@@ -13,8 +13,6 @@
 
 	const { data, form: likeFormAction } = $props();
 	const { project, nextProject, prevProject, likes } = $derived(data);
-
-	$inspect('page ', likeFormAction);
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">

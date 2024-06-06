@@ -1,11 +1,11 @@
 <script>
-	import { browser } from '$app/environment';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import '@/app.pcss';
-	import Analytics from '@/components/Analytics.svelte';
-	import posthog from 'posthog-js';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { browser } from '$app/environment';
 	import { Toaster } from 'svelte-sonner';
+	import posthog from 'posthog-js';
 	import Border from './Border.svelte';
+	import Analytics from '@/components/Analytics.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -16,10 +16,11 @@
 </script>
 
 <Analytics />
-<div class="border-background relative h-dvh border-[2.5rem]">
+<div class="border-background relative h-dvh border-[1.25rem] sm:border-[2.5rem]">
 	<Border />
-
-	<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto p-10">
+	<main
+		class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto p-4 sm:p-10"
+	>
 		<div class="mx-auto flex w-full max-w-5xl flex-col">
 			{@render children()}
 		</div>
