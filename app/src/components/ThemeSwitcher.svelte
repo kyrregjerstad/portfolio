@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Switch } from '$lib/components/ui/switch/index.js';
 	import { Button } from '$lib/components/ui/button';
 
 	import { cn } from '@/lib/utils';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { Sun, Moon } from 'lucide-svelte';
+	import { Moon, Sun } from 'lucide-svelte';
 
 	type Props = {
 		darkMode: boolean;
