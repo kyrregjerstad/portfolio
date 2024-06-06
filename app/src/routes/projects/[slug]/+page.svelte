@@ -40,13 +40,13 @@
 			{/if}
 			{#if project.gitHubLink}
 				<LinkButton href={project.gitHubLink}>
-					<GithubIcon size={20} />
+					<GithubIcon class="size-4 sm:size-6" />
 					GitHub
 				</LinkButton>
 			{/if}
 			{#if project.href}
 				<LinkButton href={project.href}>
-					<ExternalLinkIcon size={20} />
+					<ExternalLinkIcon class="size-4 sm:size-6" />
 					<span>{project.title}</span>
 				</LinkButton>
 			{/if}

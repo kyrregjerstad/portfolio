@@ -11,11 +11,11 @@
 
 <Chip class="flex gap-2">
 	{#if type === 'personal'}
-		<Heart size={20} />
+		<Heart class="size-4 sm:size-6" />
 	{:else if type === 'professional'}
-		<Handshake size={20} />
+		<Handshake class="size-4 sm:size-6" />
 	{:else if type === 'academic'}
-		<GraduationCap size={20} />
+		<GraduationCap class="size-4 sm:size-6" />
 	{/if}
 	{type}
 </Chip>
