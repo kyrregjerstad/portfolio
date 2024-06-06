@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex w-full">
-	<h1 class="mb-7 flex-1 text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+	<h1 class="flex-1 text-pretty break-words pb-4 text-3xl font-bold tracking-tight sm:pb-6 sm:text-4xl md:text-5xl">
 		{heading}
 	</h1>
 	<ThemeSwitcher class="justify-end self-start" darkMode={data.darkMode} />

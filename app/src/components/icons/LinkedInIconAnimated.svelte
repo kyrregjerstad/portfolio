@@ -2,7 +2,7 @@
 	export let size = 2.5;
 </script>
 
-<div class="wrapper" style="width: {size}rem; height: {size}rem;">
+<div class="fill-foreground" style="width: {size}rem; height: {size}rem;">
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -14,14 +14,13 @@
 			id="linkedIn-logo"
 			d="M71.25,0h-52.5C8.39625,0,0,8.39625,0,18.75v52.5C0,81.60375,8.39625,90,18.75,90h52.5C81.6075,90,90,81.60375,90,71.25v-52.5C90,8.39625,81.6075,0,71.25,0ZM30,71.25h-11.25v-41.25L30,30v41.25ZM24.375,25.245c-3.6225,0-6.5625-2.9625-6.5625-6.615s2.94-6.615,6.5625-6.615s6.5625,2.9625,6.5625,6.615-2.93625,6.615-6.5625,6.615ZM75,71.25h-11.25v-21.015c0-12.63-15-11.67375-15,0v21.015h-11.25v-41.25h11.25v6.61875C53.985,26.92125,75,26.205,75,45.90375L75,71.25Z"
 			transform="translate(5 5.090562)"
-			fill="var(--font-color, #ffffe3"
 			fill-rule="evenodd"
 		/>
 	</svg>
 </div>
 
 <style>
-	.wrapper:hover #linkedIn-logo {
+	svg:hover #linkedIn-logo {
 		animation: animate 800ms linear infinite;
 	}
 

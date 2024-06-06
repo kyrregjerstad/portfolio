@@ -16,7 +16,7 @@
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
-	<h1 class="text-pretty break-words text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+	<h1 class="text-pretty break-words text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
 		{project.title}
 	</h1>
 	<div class="flex flex-row-reverse justify-between gap-2 sm:flex-col">

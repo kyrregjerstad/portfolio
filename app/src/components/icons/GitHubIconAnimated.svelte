@@ -1,18 +1,17 @@
 <script lang="ts">
 	type Props = {
 		size?: number;
-		hover?: boolean;
 	};
-	const { size, hover }: Props = $props();
+	const { size }: Props = $props();
 </script>
 
-<div class="wrapper" style="width: {size}rem;">
+<div style="width: {size}rem;" class="transition-transform duration-200 hover:scale-105">
 	<svg
 		id="github-logo-3"
 		viewBox="0 0 350 350"
 		shape-rendering="geometricPrecision"
 		text-rendering="geometricPrecision"
-		class:hover
+		class="fill-foreground"
 	>
 		<g id="octocatGroup" transform="translate(176.516104,174.507897) scale(1,1)">
 			<g id="github-logo-3-u-octocat" transform="translate(-176.516104,-174.507897)">
@@ -23,9 +22,8 @@
 						transform="translate(27.016058 27.499656)"
 						clip-rule="evenodd"
 						fill-rule="evenodd"
-						fill="var(--font-color, #ffffe3)"
 					/>
-					<mask id="github-logo-3-u-masks" mask-type="luminance" x="-150%" y="-150%" height="400%" width="400%">
+					<mask id="github-logo-3-u-masks" x="-150%" y="-150%" height="400%" width="400%">
 						<rect
 							id="github-logo-3-s-rect1"
 							width="126.673063"

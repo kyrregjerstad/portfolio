@@ -3,6 +3,7 @@
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
 	import TwitterIconAnimated from '@/components/icons/TwitterIconAnimated.svelte';
+	import { HeartIcon } from 'lucide-svelte';
 </script>
 
 <Divider />
@@ -21,5 +22,6 @@
 			<TwitterIconAnimated />
 		</a>
 	</div>
-	<p>Made with ❤️ by Kyrre Gjerstad</p>
+
+	<p>Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad</p>
 </footer>
