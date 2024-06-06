@@ -38,9 +38,6 @@
 			{#if project.type}
 				<ProjectTypeChip type={project.type} />
 			{/if}
-			{#if project.client}
-				<Chip>{project.client}</Chip>
-			{/if}
 			{#if project.gitHubLink}
 				<LinkButton href={project.gitHubLink}>
 					<GithubIcon size={20} />
