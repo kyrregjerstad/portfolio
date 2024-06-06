@@ -82,13 +82,13 @@
 		}))}
 	/>
 {/if}
+
 <div class="flex w-full items-center justify-center pt-12">
 	<Likes {likes} {likeFormAction} />
 </div>
 
 <div class="flex-1"></div>
-<Divider />
-<div class="flex w-full justify-center self-end justify-self-end pb-6">
+<div class="flex w-full justify-center self-end justify-self-end">
 	<div class="flex flex-col items-center justify-center gap-2">
 		<PageNavigation {nextProject} {prevProject} class="grid grid-cols-[1fr_10px_1fr]" />
 		<a href="/" class="flex items-center gap-2 opacity-50 transition-opacity hover:opacity-100">Home </a>

@@ -23,6 +23,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center gap-2">
+	<p class="text-foreground break-words text-center text-sm">{likeFormAction?.message}</p>
 	<form method="POST" use:enhance class="flex items-center gap-1">
 		<div>{likes}</div>
 		<button
@@ -31,5 +32,4 @@
 			type="submit">❤️</button
 		>
 	</form>
-	<p class="text-foreground break-words text-center text-sm">{likeFormAction?.message}</p>
 </div>
