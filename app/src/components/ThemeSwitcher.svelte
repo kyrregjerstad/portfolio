@@ -2,8 +2,11 @@
 	import { enhance } from '$app/forms';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
+	import { Button } from '$lib/components/ui/button';
+
 	import { cn } from '@/lib/utils';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { Sun, Moon } from 'lucide-svelte';
 
 	type Props = {
 		darkMode: boolean;
@@ -13,7 +16,9 @@
 	const { darkMode, class: className }: Props = $props();
 
 	const submitAction: SubmitFunction = ({ formData }) => {
-		if (!!formData.get('dark-mode')) {
+		const mode = formData.get('dark-mode');
+
+		if (mode === 'dark') {
 			document.documentElement.setAttribute('data-theme', 'dark');
 		} else {
 			document.documentElement.setAttribute('data-theme', 'light');
@@ -27,6 +32,11 @@
 	action="/?/setTheme"
 	class={cn('flex items-center space-x-2', className)}
 >
-	<Label for="dark-mode" class="text-xs">Dark Mode</Label>
-	<Switch id="dark-mode" name="dark-mode" type="submit" checked={darkMode} />
+	<Button variant="ghost" size="icon" type="submit" name="dark-mode" id="dark-mode" value={darkMode ? 'light' : 'dark'}>
+		<Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0" />
+		<Moon
+			class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100"
+		/>
+		<span class="sr-only">Toggle theme</span>
+	</Button>
 </form>

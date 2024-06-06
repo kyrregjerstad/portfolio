@@ -7,4 +7,4 @@
 	const { class: className }: Props = $props();
 </script>
 
-<hr class={cn('border-foreground my-12 opacity-50', className)} />
+<hr class={cn('border-foreground my-6 opacity-50 sm:my-12', className)} />

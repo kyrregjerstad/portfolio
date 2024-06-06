@@ -62,7 +62,9 @@ export const actions = {
 
 	setTheme: async ({ cookies, request }) => {
 		const data = await request.formData();
-		const theme = data.get('dark-mode') ? 'dark' : 'light';
+		const theme = data.get('dark-mode') === 'dark' ? 'dark' : 'light';
+
+		console.log('dark mode', theme);
 
 		cookies.set('theme', theme, {
 			path: '/',
