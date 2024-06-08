@@ -15,7 +15,7 @@
 	let selectedImage = $state<Image | null>(null);
 </script>
 
-<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+<div class="grid grid-cols-1 gap-4 pt-8 sm:grid-cols-2">
 	{#each images as { src, alt }, i}
 		<button onclick={() => (selectedImage = { src, alt })}>
 			<img {src} {alt} class="transform-gpu rounded-lg transition-transform hover:scale-105" />
@@ -31,7 +31,7 @@
 				role="presentation"
 				onclick={() => (selectedImage = null)}
 			></div>
-			<div class="relative z-10 max-w-[1920px] p-10">
+			<div class="relative z-10 max-w-[1200px] p-10">
 				<img src={selectedImage.src} alt={selectedImage.alt} class="rounded-lg" />
 				<button
 					class="absolute right-5 top-5 m-4 rounded-full bg-black bg-opacity-50 p-2 text-white"
