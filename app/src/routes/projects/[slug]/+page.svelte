@@ -64,7 +64,7 @@
 
 <Divider />
 
-<section class="prose w-full max-w-4xl pb-8 text-left">
+<section class="prose w-full max-w-4xl text-left">
 	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
 	{#key project.title}
 		{#if project.richDescription}
@@ -86,7 +86,7 @@
 	/>
 {/if}
 
-<div class="flex w-full items-center justify-center pt-12">
+<div class="flex w-full items-center justify-center py-8">
 	<Likes {likes} {likeFormAction} />
 </div>
 
