@@ -7,7 +7,7 @@
 </script>
 
 <Divider />
-<footer class="flex w-full flex-col items-center justify-center gap-4 text-sm">
+<footer class="flex w-full flex-col items-center justify-center text-sm">
 	<div class="flex items-center justify-center gap-2">
 		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
 			<span class="sr-only"> LinkedIn </span>
@@ -23,5 +23,7 @@
 		</a>
 	</div>
 
-	<p>Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad</p>
+	<p class="pt-8">
+		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad
+	</p>
 </footer>
