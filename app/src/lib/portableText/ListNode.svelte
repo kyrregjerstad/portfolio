@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { isPortableTextToolkitList, type ToolkitPortableTextHtmlList } from '@portabletext/toolkit';
+	import { type ToolkitPortableTextHtmlList, type ToolkitPortableTextList } from '@portabletext/toolkit';
+	import type { PortableTextSpan } from '@portabletext/types';
 	import TextNode from './TextNode.svelte';
 
 	type Props = {
@@ -16,21 +17,22 @@
 	function renderListTag(list: ToolkitPortableTextHtmlList): string {
 		return listMap[list.listItem];
 	}
+
+	function isListBlock(block: PortableTextSpan | ToolkitPortableTextList): block is ToolkitPortableTextHtmlList {
+		return block._type === '@list' && 'mode' in block && block.mode === 'html';
+	}
 </script>
 
 <svelte:element this={renderListTag(list)}>
-	{#each list.children as listItem (listItem._key)}
-		{#each listItem.children as child (child._key)}
-			<!-- This is never true... -->
-			{#if isPortableTextToolkitList(child)}
-				<li>
+	{#each list.children as listItem}
+		<li>
+			{#each listItem.children as child}
+				{#if isListBlock(child)}
 					<svelte:self list={child} />
-				</li>
-			{:else}
-				<li>
+				{:else}
 					<TextNode {child} />
-				</li>
-			{/if}
-		{/each}
+				{/if}
+			{/each}
+		</li>
 	{/each}
 </svelte:element>

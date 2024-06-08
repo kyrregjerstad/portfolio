@@ -11,8 +11,8 @@
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
 
-	const { data, form: likeFormAction } = $props();
-	const { project, nextProject, prevProject, likes } = $derived(data);
+	let { data, form: likeFormAction } = $props();
+	let { project, nextProject, prevProject, likes } = $derived(data);
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
@@ -65,13 +65,16 @@
 <Divider />
 
 <section class="prose w-full max-w-4xl pb-8 text-left">
-	{#if project.richDescription}
-		<PortableText portableText={project.richDescription} />
-	{:else}
-		<p>
-			{project.description}
-		</p>
-	{/if}
+	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
+	{#key project.title}
+		{#if project.richDescription}
+			<PortableText portableText={project.richDescription} />
+		{:else}
+			<p>
+				{project.description}
+			</p>
+		{/if}
+	{/key}
 </section>
 
 {#if project.images && project.images.length > 0}

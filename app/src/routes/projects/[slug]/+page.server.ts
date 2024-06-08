@@ -9,6 +9,8 @@ import { q, sanityImage } from 'groqd';
 export const load = async ({ params }) => {
 	const { slug } = params;
 
+	console.log('load', slug);
+
 	// TODO: refactor to be parallel
 	const project = await runQuery(
 		q('*')

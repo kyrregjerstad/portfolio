@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { isPortableTextListItemBlock, isPortableTextToolkitList, nestLists } from '@portabletext/toolkit';
+	import { type ToolkitPortableTextHtmlList } from '@portabletext/toolkit';
+	import type { Block } from './types';
+
 	import type { PortableTextBlock } from '@portabletext/types';
 	import ListNode from './ListNode.svelte';
 	import TextNode from './TextNode.svelte';
 
 	type Props = {
-		block: PortableTextBlock;
+		block: Block;
 	};
+
 	const { block }: Props = $props();
-	const nestedLists = nestLists([block], 'html');
 
 	const blockTagMap: { [key: string]: string } = {
 		h1: 'h1',
@@ -26,17 +28,17 @@
 
 		return blockTagMap[style];
 	}
+
+	function isListBlock(block: Block): block is ToolkitPortableTextHtmlList {
+		return block._type === '@list' && 'mode' in block && block.mode === 'html';
+	}
 </script>
 
-{#if isPortableTextListItemBlock(block)}
-	{#each nestedLists as listItem}
-		{#if isPortableTextToolkitList(listItem)}
-			<ListNode list={listItem} />
-		{/if}
-	{/each}
+{#if isListBlock(block)}
+	<ListNode list={block} />
 {:else}
 	<svelte:element this={getBlockTag(block)}>
-		{#each block.children as child}
+		{#each block.children as child (child._key)}
 			<TextNode {child} />
 		{/each}
 	</svelte:element>

@@ -6,7 +6,7 @@ const client = createClient({
 	projectId,
 	dataset,
 	apiVersion,
-	useCdn: true,
+	useCdn: process.env.NODE_ENV === 'production', // To always get fresh data in dev mode
 	stega: {
 		studioUrl,
 	},

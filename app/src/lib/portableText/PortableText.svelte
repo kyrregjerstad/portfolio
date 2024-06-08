@@ -1,20 +1,19 @@
 <script lang="ts">
 	import BlockNode from '@/lib/portableText/BlockNode.svelte';
-	import type { PortableTextType } from './types';
+	import { nestLists } from '@portabletext/toolkit';
+	import type { PortableTextBlock } from '@portabletext/types';
 
 	type Props = {
-		portableText: PortableTextType;
+		portableText: PortableTextBlock[];
 		class?: string;
 	};
-	const { portableText, class: className }: Props = $props();
+	let { portableText, class: className }: Props = $props();
+
+	const nestedLists = nestLists(portableText, 'html');
 </script>
 
 <div class={className}>
-	{#if Array.isArray(portableText)}
-		{#each portableText as block}
-			<BlockNode {block} />
-		{/each}
-	{:else}
-		<BlockNode block={portableText} />
-	{/if}
+	{#each nestedLists as block}
+		<BlockNode {block} />
+	{/each}
 </div>
