@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { X } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
+	import Image from './Image.svelte';
 
 	type Image = {
 		src: string;
 		alt: string;
+		blurHash: string | null;
 	};
 
 	type Props = {
@@ -16,9 +18,9 @@
 </script>
 
 <div class="grid grid-cols-1 gap-4 pt-8 sm:grid-cols-2">
-	{#each images as { src, alt }, i}
-		<button onclick={() => (selectedImage = { src, alt })}>
-			<img {src} {alt} class="transform-gpu rounded-lg transition-transform hover:scale-105" />
+	{#each images as { src, alt, blurHash }, i}
+		<button onclick={() => (selectedImage = { src, alt, blurHash })}>
+			<Image {src} {alt} {blurHash} />
 		</button>
 	{/each}
 </div>

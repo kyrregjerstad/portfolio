@@ -38,6 +38,9 @@ importers:
       drizzle-orm:
         specifier: ^0.30.10
         version: 0.30.10(@libsql/client@0.6.2)(@types/react@18.3.3)
+      fast-blurhash:
+        specifier: ^1.1.2
+        version: 1.1.2
       groqd:
         specifier: ^0.15.11
         version: 0.15.11
@@ -1610,6 +1613,9 @@ packages:
 
   ext@1.7.0:
     resolution: {integrity: sha512-6hxeJYaL110a9b5TEJSj0gojyHQAmA2ch5Os+ySCiA1QGdS697XWY1pzsrSjqA9LDEEgdB/KypIlR59RcLuHYw==}
+
+  fast-blurhash@1.1.2:
+    resolution: {integrity: sha512-lJVOgYSlahqkRhrKumNx/SGB2F/qS0D1z7xjGYjb5EZJRtlzySGMniZjkQ9h9Rv8sPmM/V9orEgRiMwazDNH6A==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -4262,6 +4268,8 @@ snapshots:
   ext@1.7.0:
     dependencies:
       type: 2.7.3
+
+  fast-blurhash@1.1.2: {}
 
   fast-deep-equal@3.1.3: {}
 

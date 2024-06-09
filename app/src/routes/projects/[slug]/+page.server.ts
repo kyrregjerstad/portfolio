@@ -26,7 +26,7 @@ export const load = async ({ params }) => {
 				gitHubLink: q.string().nullable(),
 				client: q.string().nullable(),
 				keyFeatures: q.array(q.string()).nullable(),
-				images: sanityImage('images', { isList: true, withAsset: ['base'] }).nullable(),
+				images: sanityImage('images', { isList: true, withAsset: ['blurHash', 'base'] }).nullable(),
 				type: q.union([q.literal('academic'), q.literal('professional'), q.literal('personal')]),
 				technologies: q('technologies').filter().deref().grab({
 					title: q.string(),

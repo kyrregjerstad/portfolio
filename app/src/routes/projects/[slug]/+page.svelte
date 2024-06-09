@@ -64,7 +64,7 @@
 
 <Divider />
 
-<section class="prose w-full max-w-4xl text-left">
+<section class="prose w-full max-w-4xl text-justify sm:text-left">
 	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
 	{#key project.title}
 		{#if project.richDescription}
@@ -82,6 +82,7 @@
 		images={project.images.map((image, i) => ({
 			src: image.asset.url,
 			alt: `Kyrre Gjerstad - ${project.title} screenshot ${i + 1}`,
+			blurHash: image.asset.metadata.blurHash,
 		}))}
 	/>
 {/if}

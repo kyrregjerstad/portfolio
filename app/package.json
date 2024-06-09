@@ -60,6 +60,7 @@
 		"clsx": "^2.1.1",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.30.10",
+		"fast-blurhash": "^1.1.2",
 		"groqd": "^0.15.11",
 		"install": "^0.13.0",
 		"lucide-svelte": "^0.376.1",
