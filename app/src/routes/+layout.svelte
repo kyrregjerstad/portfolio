@@ -7,6 +7,7 @@
 	import Border from './Border.svelte';
 	import Analytics from '@/components/Analytics.svelte';
 	import Footer from '@/components/Footer.svelte';
+	import Socials from '@/components/Socials.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -17,6 +18,7 @@
 </script>
 
 <Analytics />
+<Socials />
 <div class="border-background relative h-dvh overflow-hidden border-[1.25rem] sm:border-[2.5rem]">
 	<Border />
 	<main
