@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cn } from '@/lib/utils';
+	import { sanityImgUrl } from '@/lib/utils/sanityImgUrl';
 	import { decodeBlurHash } from 'fast-blurhash';
 	import { onMount } from 'svelte';
 
@@ -41,7 +42,7 @@
 	></canvas>
 
 	<img
-		{src}
+		src={sanityImgUrl(src).width(800).quality(100).format('webp').url()}
 		{alt}
 		class={cn('h-full max-h-full w-full transform-gpu object-cover ', {
 			'blur-sm': loading,

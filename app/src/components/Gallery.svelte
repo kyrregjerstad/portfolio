@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { X } from 'lucide-svelte';
-	import { fly, blur } from 'svelte/transition';
+	import { fly, blur, fade } from 'svelte/transition';
 	import Image from './Image.svelte';
+	import { sanityImgUrl } from '@/lib/utils/sanityImgUrl';
 
 	type Image = {
 		src: string;
@@ -32,19 +33,26 @@
 			transition:blur={{ duration: 350 }}
 		>
 			<div
-				class="fixed inset-0 bg-black bg-opacity-50"
+				class="fixed inset-0 h-full w-full bg-black bg-opacity-50"
 				role="presentation"
 				onclick={() => (selectedImage = null)}
 			></div>
 			<div
-				class="relative z-10 max-w-[1200px] p-10"
+				class="relative z-10 max-w-[1100px] p-10"
 				in:fly={{ y: 100, duration: 550 }}
 				out:fly={{ y: 200, duration: 150 }}
 			>
-				<img src={selectedImage.src} alt={selectedImage.alt} class="rounded-lg" />
+				<img
+					src={sanityImgUrl(selectedImage.src).width(1200).quality(100).format('webp').url()}
+					width="1200"
+					height="1200"
+					alt={selectedImage.alt}
+					class="rounded-lg"
+				/>
 				<button
 					class="absolute right-5 top-5 m-4 rounded-full bg-black bg-opacity-50 p-2 text-white"
 					onclick={() => (selectedImage = null)}
+					transition:fade={{ duration: 350, delay: 200 }}
 				>
 					<X />
 					<span class="sr-only"> close </span>
