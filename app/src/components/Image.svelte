@@ -38,13 +38,16 @@
 <div class="relative aspect-[6/4] overflow-hidden rounded-lg transition-transform hover:scale-[101%]">
 	<canvas
 		bind:this={canvas}
-		class={cn('absolute z-30 h-full w-full object-cover transition-opacity', loading ? 'opacity-100' : 'opacity-0')}
+		class={cn(
+			'absolute z-30 h-full w-full object-cover object-top  transition-opacity',
+			loading ? 'opacity-100' : 'opacity-0'
+		)}
 	></canvas>
 
 	<img
 		src={sanityImgUrl(src).width(800).quality(100).format('webp').url()}
 		{alt}
-		class={cn('h-full max-h-full w-full transform-gpu object-cover ', {
+		class={cn('h-full max-h-full w-full transform-gpu object-cover object-top', {
 			'blur-sm': loading,
 			'blur-none': !loading,
 		})}

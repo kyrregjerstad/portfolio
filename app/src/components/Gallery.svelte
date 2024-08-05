@@ -47,7 +47,7 @@
 					width="1200"
 					height="1200"
 					alt={selectedImage.alt}
-					class="rounded-lg"
+					class="max-h-screen rounded-lg object-cover object-top"
 				/>
 				<button
 					class="absolute right-5 top-5 m-4 rounded-full bg-black bg-opacity-50 p-2 text-white"
