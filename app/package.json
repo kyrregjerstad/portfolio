@@ -1,5 +1,5 @@
 {
-	"name": "app",
+	"name": "@portfolio/app",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -15,6 +15,7 @@
 		"test:unit": "vitest",
 		"generate": "drizzle-kit generate",
 		"migrate": "drizzle-kit migrate"
+
 	},
 	"devDependencies": {
 		"@accuser/svelte-plausible-analytics": "^1.0.0",
