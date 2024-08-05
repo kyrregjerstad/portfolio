@@ -60,7 +60,8 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)',
 			},
 			fontFamily: {
-				sans: ['GeistMono', ...fontFamily.sans],
+				sans: ['Geist', ...fontFamily.sans],
+				mono: ['GeistMono', ...fontFamily.mono],
 			},
 			typography: (theme) => ({
 				DEFAULT: {
