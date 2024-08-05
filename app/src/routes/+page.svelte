@@ -34,5 +34,6 @@
 </ul>
 <Divider />
 <section>
+	<h2 class="pb-4 text-3xl font-bold">Contact</h2>
 	<ContactForm {contactForm} />
 </section>

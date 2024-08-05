@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { X } from 'lucide-svelte';
-	import { fly } from 'svelte/transition';
+	import { fly, blur } from 'svelte/transition';
 	import Image from './Image.svelte';
 
 	type Image = {
@@ -27,13 +27,20 @@
 
 <div>
 	{#if selectedImage}
-		<div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm transition-all" transition:fly>
+		<div
+			class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm transition-all"
+			transition:blur={{ duration: 350 }}
+		>
 			<div
 				class="fixed inset-0 bg-black bg-opacity-50"
 				role="presentation"
 				onclick={() => (selectedImage = null)}
 			></div>
-			<div class="relative z-10 max-w-[1200px] p-10">
+			<div
+				class="relative z-10 max-w-[1200px] p-10"
+				in:fly={{ y: 100, duration: 550 }}
+				out:fly={{ y: 200, duration: 150 }}
+			>
 				<img src={selectedImage.src} alt={selectedImage.alt} class="rounded-lg" />
 				<button
 					class="absolute right-5 top-5 m-4 rounded-full bg-black bg-opacity-50 p-2 text-white"

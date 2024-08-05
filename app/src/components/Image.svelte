@@ -34,7 +34,7 @@
 	});
 </script>
 
-<div class="relative aspect-[6/4] overflow-hidden rounded-lg">
+<div class="relative aspect-[6/4] overflow-hidden rounded-lg transition-transform hover:scale-[101%]">
 	<canvas
 		bind:this={canvas}
 		class={cn('absolute z-30 h-full w-full object-cover transition-opacity', loading ? 'opacity-100' : 'opacity-0')}
@@ -43,7 +43,7 @@
 	<img
 		{src}
 		{alt}
-		class={cn('max-h-full w-full transform-gpu  object-cover transition-transform hover:scale-105', {
+		class={cn('h-full max-h-full w-full transform-gpu object-cover ', {
 			'blur-sm': loading,
 			'blur-none': !loading,
 		})}
