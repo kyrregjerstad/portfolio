@@ -17,6 +17,11 @@
 		viewBox="0 0 100 100"
 		preserveAspectRatio="none"
 	>
-		<path transition:draw={{ duration: 1800, easing: cubicInOut }} d={commands} fill="none" stroke-width="0.1px" />
+		<path
+			transition:draw={{ duration: 2500, delay: 1500, easing: cubicInOut }}
+			d={commands}
+			fill="none"
+			stroke-width="0.1px"
+		/>
 	</svg>
 {/if}

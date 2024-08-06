@@ -20,7 +20,7 @@
 	{#if mounted}
 		<svg class="stroke-foreground text-foreground opactity-50 w-full">
 			<line
-				transition:draw={{ duration: 1800, delay: 1400, easing: cubicOut }}
+				transition:draw={{ duration: 2000, delay: 3600, easing: cubicOut }}
 				x1="0"
 				y1="0"
 				x2="100%"

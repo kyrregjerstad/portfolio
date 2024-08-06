@@ -10,9 +10,9 @@
 	const { projects, heading, description } = data.page;
 </script>
 
-<div class="hero sticky top-0 mx-auto w-full max-w-7xl">
+<div class=" sticky top-0 mx-auto w-full max-w-7xl">
 	<div class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col justify-center">
-		<div class="text-justify">
+		<div class="hero-text text-justify">
 			<h1
 				class="mb-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
 			>
@@ -36,9 +36,9 @@
 	</div>
 </div>
 <!-- TODO: make top sticky and have the divider be the scroll point over the hero -->
-<div class="bg-background relative z-10 w-full">
+<div class="bg-background/50 relative z-10 w-full backdrop-blur-sm">
 	<div
-		class="from-background gradient-blur absolute -top-96 h-96 w-full bg-gradient-to-t to-transparent backdrop-blur-lg"
+		class="from-background/50 gradient-blur absolute -top-96 h-96 w-full bg-gradient-to-t to-transparent backdrop-blur-lg"
 	></div>
 	<div class="mx-auto max-w-7xl">
 		<Divider class="mt-0 sm:mt-0" />
@@ -71,13 +71,13 @@
 		mask: linear-gradient(0deg, black, transparent 80%);
 	}
 
-	.hero {
+	.hero-text {
 		opacity: 1;
-		transition: opacity 1s 2.25s ease-in-out;
+		transition: opacity 1s 5s ease-in-out;
 	}
 
 	@starting-style {
-		.hero {
+		.hero-text {
 			opacity: 0;
 		}
 	}

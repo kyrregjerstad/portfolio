@@ -72,10 +72,9 @@
 		top: 33%;
 		width: 350px;
 		aspect-ratio: 1;
-		transition:
-			scale 3s 1.5s ease-in-out,
-			opacity 3s 1.5s ease-in-out;
+		animation: intro 10s ease-in-out forwards;
 	}
+
 	.blobs-wrapper {
 		--x: 0px;
 		--y: 0px;
@@ -169,10 +168,35 @@
 		}
 	}
 
-	@starting-style {
-		.intro-animation {
+	@keyframes intro {
+		0% {
 			scale: 0;
 			opacity: 0;
+			translate: -500px 0%;
+		}
+
+		20% {
+			scale: 1;
+			opacity: 0.9;
+			translate: -500px 0%;
+		}
+
+		30% {
+			scale: 1;
+			opacity: 0.9;
+			translate: -500px 0%;
+		}
+
+		60% {
+			scale: 1;
+			opacity: 1;
+			translate: 0% 0%;
+		}
+
+		100% {
+			scale: 1;
+			opacity: 1;
+			translate: 0% 0%;
 		}
 	}
 </style>
