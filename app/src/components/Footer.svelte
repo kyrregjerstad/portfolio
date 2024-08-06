@@ -6,7 +6,7 @@
 	import { HeartIcon } from 'lucide-svelte';
 </script>
 
-<Divider />
+<Divider class="my-0 sm:my-0" />
 <footer class="flex w-full flex-col items-center justify-center text-sm">
 	<div class="flex items-center justify-center gap-2">
 		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
@@ -23,7 +23,7 @@
 		</a>
 	</div>
 
-	<p class="pt-8">
+	<p class="py-8">
 		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad
 	</p>
 </footer>

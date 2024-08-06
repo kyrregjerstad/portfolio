@@ -12,7 +12,7 @@
 
 <Blob />
 <div class="sticky top-4 mx-auto h-full w-full max-w-7xl sm:top-4">
-	<div class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col justify-center">
+	<div class="relative flex min-h-[calc(100dvh_-_12rem)] w-full flex-col justify-center">
 		<div class="hero-text sm:text-justify">
 			<h1
 				class="mb-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
@@ -41,7 +41,7 @@
 		class="from-background gradient-blur absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent backdrop-blur-sm"
 	></div>
 	<div class="mx-auto max-w-7xl">
-		<Divider class="mt-0 sm:mt-0" />
+		<Divider class="mt-0 sm:mt-0" delay={3600} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 			<ul class="flex flex-col gap-2 font-mono sm:gap-1">
