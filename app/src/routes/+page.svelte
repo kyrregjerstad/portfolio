@@ -18,7 +18,9 @@
 
 <Blob />
 <div class="sticky top-4 mx-auto h-full w-full max-w-7xl sm:top-4">
-	<div class="relative flex min-h-[calc(100dvh_-_12rem)] w-full flex-col justify-center">
+	<div
+		class="relative flex min-h-[calc(100dvh_-_10rem)] w-full flex-col py-8 sm:min-h-[calc(100dvh_-_12rem)] sm:justify-center"
+	>
 		<div class="hero-text sm:text-justify">
 			<h1
 				class="mb-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
