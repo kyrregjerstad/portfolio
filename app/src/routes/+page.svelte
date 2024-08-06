@@ -33,6 +33,7 @@
 	</div>
 	<Blob />
 </div>
+<!-- TODO: make top sticky and have the divider be the scroll point over the hero -->
 <Divider />
 <h2 class="pb-4 text-3xl font-bold">Projects</h2>
 <ul class="flex flex-col gap-2 font-mono sm:gap-1">

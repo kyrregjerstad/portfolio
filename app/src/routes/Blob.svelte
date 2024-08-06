@@ -28,7 +28,15 @@
 />
 
 <div class="blobs-wrapper" style:--x="{$blobX}px" style:--y="{$blobY}px">
-	<div class="blob" id="blob-1" style:--scale-min="0.95" style:--scale-max="1.15" style:--animation-duration="10s">
+	<div
+		class="blob"
+		id="blob-1"
+		style:--offsetX="{$blobX}px"
+		style:--offsetY="{$blobY}px"
+		style:--scale-min="0.5"
+		style:--scale-max="1"
+		style:--animation-duration="10s"
+	>
 		<div class="blob-inner"></div>
 	</div>
 	<div
@@ -36,8 +44,8 @@
 		id="blob-2"
 		style:--offsetX="{$blobX * 0.4}px"
 		style:--offsetY="{$blobY * 0.4}px"
-		style:--scale-min="0.9"
-		style:--scale-max="1.3"
+		style:--scale-min="0.75"
+		style:--scale-max="1.25"
 		style:--animation-duration="8s"
 	>
 		<div class="blob-inner"></div>
@@ -48,7 +56,7 @@
 		style:--offsetX="{$blobX * 0.8}px"
 		style:--offsetY="{$blobY * 0.8}px"
 		style:--scale-min="1"
-		style:--scale-max="1.2"
+		style:--scale-max="1.25"
 		style:--animation-duration="6s"
 	>
 		<div class="blob-inner"></div>
@@ -75,6 +83,8 @@
 		filter: blur(20px);
 
 		mix-blend-mode: overlay;
+		opacity: 0.8;
+
 		animation:
 			breathe var(--animation-duration) infinite alternate ease-in-out,
 			move 20s infinite alternate ease-in-out,
@@ -141,10 +151,10 @@
 
 	@keyframes fade {
 		from {
-			opacity: 1;
+			opacity: 0.8;
 		}
 		to {
-			opacity: 0.5;
+			opacity: 0.4;
 		}
 	}
 </style>
