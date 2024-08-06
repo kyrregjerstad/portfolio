@@ -74,16 +74,21 @@
 		aspect-ratio: 1;
 		animation: intro 10s ease-in-out forwards;
 		z-index: 3;
+		pointer-events: none;
 	}
 
 	.blobs-wrapper {
 		--x: 0px;
 		--y: 0px;
 		position: absolute;
-		opacity: 0.8;
+		opacity: 0.2;
 
 		transform: translate3d(var(--x), var(--y), 0);
 		filter: blur(20px);
+
+		@media (min-width: 768px) {
+			opacity: 0.8;
+		}
 	}
 
 	.blob {

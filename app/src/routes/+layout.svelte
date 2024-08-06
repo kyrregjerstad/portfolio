@@ -22,7 +22,7 @@
 <div class="border-background relative h-dvh overflow-hidden border-[1.25rem] sm:border-[2.5rem]">
 	<Border />
 	<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto">
-		<div class="mx-auto flex w-full flex-col">
+		<div class="mx-auto flex w-full flex-col p-4">
 			{@render children()}
 		</div>
 		<Footer />
