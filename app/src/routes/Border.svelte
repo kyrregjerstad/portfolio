@@ -1,6 +1,12 @@
-<script>
+<script lang="ts">
 	import { cubicInOut } from 'svelte/easing';
 	import { draw } from 'svelte/transition';
+
+	type Props = {
+		firstVisit: boolean;
+	};
+
+	let { firstVisit }: Props = $props();
 
 	let mounted = $state(false);
 
@@ -18,7 +24,7 @@
 		preserveAspectRatio="none"
 	>
 		<path
-			transition:draw={{ duration: 2500, delay: 1500, easing: cubicInOut }}
+			transition:draw={{ duration: 2500, delay: firstVisit ? 1500 : 0, easing: cubicInOut }}
 			d={commands}
 			fill="none"
 			stroke-width="0.1px"

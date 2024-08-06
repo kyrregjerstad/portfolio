@@ -72,9 +72,12 @@
 		top: 33%;
 		width: 350px;
 		aspect-ratio: 1;
-		animation: intro 10s ease-in-out forwards;
 		z-index: 3;
 		pointer-events: none;
+	}
+
+	:global([data-firstVisit='true'] .intro-animation) {
+		animation: intro 10s ease-in-out forwards;
 	}
 
 	.blobs-wrapper {

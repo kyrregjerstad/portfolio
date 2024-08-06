@@ -3,8 +3,14 @@
 
 	import ContactForm from '@/components/ContactForm.svelte';
 	import Divider from '@/components/Divider.svelte';
+	import type { PageData } from './$types';
 
-	const { data } = $props();
+	type Props = {
+		data: PageData & {
+			firstVisit: boolean; // why is svelte not picking this up?
+		};
+	};
+	const { data }: Props = $props();
 
 	const { contactForm } = data;
 	const { projects, heading, description } = data.page;
@@ -41,7 +47,7 @@
 		class="from-background gradient-blur absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent backdrop-blur-sm"
 	></div>
 	<div class="mx-auto max-w-7xl">
-		<Divider class="mt-0 sm:mt-0" delay={3600} />
+		<Divider class="mt-0 sm:mt-0" delay={data.firstVisit ? 3600 : 2000} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 			<ul class="flex flex-col gap-2 font-mono sm:gap-1">
@@ -77,7 +83,7 @@
 	}
 
 	@starting-style {
-		.hero-text {
+		:global([data-firstVisit='true'] .hero-text) {
 			opacity: 0;
 		}
 	}
