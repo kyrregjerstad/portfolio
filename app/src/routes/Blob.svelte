@@ -27,50 +27,61 @@
 	bind:innerHeight
 />
 
-<div class="blobs-wrapper" style:--x="{$blobX}px" style:--y="{$blobY}px">
-	<div
-		class="blob"
-		id="blob-1"
-		style:--offsetX="{$blobX}px"
-		style:--offsetY="{$blobY}px"
-		style:--scale-min="0.5"
-		style:--scale-max="1"
-		style:--animation-duration="10s"
-	>
-		<div class="blob-inner"></div>
-	</div>
-	<div
-		class="blob"
-		id="blob-2"
-		style:--offsetX="{$blobX * 0.4}px"
-		style:--offsetY="{$blobY * 0.4}px"
-		style:--scale-min="0.75"
-		style:--scale-max="1.25"
-		style:--animation-duration="8s"
-	>
-		<div class="blob-inner"></div>
-	</div>
-	<div
-		class="blob"
-		id="blob-3"
-		style:--offsetX="{$blobX * 0.8}px"
-		style:--offsetY="{$blobY * 0.8}px"
-		style:--scale-min="1"
-		style:--scale-max="1.25"
-		style:--animation-duration="6s"
-	>
-		<div class="blob-inner"></div>
+<div class="intro-animation">
+	<div class="blobs-wrapper" style:--x="{$blobX}px" style:--y="{$blobY}px">
+		<div
+			class="blob"
+			id="blob-1"
+			style:--offsetX="{$blobX}px"
+			style:--offsetY="{$blobY}px"
+			style:--scale-min="0.5"
+			style:--scale-max="1"
+			style:--animation-duration="10s"
+		>
+			<div class="blob-inner"></div>
+		</div>
+		<div
+			class="blob"
+			id="blob-2"
+			style:--offsetX="{$blobX * 0.2}px"
+			style:--offsetY="{$blobY * 0.2}px"
+			style:--scale-min="0.75"
+			style:--scale-max="1.25"
+			style:--animation-duration="8s"
+		>
+			<div class="blob-inner"></div>
+		</div>
+		<div
+			class="blob"
+			id="blob-3"
+			style:--offsetX="{$blobX * 0.6}px"
+			style:--offsetY="{$blobY * 0.6}px"
+			style:--scale-min="1"
+			style:--scale-max="1.25"
+			style:--animation-duration="6s"
+		>
+			<div class="blob-inner"></div>
+		</div>
 	</div>
 </div>
 
 <style>
+	.intro-animation {
+		position: absolute;
+		right: 0%;
+		top: 33%;
+		width: 350px;
+		aspect-ratio: 1;
+		transition:
+			scale 3s 1.5s ease-in-out,
+			opacity 3s 1.5s ease-in-out;
+	}
 	.blobs-wrapper {
 		--x: 0px;
 		--y: 0px;
 		position: absolute;
-		right: 25%;
-		top: 30%;
 		opacity: 0.8;
+
 		transform: translate3d(var(--x), var(--y), 0);
 		filter: blur(20px);
 		z-index: -1;
@@ -155,6 +166,13 @@
 		}
 		to {
 			opacity: 0.4;
+		}
+	}
+
+	@starting-style {
+		.intro-animation {
+			scale: 0;
+			opacity: 0;
 		}
 	}
 </style>
