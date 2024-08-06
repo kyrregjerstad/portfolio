@@ -67,12 +67,13 @@
 
 <style>
 	.intro-animation {
-		position: absolute;
-		right: 0%;
+		position: fixed;
+		right: 20%;
 		top: 33%;
 		width: 350px;
 		aspect-ratio: 1;
 		animation: intro 10s ease-in-out forwards;
+		z-index: 3;
 	}
 
 	.blobs-wrapper {
@@ -83,7 +84,6 @@
 
 		transform: translate3d(var(--x), var(--y), 0);
 		filter: blur(20px);
-		z-index: -1;
 	}
 
 	.blob {
@@ -172,7 +172,7 @@
 		0% {
 			scale: 0;
 			opacity: 0;
-			translate: -500px 0%;
+			translate: -200px 0%;
 		}
 
 		20% {
