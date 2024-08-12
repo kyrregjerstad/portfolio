@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"prettier": "3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.5",
+		"prettier-plugin-tailwindcss": "^0.6.6",
 		"unique-names-generator": "^4.7.1"
 	},
 	"packageManager": "pnpm@9.0.0"
