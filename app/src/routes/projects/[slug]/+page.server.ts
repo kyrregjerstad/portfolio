@@ -9,8 +9,6 @@ import { q, sanityImage } from 'groqd';
 export const load = async ({ params }) => {
 	const { slug } = params;
 
-	console.log('load', slug);
-
 	// TODO: refactor to be parallel
 	const project = await runQuery(
 		q('*')
@@ -93,7 +91,6 @@ async function getPageLikes(slug: string) {
 async function likePage(slug: string, userId: string) {
 	const previousLikes = await getPreviousLikesByUser(slug, userId);
 	const likeCount = await getPageLikes(slug);
-	console.log('previousLikes', previousLikes);
 
 	if (previousLikes >= 3) {
 		return {

@@ -64,8 +64,6 @@ export const actions = {
 		const data = await request.formData();
 		const theme = data.get('dark-mode') === 'dark' ? 'dark' : 'light';
 
-		console.log('dark mode', theme);
-
 		cookies.set('theme', theme, {
 			path: '/',
 			maxAge: 60 * 60 * 24 * 365, // 1 year
