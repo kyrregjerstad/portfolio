@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import '@/app.pcss';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
@@ -8,23 +8,29 @@
 	import Analytics from '@/components/Analytics.svelte';
 	import Footer from '@/components/Footer.svelte';
 	import Socials from '@/components/Socials.svelte';
+	import type { LayoutData } from './$types';
+	import type { Snippet } from 'svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
 		afterNavigate(() => posthog.capture('$pageview'));
 	}
 
-	const { children } = $props();
+	type Props = {
+		children: Snippet;
+		data: {
+			firstVisit: boolean; // why is svelte not picking this up?
+		};
+	};
+	const { children, data }: Props = $props();
 </script>
 
 <Analytics />
 <Socials />
 <div class="border-background relative h-dvh overflow-hidden border-[1.25rem] sm:border-[2.5rem]">
-	<Border />
-	<main
-		class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto p-4 sm:p-10"
-	>
-		<div class="mx-auto flex w-full max-w-5xl flex-col">
+	<Border firstVisit={data.firstVisit} />
+	<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto">
+		<div class="mx-auto flex w-full flex-col p-4">
 			{@render children()}
 		</div>
 		<Footer />

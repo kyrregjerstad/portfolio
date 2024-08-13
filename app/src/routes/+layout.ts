@@ -1,4 +1,3 @@
-// src/routes/+layout.js
 import posthog from 'posthog-js';
 import { browser } from '$app/environment';
 import { PUBLIC_POSTHOG_API_KEY, PUBLIC_POSTHOG_HOST } from '$env/static/public';

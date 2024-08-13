@@ -10,6 +10,7 @@
 	import Divider from '@/components/Divider.svelte';
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
+	import { scrollToTop } from '@/lib/utils';
 
 	let { data, form: likeFormAction } = $props();
 	let { project, nextProject, prevProject, likes } = $derived(data);
@@ -64,7 +65,7 @@
 
 <Divider />
 
-<section class="prose w-full max-w-4xl text-justify sm:text-left">
+<section class="prose w-full max-w-full text-left leading-loose">
 	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
 	{#key project.title}
 		{#if project.richDescription}
@@ -95,6 +96,8 @@
 <div class="flex w-full justify-center self-end justify-self-end">
 	<div class="flex flex-col items-center justify-center gap-2">
 		<PageNavigation {nextProject} {prevProject} class="grid grid-cols-[1fr_10px_1fr]" />
-		<a href="/" class="flex items-center gap-2 opacity-50 transition-opacity hover:opacity-100">Home </a>
+		<a href="/" class="flex items-center gap-2 opacity-50 transition-opacity hover:opacity-100" onclick={scrollToTop}
+			>Home
+		</a>
 	</div>
 </div>
