@@ -8,7 +8,7 @@
 	import Analytics from '@/components/Analytics.svelte';
 	import Footer from '@/components/Footer.svelte';
 	import Socials from '@/components/Socials.svelte';
-	import type { LayoutData } from './$types';
+	import type { LayoutData, LayoutServerData } from './$types';
 	import type { Snippet } from 'svelte';
 	import SEO from '@/components/SEO.svelte';
 
@@ -19,9 +19,7 @@
 
 	type Props = {
 		children: Snippet;
-		data: {
-			firstVisit: boolean; // why is svelte not picking this up?
-		};
+		data: LayoutServerData;
 	};
 	const { children, data }: Props = $props();
 </script>
