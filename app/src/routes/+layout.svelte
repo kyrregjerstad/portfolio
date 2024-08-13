@@ -10,6 +10,7 @@
 	import Socials from '@/components/Socials.svelte';
 	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
+	import SEO from '@/components/SEO.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -26,6 +27,7 @@
 </script>
 
 <Analytics />
+<SEO {...data.SEO} />
 <Socials />
 <div class="border-background relative h-dvh overflow-hidden border-[1.25rem] sm:border-[2.5rem]">
 	<Border firstVisit={data.firstVisit} />
