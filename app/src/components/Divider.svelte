@@ -17,8 +17,7 @@
 	});
 </script>
 
-<!-- <hr class={cn('border-foreground my-6 opacity-50 sm:my-12', className)} /> -->
-<div class="my-12 h-1">
+<div class={cn('my-8 h-1 sm:my-12', className)}>
 	{#if mounted}
 		<svg class="stroke-foreground text-foreground opactity-50 h-1 w-full">
 			<line

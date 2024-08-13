@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { scrollToTop } from '@/lib/utils';
 	import { cn } from '@/lib/utils/cn';
 	import { ChevronLeft, ChevronRight } from 'lucide-svelte';
 
@@ -19,7 +20,7 @@
 		{#if prevProject}
 			<div class="group grid">
 				<span class="hover:text-accent-foreground transition-all hover:-translate-x-1 hover:font-bold">
-					<a href={`${prevProject.slug}`} class="flex items-center gap-1 text-nowrap">
+					<a href={`${prevProject.slug}`} class="flex items-center gap-1 text-nowrap" onclick={scrollToTop}>
 						<ChevronLeft size={20} />
 						{prevProject.title}</a
 					>
@@ -36,7 +37,7 @@
 		{#if nextProject}
 			<div class="group grid">
 				<span class="hover:text-accent-foreground relative transition-all hover:translate-x-1 hover:font-bold">
-					<a href={`${nextProject.slug}`} class="flex items-center gap-1 text-nowrap"
+					<a href={`${nextProject.slug}`} class="flex items-center gap-1 text-nowrap" onclick={scrollToTop}
 						>{nextProject.title}
 						<ChevronRight size={20} />
 					</a>

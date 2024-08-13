@@ -84,12 +84,16 @@
 		--x: 0px;
 		--y: 0px;
 		position: absolute;
-		opacity: 0.2;
+		opacity: 0.1;
 
 		transform: translate3d(var(--x), var(--y), 0);
 		filter: blur(20px);
 
 		@media (min-width: 768px) {
+			opacity: 0.5;
+		}
+
+		@media (min-width: 1024px) {
 			opacity: 0.8;
 		}
 	}
@@ -186,13 +190,13 @@
 		20% {
 			scale: 1;
 			opacity: 0.9;
-			translate: -500px 0%;
+			translate: -80% 0%;
 		}
 
 		30% {
 			scale: 1;
 			opacity: 0.9;
-			translate: -500px 0%;
+			translate: -80% 0%;
 		}
 
 		60% {

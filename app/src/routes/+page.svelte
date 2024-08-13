@@ -4,6 +4,7 @@
 	import ContactForm from '@/components/ContactForm.svelte';
 	import Divider from '@/components/Divider.svelte';
 	import type { PageData } from './$types';
+	import { scrollToTop } from '@/lib/utils';
 
 	type Props = {
 		data: PageData & {
@@ -34,12 +35,10 @@
 				<strong> NextJS. </strong>
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
-			<p class="prose py-8 sm:leading-loose">
-				As a frontend-focused fullstack developer from Norway, I am passionate about creating visually appealing and
-				functional products that offer a great user experience. I specialize in NextJS and SvelteKit with TypeScript and
-				Tailwind. Whether building complex web applications or optimizing existing platforms, I am committed to
-				delivering clean, efficient code. Explore my portfolio below to see a range of professional and academic
-				projects I've worked on.
+			<p class="prose py-8 text-lg">
+				I am passionate about creating visually appealing and functional products that offer a great user experience.
+				Whether building complex web applications or optimizing existing platforms, I am committed to delivering clean,
+				efficient code. Explore my portfolio below to see a range of professional and academic projects I've worked on.
 			</p>
 		</div>
 	</div>
@@ -49,7 +48,7 @@
 		class="from-background gradient-blur absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent backdrop-blur-sm"
 	></div>
 	<div class="mx-auto max-w-7xl">
-		<Divider class="mt-0 sm:mt-0" delay={data.firstVisit ? 3600 : 2000} />
+		<Divider class="" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 			<ul class="flex flex-col gap-2 font-mono sm:gap-1">
@@ -59,7 +58,7 @@
 					>
 						<span class="group-hover:hidden">&bull;</span>
 						<span class="hidden group-hover:inline-block">&raquo;</span>
-						<a href="projects/{project.slug}">
+						<a href="projects/{project.slug}" onclick={scrollToTop}>
 							{project.title}
 						</a>
 					</li>
