@@ -30,9 +30,8 @@ const SEO = {
 	openGraph: {
 		url: 'https://kyrre.dev',
 		title: 'Kyrre Gjerstad | Fullstack Typescript Developer',
-		description:
-			'Explore the portfolio of Kyrre Gjerstad, a fullstack developer specializing in SvelteKit and NextJS. Discover projects that showcase a commitment to clean code and exceptional user experiences.',
-		image: 'https://kyrre.dev/kyrre-gjerstad-social.png',
+		description: 'Explore the portfolio of Kyrre Gjerstad, a fullstack developer specializing in SvelteKit and NextJS.',
+		image: 'https://kyrre.dev/images/og-kyrre-gjerstad.jpg',
 	},
 
 	twitter: {
@@ -40,9 +39,9 @@ const SEO = {
 		title: 'Kyrre Gjerstad | Fullstack Typescript Developer',
 		description:
 			'Discover the work of Kyrre Gjerstad, a fullstack developer passionate about creating functional and visually appealing web applications using SvelteKit and NextJS.',
-		image: 'https://kyrre.dev/kyrre-gjerstad-social.png',
+		image: 'https://kyrre.dev/images/og-kyrre-gjerstad.jpg',
 		card: 'summary_large_image',
-		site: '@kyrre-gjerstad',
-		creator: '@kyrre-gjerstad',
+		site: '@kyrregjerstad',
+		creator: '@kyrregjerstad',
 	},
 } satisfies SEOType;
