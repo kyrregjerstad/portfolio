@@ -20,7 +20,7 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-is": "^18.3.1",
-		"sanity": "^3.45.0",
+		"sanity": "^3.57.1",
 		"styled-components": "^6.1.11",
 		"zod": "^3.23.8"
 	},
