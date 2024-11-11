@@ -2,6 +2,7 @@
 	import { type ToolkitPortableTextHtmlList, type ToolkitPortableTextList } from '@portabletext/toolkit';
 	import type { PortableTextSpan } from '@portabletext/types';
 	import TextNode from './TextNode.svelte';
+	import ListNode from './ListNode.svelte';
 
 	type Props = {
 		list: ToolkitPortableTextHtmlList;
@@ -28,7 +29,7 @@
 		<li>
 			{#each listItem.children as child}
 				{#if isListBlock(child)}
-					<svelte:self list={child} />
+					<ListNode list={child} />
 				{:else}
 					<TextNode {child} />
 				{/if}

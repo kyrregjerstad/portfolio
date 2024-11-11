@@ -9,11 +9,11 @@
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
 		"prettier-check": "prettier --plugin-search-dir . --check .",
 		"sanity": "pnpm --filter @portfolio/sanity",
-		"app": "pnpm --filter @portfolio/app"
+		"web": "pnpm --filter @portfolio/web"
 	},
 	"devDependencies": {
 		"prettier": "3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.5",
+		"prettier-plugin-tailwindcss": "^0.6.8",
 		"unique-names-generator": "^4.7.1"
 	},
 	"packageManager": "pnpm@9.0.0"

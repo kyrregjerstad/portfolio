@@ -4,22 +4,22 @@
 	import Image from './Image.svelte';
 	import { sanityImgUrl } from '@/lib/utils/sanityImgUrl';
 
-	type Image = {
+	type SanityImage = {
 		src: string;
 		alt: string;
 		blurHash: string | null;
 	};
 
 	type Props = {
-		images: Image[];
+		images: SanityImage[];
 	};
 	let { images }: Props = $props();
 
-	let selectedImage = $state<Image | null>(null);
+	let selectedImage = $state<SanityImage | null>(null);
 </script>
 
 <div class="grid grid-cols-1 gap-4 pt-8 sm:grid-cols-2">
-	{#each images as { src, alt, blurHash }, i}
+	{#each images as { src, alt, blurHash }}
 		<button onclick={() => (selectedImage = { src, alt, blurHash })}>
 			<Image {src} {alt} {blurHash} />
 		</button>
