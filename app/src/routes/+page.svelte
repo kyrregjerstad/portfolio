@@ -5,6 +5,7 @@
 	import Divider from '@/components/Divider.svelte';
 	import type { PageData } from './$types';
 	import { scrollToTop } from '@/lib/utils';
+	import List from '@/components/List.svelte';
 
 	type Props = {
 		data: PageData & {
@@ -15,6 +16,13 @@
 
 	const { contactForm } = data;
 	const { projects, heading, description } = data.page;
+
+	const experiments = [
+		{
+			title: 'Particles',
+			slug: '/experiments/particles',
+		},
+	];
 </script>
 
 <Blob />
@@ -51,20 +59,13 @@
 		<Divider class="" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
-			<ul class="flex flex-col gap-2 font-mono sm:gap-1">
-				{#each projects as project}
-					<li
-						class="hover:text-accent-foreground group inline w-fit transition-transform hover:translate-x-2 hover:font-bold hover:italic"
-					>
-						<span class="group-hover:hidden">&bull;</span>
-						<span class="hidden group-hover:inline-block">&raquo;</span>
-						<a href="projects/{project.slug}" onclick={scrollToTop}>
-							{project.title}
-						</a>
-					</li>
-				{/each}
-			</ul>
+			<List items={projects} />
 		</div>
+		<Divider />
+		<section>
+			<h2 class="pb-4 text-3xl font-bold">Experiments</h2>
+			<List items={experiments} />
+		</section>
 		<Divider />
 		<section>
 			<h2 class="pb-4 text-3xl font-bold">Contact</h2>
