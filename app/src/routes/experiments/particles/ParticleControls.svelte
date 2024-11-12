@@ -27,7 +27,7 @@
 </script>
 
 {#if showControls}
-	<div class="w-full max-w-screen-md space-y-4 rounded-lg bg-black/20 p-4 text-white backdrop-blur-sm">
+	<div class="fadeIn w-full max-w-screen-md space-y-4 rounded-lg bg-black/20 p-4 text-white backdrop-blur-sm">
 		<div class="grid grid-cols-2 gap-4">
 			<div class="space-y-2">
 				<label class="block">
@@ -246,3 +246,16 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.fadeIn {
+		opacity: 1;
+		transition: opacity 1s 1s ease-in-out;
+	}
+
+	@starting-style {
+		.fadeIn {
+			opacity: 0;
+		}
+	}
+</style>
