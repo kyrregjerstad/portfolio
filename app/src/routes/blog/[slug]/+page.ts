@@ -5,7 +5,6 @@ export const load: PageLoad = async ({ params, fetch }) => {
 	try {
 		const post = await import(`../../../posts/${params.slug}.md`);
 
-		console.log('post', post);
 		return {
 			content: post.default,
 			meta: post.metadata,
