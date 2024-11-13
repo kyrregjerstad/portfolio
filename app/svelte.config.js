@@ -1,9 +1,22 @@
 import adapter from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { mdsvex } from 'mdsvex';
+import { mdsvex, escapeSvelte } from 'mdsvex';
+import { createHighlighter } from 'shiki';
+
+const theme = 'github-dark';
+const highlighter = await createHighlighter({
+	themes: [theme],
+	langs: ['typescript', 'bash', 'svelte', 'json', 'yaml'],
+});
 
 const mdsvexConfig = {
 	extensions: ['.md', '.svx'],
+	highlight: {
+		highlighter: async (code, lang = 'text') => {
+			const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme }));
+			return `{@html \`${html}\` }`;
+		},
+	},
 };
 
 /** @type {import('@sveltejs/kit').Config} */

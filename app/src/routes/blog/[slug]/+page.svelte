@@ -8,11 +8,8 @@
 	<title>{data.meta.title}</title>
 </svelte:head>
 
-<h1>{data.meta.title}</h1>
-
-<article class="prose">
+<article class="prose mx-auto text-pretty">
 	<hgroup>
-		<h2>{data.meta.title}</h2>
 		<p>{formatDate(data.meta.publishedAt)}</p>
 	</hgroup>
 	<div>
