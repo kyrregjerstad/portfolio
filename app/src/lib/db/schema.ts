@@ -14,3 +14,16 @@ export const likesTable = sqliteTable('likes', {
 
 export type InsertLike = typeof likesTable.$inferInsert;
 export type SelectLike = typeof likesTable.$inferSelect;
+
+export const commentsTable = sqliteTable('comments', {
+	id: integer('id').primaryKey(),
+	postSlug: text('post_slug').notNull(),
+	author: text('author').notNull(),
+	content: text('content').notNull(),
+	timestamp: text('timestamp')
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
+});
+
+export type InsertComment = typeof commentsTable.$inferInsert;
+export type SelectComment = typeof commentsTable.$inferSelect;

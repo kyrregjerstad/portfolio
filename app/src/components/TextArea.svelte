@@ -23,7 +23,7 @@
 		{required}
 		bind:value
 		{rows}
-		class="bg-background border-muted-foreground focus:border-accent-foreground focus:outline-accent-foreground border p-2"
+		class="border-muted-foreground bg-card focus:border-accent-foreground focus:outline-accent-foreground rounded-sm border p-2"
 	>
 	</textarea>
 	<div>
