@@ -67,7 +67,7 @@
 
 		<button
 			type="submit"
-			class="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 font-medium transition-colors"
+			class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors"
 		>
 			Submit Comment
 		</button>

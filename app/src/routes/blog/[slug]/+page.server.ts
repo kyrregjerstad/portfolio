@@ -35,10 +35,12 @@ export const actions = {
 			return fail(400, { commentForm: form });
 		}
 
-		// Get the post ID
-		const post = await db.query.postsTable.findFirst({
-			where: eq(postsTable.slug, params.slug),
-		});
+		if (form.data.botCheck) {
+			// 🤖 honeypot 🤖
+			return message(form, 'Are you a robot?');
+		}
+
+		const post = await getPost(params.slug);
 
 		if (!post) {
 			return fail(404, { commentForm: form });
@@ -49,7 +51,7 @@ export const actions = {
 		await db.insert(commentsTable).values({
 			author,
 			content,
-			postId: post.id,
+			postId: post.metadata.id,
 		});
 
 		return message(form, 'Comment submitted successfully');

@@ -2,7 +2,7 @@ import { getPost } from '@/posts/getPost';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params, fetch, data }) => {
+export const load: PageLoad = async ({ params, data }) => {
 	try {
 		const post = await getPost(params.slug);
 

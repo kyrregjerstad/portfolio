@@ -232,7 +232,7 @@ test('homepage should display main content', async ({ homePage }) => {
 
 ## Flaky Tests are Worse than No Tests
 
-Having flaky tests can be a massive productivity drain and frustration. A flaky test is one that passes inconsistently, often due to timing issues or race conditions.
+Having flaky tests can be a massive productivity drain and a huge frustration. A flaky test is one that passes inconsistently, often due to timing issues or race conditions.
 
 Playwright offers a great way to check for flaky tests.
 
