@@ -55,6 +55,8 @@
 	"type": "module",
 	"dependencies": {
 		"@libsql/client": "^0.14.0",
+		"@oslojs/crypto": "^1.0.1",
+		"@oslojs/encoding": "^1.1.0",
 		"@portabletext/toolkit": "^2.0.16",
 		"@portabletext/types": "^2.0.13",
 		"@sanity/client": "^6.22.4",

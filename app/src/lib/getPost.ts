@@ -15,7 +15,7 @@ const postSchema = z.object({
 
 export async function getPost(slug: string) {
 	try {
-		const md = await import(`./${slug}.md`);
+		const md = await import(`../posts/${slug}.md`);
 		const post = postSchema.safeParse(md);
 
 		if (!post.success) {

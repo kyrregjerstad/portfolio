@@ -8,19 +8,25 @@
 
 	type CommentData = {
 		id: number;
-		author: string;
+		displayName: string;
 		content: string;
 		createdAt: Date;
 	};
 
-	let { commentForm, comments }: { commentForm: SuperValidated<Infer<CommentForm>>; comments: CommentData[] } =
-		$props();
+	type Props = {
+		commentForm: SuperValidated<Infer<CommentForm>>;
+		comments: CommentData[];
+	};
+
+	let { commentForm, comments }: Props = $props();
 
 	const form = superForm(commentForm, {
 		onResult: ({ result }) => {
 			if (result.status === 200) {
 				toast.success('Comment submitted');
-			} else if (result.status === 500) {
+			} else if (result.status === 401) {
+				toast.error('You must be logged in to submit a comment.');
+			} else {
 				toast.error('Failed to submit comment, please try again later.');
 			}
 		},
@@ -40,13 +46,13 @@
 		action="?/submitComment"
 	>
 		<Input
-			label="Name"
-			name="author"
+			label="Display Name"
+			name="displayName"
 			type="text"
 			placeholder="Your name"
 			required
-			bind:value={$formData.author}
-			bind:error={$errors.author}
+			bind:value={$formData.displayName}
+			bind:error={$errors.displayName}
 		/>
 
 		<TextArea

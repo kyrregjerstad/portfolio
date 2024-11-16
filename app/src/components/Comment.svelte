@@ -3,7 +3,7 @@
 
 	type CommentData = {
 		id: number;
-		author: string;
+		displayName: string;
 		content: string;
 		createdAt: Date;
 	};
@@ -14,7 +14,7 @@
 <div class="bg-card border-muted-foreground w-full rounded-sm border p-6 shadow-sm">
 	<div class="flex-1">
 		<div class="flex items-center justify-between">
-			<h4 class="font-semibold">{comment.author}</h4>
+			<h4 class="font-semibold">{comment.displayName}</h4>
 			<time class="text-muted-foreground text-sm" datetime={comment.createdAt.toISOString()}>
 				{formatDate(comment.createdAt)}
 			</time>

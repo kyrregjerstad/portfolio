@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const commentFormSchema = z.object({
-	author: z.string(),
+	displayName: z.string(),
 	content: z.string(),
 	botCheck: z.boolean().optional(),
 });

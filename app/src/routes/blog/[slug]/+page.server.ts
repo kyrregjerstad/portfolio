@@ -6,7 +6,7 @@ import { commentFormSchema } from '@/lib/schema/CommentForm';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { error } from '@sveltejs/kit';
-import { getPost } from '@/posts/getPost';
+import { getPost } from '@/lib/getPost';
 
 export const load = (async ({ params }) => {
 	const post = await getPost(params.slug);
@@ -28,9 +28,12 @@ export const load = (async ({ params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	submitComment: async ({ request, params }) => {
+	submitComment: async ({ request, params, locals }) => {
 		const form = await superValidate(request, zod(commentFormSchema));
 
+		if (!locals.user) {
+			return fail(401, { commentForm: form });
+		}
 		if (!form.valid) {
 			return fail(400, { commentForm: form });
 		}
@@ -46,12 +49,13 @@ export const actions = {
 			return fail(404, { commentForm: form });
 		}
 
-		const { author, content } = form.data;
+		const { displayName, content } = form.data;
 
 		await db.insert(commentsTable).values({
-			author,
+			displayName,
 			content,
 			postId: post.metadata.id,
+			userId: locals.user.id,
 		});
 
 		return message(form, 'Comment submitted successfully');
