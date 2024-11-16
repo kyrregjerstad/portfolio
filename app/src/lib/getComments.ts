@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import type { SelectComment } from './db/schema';
 
 const schema = z.array(
 	z.object({
@@ -20,3 +19,5 @@ export async function fetchComments(postId: string) {
 		return [];
 	}
 }
+
+export type FetchComments = Awaited<ReturnType<typeof fetchComments>>;

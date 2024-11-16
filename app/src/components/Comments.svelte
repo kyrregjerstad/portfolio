@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { buttonVariants } from '@/lib/components/ui/button';
-	import { fetchComments } from '@/lib/getComments';
+	import { fetchComments, type FetchComments } from '@/lib/getComments';
 	import type { CommentForm } from '@/lib/schema/CommentForm';
 	import { toast } from 'svelte-sonner';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import Comment from './Comment.svelte';
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
+	import { onMount } from 'svelte';
 
 	type Props = {
 		commentForm: SuperValidated<Infer<CommentForm>>;
@@ -16,7 +17,11 @@
 	};
 
 	let { commentForm, postId, isLoggedIn }: Props = $props();
-	let comments = $state(fetchComments(postId));
+	let comments = $state<FetchComments>([]);
+
+	onMount(async () => {
+		comments = await fetchComments(postId);
+	});
 
 	const form = superForm(commentForm, {
 		onResult: ({ result }) => {
