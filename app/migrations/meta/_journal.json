@@ -15,6 +15,13 @@
       "when": 1731535199911,
       "tag": "0001_dizzy_manta",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1731753423154,
+      "tag": "0002_mushy_prowler",
+      "breakpoints": true
     }
   ]
 }

@@ -14,7 +14,8 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"generate": "drizzle-kit generate",
-		"migrate": "drizzle-kit migrate"
+		"migrate": "drizzle-kit migrate",
+		"db:push": "drizzle-kit push"
 	},
 	"devDependencies": {
 		"@accuser/svelte-plausible-analytics": "^1.0.0",

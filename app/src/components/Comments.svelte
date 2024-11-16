@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { formatDate } from '@/lib/utils';
+	import type { CommentForm } from '@/lib/schema/CommentForm';
+	import { toast } from 'svelte-sonner';
+	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import Comment from './Comment.svelte';
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
-	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
-	import { toast } from 'svelte-sonner';
-	import Comment from './Comment.svelte';
-	import type { CommentForm } from '@/lib/schema/CommentForm';
 
 	type CommentData = {
 		id: number;
