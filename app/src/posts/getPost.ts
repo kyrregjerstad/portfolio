@@ -8,6 +8,7 @@ const postSchema = z.object({
 		published: z.boolean().default(false),
 		publishedAt: z.string(),
 		categories: z.array(z.string()).default([]),
+		author: z.string().default('Kyrre Gjerstad'),
 	}),
 	default: z.any(),
 });

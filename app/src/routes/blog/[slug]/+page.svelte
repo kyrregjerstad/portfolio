@@ -15,7 +15,10 @@
 		<p>{formatDate(data.meta.publishedAt)}</p>
 	</hgroup>
 	<div>
-		<svelte:component this={data.content} />
+		<data.content />
+		<address>
+			<p>{data.meta.author}</p>
+		</address>
 	</div>
 </article>
 <Divider />

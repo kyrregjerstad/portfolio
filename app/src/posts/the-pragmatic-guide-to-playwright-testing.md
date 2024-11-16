@@ -5,6 +5,7 @@ slug: the-pragmatic-guide-to-playwright-testing
 published: true
 publishedAt: '2024-11-12'
 categories: ['svelte', 'testing']
+author: 'Kyrre Gjerstad'
 ---
 
 # The Pragmatic Guide to Playwright Testing
