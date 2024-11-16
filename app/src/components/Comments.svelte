@@ -53,7 +53,6 @@
 				bind:value={$formData.displayName}
 				bind:error={$errors.displayName}
 			/>
-
 			<TextArea
 				label="Comment"
 				name="content"
