@@ -9,7 +9,6 @@ async function getPosts(): Promise<Post[]> {
 	for (const path in paths) {
 		const file = paths[path];
 		const slug = path.split('/').pop()?.replace('.md', '');
-		console.log(slug);
 
 		if (file && slug && typeof file === 'object' && 'metadata' in file) {
 			const metadata = file.metadata as Omit<Post, 'slug'>;

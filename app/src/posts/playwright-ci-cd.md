@@ -1,8 +1,10 @@
 ---
 title: Continuous Integration for Playwright Tests
+id: 44229f37-6282-4aa0-a03f-c784ef6c6e0e
 published: true
 publishedAt: '2024-11-12'
 categories: ['svelte', 'testing', 'ci-cd']
+slug: playwright-ci-cd
 ---
 
 # Setting Up Continuous Integration for Playwright Tests

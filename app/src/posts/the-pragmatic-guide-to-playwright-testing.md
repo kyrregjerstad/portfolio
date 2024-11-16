@@ -3,7 +3,7 @@ id: 8f72ac0f-204f-4227-a2a0-c04d2c86fc44
 title: 'The Pragmatic Guide to Playwright Testing'
 slug: the-pragmatic-guide-to-playwright-testing
 published: true
-publishedAt: '2024-11-12'
+publishedAt: '2024-11-16'
 categories: ['svelte', 'testing']
 author: 'Kyrre Gjerstad'
 ---

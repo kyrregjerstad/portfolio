@@ -1,8 +1,10 @@
 ---
 title: Setting Up End-to-End Testing with Playwright
+id: 407957d5-c857-468a-884b-1e8d32db415a
 published: true
-publishedAt: '2024-11-13'
+publishedAt: '2024-11-10'
 categories: ['playwright', 'testing']
+slug: end-to-end-testing-setup
 ---
 
 # Setting Up End-to-End Testing with Playwright

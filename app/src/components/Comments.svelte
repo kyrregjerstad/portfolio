@@ -39,7 +39,7 @@
 	let { form: formData, enhance, errors, submitting } = form;
 </script>
 
-<section class="mt-8 flex w-full flex-col items-center">
+<section class="flex w-full flex-col items-center pb-16">
 	<h2 class="mb-4 text-2xl font-bold" id="comments">Comments</h2>
 
 	{#if isLoggedIn}
