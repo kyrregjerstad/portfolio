@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { openai } from './openaiClient';
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import { zodResponseFormat } from 'openai/helpers/zod';
 
 const moderationResultSchema = z.object({
 	isAcceptable: z.boolean(),
