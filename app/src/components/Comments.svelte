@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { buttonVariants } from '@/lib/components/ui/button';
+	import { fetchComments } from '@/lib/getComments';
 	import type { CommentForm } from '@/lib/schema/CommentForm';
 	import { toast } from 'svelte-sonner';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
@@ -6,20 +9,14 @@
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
 
-	type CommentData = {
-		id: number;
-		displayName: string;
-		content: string;
-		createdAt: Date;
-	};
-
 	type Props = {
 		commentForm: SuperValidated<Infer<CommentForm>>;
-		comments: CommentData[];
+		postId: string;
 		isLoggedIn: boolean;
 	};
 
-	let { commentForm, comments, isLoggedIn }: Props = $props();
+	let { commentForm, postId, isLoggedIn }: Props = $props();
+	let comments = $state(fetchComments(postId));
 
 	const form = superForm(commentForm, {
 		onResult: ({ result }) => {
@@ -37,7 +34,7 @@
 </script>
 
 <section class="mt-8 flex w-full flex-col items-center">
-	<h2 class="mb-4 text-2xl font-bold">Comments</h2>
+	<h2 class="mb-4 text-2xl font-bold" id="comments">Comments</h2>
 
 	{#if isLoggedIn}
 		<form
@@ -51,16 +48,16 @@
 				label="Display Name"
 				name="displayName"
 				type="text"
-				placeholder="Your name"
+				placeholder="Display Name (public)"
 				required
 				bind:value={$formData.displayName}
 				bind:error={$errors.displayName}
 			/>
 
 			<TextArea
-				label="Message"
+				label="Comment"
 				name="content"
-				placeholder="Your message"
+				placeholder="Your comment"
 				required
 				rows={6}
 				bind:value={$formData.content}
@@ -81,22 +78,30 @@
 			</button>
 		</form>
 	{:else}
-		<p>You must be logged in to submit a comment.</p>
-		<a href="/login/github">Login with GitHub</a>
+		<div class="flex flex-col items-center gap-4">
+			<p class="text-muted-foreground">Join the conversation</p>
+			<a class={buttonVariants({ variant: 'outline' })} href="/login/github?returnTo={$page.url.pathname}#comments">
+				Sign in with GitHub
+			</a>
+		</div>
 	{/if}
 
 	<div class="w-full max-w-2xl space-y-4">
-		{#if comments.length === 0}
-			<p class="text-muted-foreground text-center italic">No comments yet. Be the first to comment!</p>
-		{:else}
-			<h3 class="text-muted-foreground mb-4 text-sm font-medium">
-				{comments.length} Comment{comments.length === 1 ? '' : 's'}
-			</h3>
-			<div class="flex w-full flex-col items-center space-y-4">
-				{#each comments as comment (comment.id)}
-					<Comment {comment} />
-				{/each}
-			</div>
-		{/if}
+		{#await comments}
+			<p class="text-muted-foreground text-center italic">Loading comments...</p>
+		{:then comments}
+			{#if comments.length === 0}
+				<p class="text-muted-foreground text-center italic">No comments yet. Be the first to comment!</p>
+			{:else}
+				<h3 class="text-muted-foreground mb-4 text-sm font-medium">
+					{comments.length} Comment{comments.length === 1 ? '' : 's'}
+				</h3>
+				<div class="flex w-full flex-col items-center space-y-4">
+					{#each comments as comment (comment.id)}
+						<Comment {comment} />
+					{/each}
+				</div>
+			{/if}
+		{/await}
 	</div>
 </section>

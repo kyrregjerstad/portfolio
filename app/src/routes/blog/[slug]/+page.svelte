@@ -10,7 +10,7 @@
 	<title>{data.meta.title}</title>
 </svelte:head>
 
-<article class="prose mx-auto text-pretty">
+<article class="prose prose-hr:border-t prose-hr:border-muted-foreground mx-auto text-pretty">
 	<hgroup>
 		<p>{formatDate(data.meta.publishedAt)}</p>
 	</hgroup>
@@ -22,4 +22,4 @@
 	</div>
 </article>
 <Divider />
-<Comments commentForm={data.commentForm} comments={data.comments} isLoggedIn={data.isLoggedIn} />
+<Comments commentForm={data.commentForm} isLoggedIn={data.isLoggedIn} postId={data.meta.id} />

@@ -5,7 +5,7 @@
 		id: number;
 		displayName: string;
 		content: string;
-		createdAt: Date;
+		timestamp: string;
 	};
 
 	let { comment }: { comment: CommentData } = $props();
@@ -15,8 +15,8 @@
 	<div class="flex-1">
 		<div class="flex items-center justify-between">
 			<h4 class="font-semibold">{comment.displayName}</h4>
-			<time class="text-muted-foreground text-sm" datetime={comment.createdAt.toISOString()}>
-				{formatDate(comment.createdAt)}
+			<time class="text-muted-foreground text-sm" datetime={comment.timestamp}>
+				{formatDate(comment.timestamp)}
 			</time>
 		</div>
 		<p class="text-muted-foreground mt-1 text-sm">{comment.content}</p>

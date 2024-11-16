@@ -13,6 +13,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	const code = event.url.searchParams.get('code');
 	const state = event.url.searchParams.get('state');
 	const storedState = event.cookies.get('github_oauth_state') ?? null;
+	const returnTo = event.cookies.get('github_oauth_return_to') ?? '/';
+
 	if (code === null || state === null || storedState === null) {
 		return new Response(null, {
 			status: 400,
@@ -50,10 +52,11 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id);
 		setSessionTokenCookie(event, sessionToken, session.expiresAt);
+
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/',
+				Location: returnTo,
 			},
 		});
 	}
@@ -73,7 +76,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	return new Response(null, {
 		status: 302,
 		headers: {
-			Location: '/',
+			Location: returnTo,
 		},
 	});
 }

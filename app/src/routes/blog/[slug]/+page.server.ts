@@ -24,14 +24,9 @@ export const load = (async ({ params, locals }) => {
 		await db.insert(postsTable).values(post.metadata);
 	}
 
-	const comments = await db.query.commentsTable.findMany({
-		where: eq(commentsTable.postId, post.metadata.id),
-	});
-
 	const commentForm = await superValidate(zod(commentFormSchema));
 
 	return {
-		comments,
 		commentForm,
 		isLoggedIn: !!locals.user,
 	};
@@ -39,29 +34,28 @@ export const load = (async ({ params, locals }) => {
 
 export const actions = {
 	submitComment: async ({ request, params, locals }) => {
-		const form = await superValidate(request, zod(commentFormSchema));
-
-		console.log('locals', locals);
+		const commentForm = await superValidate(request, zod(commentFormSchema));
 
 		if (!locals.user) {
-			return fail(401, { commentForm: form });
-		}
-		if (!form.valid) {
-			return fail(400, { commentForm: form });
+			return fail(401, { commentForm });
 		}
 
-		if (form.data.botCheck) {
+		if (!commentForm.valid) {
+			return fail(400, { commentForm });
+		}
+
+		if (commentForm.data.botCheck) {
 			// 🤖 honeypot 🤖
-			return message(form, 'Are you a robot?');
+			return message(commentForm, 'Are you a robot?');
 		}
 
 		const post = await getPost(params.slug);
 
 		if (!post) {
-			return fail(404, { commentForm: form });
+			return fail(404, { commentForm });
 		}
 
-		const { displayName, content } = form.data;
+		const { displayName, content } = commentForm.data;
 
 		await db.insert(commentsTable).values({
 			displayName,
@@ -70,6 +64,6 @@ export const actions = {
 			userId: locals.user.id,
 		});
 
-		return message(form, 'Comment submitted successfully');
+		return message(commentForm, 'Comment submitted successfully');
 	},
 };

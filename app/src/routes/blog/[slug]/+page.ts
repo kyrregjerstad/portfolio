@@ -10,16 +10,9 @@ export const load: PageLoad = async ({ params, data }) => {
 			throw error(404, `Could not find ${params.slug}`);
 		}
 
-		// transform the comments to include a createdAt date
-		const comments = data.comments.map((comment) => ({
-			...comment,
-			createdAt: new Date(comment.timestamp),
-		}));
-
 		return {
 			isLoggedIn: data.isLoggedIn,
 			commentForm: data.commentForm,
-			comments,
 			content: post.default,
 			meta: post.metadata,
 		};
