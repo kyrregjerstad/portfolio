@@ -72,6 +72,7 @@
 		"install": "^0.13.0",
 		"lucide-svelte": "^0.456.0",
 		"motion": "^10.18.0",
+		"openai": "^4.72.0",
 		"posthog-js": "^1.181.0",
 		"svelte-sonner": "^0.3.28",
 		"tailwind-merge": "^2.5.4",

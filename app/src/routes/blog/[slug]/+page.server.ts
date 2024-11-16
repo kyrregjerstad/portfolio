@@ -7,6 +7,7 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { error } from '@sveltejs/kit';
 import { getPost } from '@/lib/getPost';
+import { moderateContent } from '@/lib/server/moderation';
 
 export const load = (async ({ params, locals }) => {
 	const post = await getPost(params.slug);
@@ -57,12 +58,20 @@ export const actions = {
 
 		const { displayName, content } = commentForm.data;
 
-		await db.insert(commentsTable).values({
-			displayName,
-			content,
-			postId: post.metadata.id,
-			userId: locals.user.id,
-		});
+		const moderationResult = await moderateContent(`displayName: ${displayName}\ncontent: ${content}`);
+
+		if (moderationResult.suggestedAction === 'REJECT') {
+			return message(commentForm, 'Your comment was rejected');
+		} else if (moderationResult.suggestedAction === 'REVIEW') {
+			return message(commentForm, 'Your comment was flagged for review');
+		} else {
+			await db.insert(commentsTable).values({
+				displayName,
+				content,
+				postId: post.metadata.id,
+				userId: locals.user.id,
+			});
+		}
 
 		return message(commentForm, 'Comment submitted successfully');
 	},

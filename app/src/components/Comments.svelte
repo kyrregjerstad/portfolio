@@ -24,9 +24,10 @@
 	});
 
 	const form = superForm(commentForm, {
-		onResult: ({ result }) => {
+		onResult: async ({ result }) => {
 			if (result.status === 200) {
 				toast.success('Comment submitted');
+				comments = await fetchComments(postId);
 			} else if (result.status === 401) {
 				toast.error('You must be logged in to submit a comment.');
 			} else {
@@ -35,7 +36,7 @@
 		},
 	});
 
-	let { form: formData, enhance, errors } = form;
+	let { form: formData, enhance, errors, submitting } = form;
 </script>
 
 <section class="mt-8 flex w-full flex-col items-center">
@@ -76,9 +77,10 @@
 
 			<button
 				type="submit"
-				class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors"
+				class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors disabled:opacity-50"
+				disabled={$submitting}
 			>
-				Submit Comment
+				{$submitting ? 'Submitting...' : 'Submit Comment'}
 			</button>
 		</form>
 	{:else}
