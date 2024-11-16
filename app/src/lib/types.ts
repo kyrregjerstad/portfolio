@@ -22,3 +22,14 @@ export type SEO = {
 		creator: string;
 	};
 };
+
+export type Category = 'svelte' | 'testing' | 'javascript';
+
+export type Post = {
+	title: string;
+	slug: string;
+	description: string;
+	published: boolean;
+	publishedAt: string;
+	categories: Category[];
+};

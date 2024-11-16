@@ -1,8 +1,25 @@
 import type { Handle } from '@sveltejs/kit';
-
+import { validateSessionToken } from './lib/server/auth';
+import { deleteSessionTokenCookie, setSessionTokenCookie } from './lib/server/cookies';
 export const handle = (async ({ event, resolve }) => {
 	const themeCookie = event.cookies.get('theme');
 	const visited = event.cookies.get('visited');
+	const token = event.cookies.get('session') ?? null;
+
+	if (token === null) {
+		event.locals.user = null;
+		event.locals.session = null;
+	} else {
+		const { user, session } = await validateSessionToken(token);
+		if (session !== null) {
+			setSessionTokenCookie(event, token, session.expiresAt);
+		} else {
+			deleteSessionTokenCookie(event);
+		}
+
+		event.locals.user = user;
+		event.locals.session = session;
+	}
 
 	if (!themeCookie) {
 		event.cookies.set('theme', 'dark', {

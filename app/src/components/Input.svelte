@@ -23,7 +23,7 @@
 		{placeholder}
 		{required}
 		bind:value
-		class="bg-background border-muted-foreground focus:border-accent-foreground focus:outline-accent-foreground border p-2"
+		class="bg-card border-muted-foreground focus:border-accent-foreground focus:outline-accent-foreground rounded-sm border p-2"
 	/>
 	<div>
 		{#if error}

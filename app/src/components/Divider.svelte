@@ -19,7 +19,7 @@
 
 <div class={cn('my-8 h-1 sm:my-12', className)}>
 	{#if mounted}
-		<svg class="stroke-foreground text-foreground opactity-50 h-1 w-full">
+		<svg class="stroke-muted-foreground text-muted-foreground opactity-50 h-1 w-full">
 			<line
 				transition:draw={{ duration, delay, easing: cubicOut }}
 				x1="0"
