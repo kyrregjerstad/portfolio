@@ -13,9 +13,10 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"generate": "drizzle-kit generate",
-		"migrate": "drizzle-kit migrate",
-		"db:push": "drizzle-kit push"
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
+		"db:push": "drizzle-kit push",
+		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@accuser/svelte-plausible-analytics": "^1.0.0",
@@ -62,6 +63,7 @@
 		"@sanity/client": "^6.22.4",
 		"@sanity/image-url": "^1.1.0",
 		"@sendgrid/mail": "^8.1.4",
+		"arctic": "^2.2.2",
 		"bits-ui": "^0.21.16",
 		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.36.1",

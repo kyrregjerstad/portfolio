@@ -3,6 +3,8 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const userTable = sqliteTable('user', {
 	id: integer('id').primaryKey(),
+	githubId: integer('github_id').notNull(),
+	username: text('username').notNull(),
 });
 
 export const userRelations = relations(userTable, ({ many }) => ({

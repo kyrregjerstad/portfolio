@@ -16,9 +16,10 @@
 	type Props = {
 		commentForm: SuperValidated<Infer<CommentForm>>;
 		comments: CommentData[];
+		isLoggedIn: boolean;
 	};
 
-	let { commentForm, comments }: Props = $props();
+	let { commentForm, comments, isLoggedIn }: Props = $props();
 
 	const form = superForm(commentForm, {
 		onResult: ({ result }) => {
@@ -38,46 +39,51 @@
 <section class="mt-8 flex w-full flex-col items-center">
 	<h2 class="mb-4 text-2xl font-bold">Comments</h2>
 
-	<form
-		id="contact"
-		method="POST"
-		use:enhance
-		class="mb-8 flex w-full max-w-lg flex-col gap-4"
-		action="?/submitComment"
-	>
-		<Input
-			label="Display Name"
-			name="displayName"
-			type="text"
-			placeholder="Your name"
-			required
-			bind:value={$formData.displayName}
-			bind:error={$errors.displayName}
-		/>
-
-		<TextArea
-			label="Message"
-			name="content"
-			placeholder="Your message"
-			required
-			rows={6}
-			bind:value={$formData.content}
-			bind:error={$errors.content}
-		/>
-
-		<!-- 🍯 honeypot 🤖 -->
-		<div class="absolute opacity-0">
-			<input type="checkbox" id="botCheck" name="botCheck" tabindex="-1" />
-			<label for="botCheck"> I'm not a robot </label>
-		</div>
-
-		<button
-			type="submit"
-			class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors"
+	{#if isLoggedIn}
+		<form
+			id="contact"
+			method="POST"
+			use:enhance
+			class="mb-8 flex w-full max-w-lg flex-col gap-4"
+			action="?/submitComment"
 		>
-			Submit Comment
-		</button>
-	</form>
+			<Input
+				label="Display Name"
+				name="displayName"
+				type="text"
+				placeholder="Your name"
+				required
+				bind:value={$formData.displayName}
+				bind:error={$errors.displayName}
+			/>
+
+			<TextArea
+				label="Message"
+				name="content"
+				placeholder="Your message"
+				required
+				rows={6}
+				bind:value={$formData.content}
+				bind:error={$errors.content}
+			/>
+
+			<!-- 🍯 honeypot 🤖 -->
+			<div class="absolute opacity-0">
+				<input type="checkbox" id="botCheck" name="botCheck" tabindex="-1" />
+				<label for="botCheck"> I'm not a robot </label>
+			</div>
+
+			<button
+				type="submit"
+				class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors"
+			>
+				Submit Comment
+			</button>
+		</form>
+	{:else}
+		<p>You must be logged in to submit a comment.</p>
+		<a href="/login/github">Login with GitHub</a>
+	{/if}
 
 	<div class="w-full max-w-2xl space-y-4">
 		{#if comments.length === 0}

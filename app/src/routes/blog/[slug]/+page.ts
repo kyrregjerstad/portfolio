@@ -17,6 +17,7 @@ export const load: PageLoad = async ({ params, data }) => {
 		}));
 
 		return {
+			isLoggedIn: data.isLoggedIn,
 			commentForm: data.commentForm,
 			comments,
 			content: post.default,

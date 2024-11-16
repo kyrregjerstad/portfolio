@@ -22,4 +22,4 @@
 	</div>
 </article>
 <Divider />
-<Comments commentForm={data.commentForm} comments={data.comments} />
+<Comments commentForm={data.commentForm} comments={data.comments} isLoggedIn={data.isLoggedIn} />

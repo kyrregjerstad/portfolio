@@ -8,11 +8,20 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { error } from '@sveltejs/kit';
 import { getPost } from '@/lib/getPost';
 
-export const load = (async ({ params }) => {
+export const load = (async ({ params, locals }) => {
 	const post = await getPost(params.slug);
 
 	if (!post) {
 		throw error(404, `Could not find ${params.slug}`);
+	}
+
+	const dbPost = await db.query.postsTable.findFirst({
+		where: eq(postsTable.id, post.metadata.id),
+	});
+
+	// If the post doesn't exist in the database, insert it
+	if (!dbPost) {
+		await db.insert(postsTable).values(post.metadata);
 	}
 
 	const comments = await db.query.commentsTable.findMany({
@@ -24,12 +33,15 @@ export const load = (async ({ params }) => {
 	return {
 		comments,
 		commentForm,
+		isLoggedIn: !!locals.user,
 	};
 }) satisfies PageServerLoad;
 
 export const actions = {
 	submitComment: async ({ request, params, locals }) => {
 		const form = await superValidate(request, zod(commentFormSchema));
+
+		console.log('locals', locals);
 
 		if (!locals.user) {
 			return fail(401, { commentForm: form });
