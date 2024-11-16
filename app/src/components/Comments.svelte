@@ -97,7 +97,7 @@
 			<p class="text-muted-foreground text-center italic">Loading comments...</p>
 		{:then comments}
 			{#if comments.length === 0}
-				<p class="text-muted-foreground text-center italic">No comments yet. Be the first to comment!</p>
+				<p class="text-muted-foreground py-8 text-center italic">No comments yet. Be the first to comment!</p>
 			{:else}
 				<h3 class="text-muted-foreground mb-4 text-sm font-medium">
 					{comments.length} Comment{comments.length === 1 ? '' : 's'}
