@@ -26,9 +26,9 @@
 </script>
 
 <Blob />
-<div class="sticky top-4 mx-auto h-full w-full max-w-7xl sm:top-4">
+<div class="sticky top-16 mx-auto h-full w-full max-w-7xl sm:top-16">
 	<div
-		class="relative flex min-h-[calc(100dvh_-_10rem)] w-full flex-col py-8 sm:min-h-[calc(100dvh_-_12rem)] sm:justify-center"
+		class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col py-8 sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center"
 	>
 		<div class="hero-text sm:text-justify">
 			<h1
