@@ -11,6 +11,7 @@
 	import type { LayoutData, LayoutServerData } from './$types';
 	import type { Snippet } from 'svelte';
 	import SEO from '@/components/SEO.svelte';
+	import Border2 from './Border2.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -27,13 +28,12 @@
 <Analytics />
 <SEO {...data.SEO} />
 <Socials />
-<div class="border-background relative h-dvh overflow-hidden border-[1.25rem] sm:border-[2.5rem]">
-	<Border firstVisit={data.firstVisit} />
-	<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto">
-		<div class="mx-auto flex w-full flex-col p-4">
+<div class="relative h-dvh overflow-hidden">
+	<Border2>
+		<main class="border-foreground flex h-full flex-col overflow-auto">
 			{@render children()}
-		</div>
-		<Footer />
-	</main>
+			<Footer />
+		</main>
+	</Border2>
 	<Toaster />
 </div>
