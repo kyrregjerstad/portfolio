@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "pnpm -r dev",
-		"build": "pnpm -r build",
+		"dev": "turbo run dev",
+		"build": "turbo run build",
 		"format": "prettier --cache --write .",
 		"check": "turbo check",
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
