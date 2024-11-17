@@ -1,5 +1,5 @@
 {
-	"name": "portfolio",
+	"name": "k",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
@@ -8,8 +8,8 @@
 		"format": "prettier --cache --write .",
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
 		"prettier-check": "prettier --plugin-search-dir . --check .",
-		"sanity": "pnpm --filter @portfolio/sanity",
-		"web": "pnpm --filter @portfolio/web"
+		"sanity": "pnpm --filter @k/sanity",
+		"portfolio": "pnpm --filter @k/portfolio"
 	},
 	"devDependencies": {
 		"prettier": "3.3.3",
