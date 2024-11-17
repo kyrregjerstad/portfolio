@@ -52,11 +52,9 @@
 	</div>
 </div>
 <div class="bg-background relative z-[2] w-full">
-	<div
-		class="from-background gradient-blur absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent backdrop-blur-sm"
-	></div>
+	<div class="from-background gradient-blur dots absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent"></div>
 	<div class="mx-auto max-w-7xl">
-		<Divider class="" delay={data.firstVisit ? 3600 : 0} />
+		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 			<List items={projects.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))} />
@@ -75,6 +73,12 @@
 </div>
 
 <style>
+	.dots {
+		background-image: radial-gradient(transparent 1px, #10100e 1px);
+		background-size: 4px 4px;
+		@apply z-40 bg-transparent backdrop-blur-sm;
+	}
+
 	.gradient-blur {
 		mask: linear-gradient(0deg, black, transparent 80%);
 	}
