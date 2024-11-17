@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
+	import { cn } from '$lib/utils';
 
 	type Props = {
 		children: Snippet;
 		padding?: number;
+		backgroundColor?: string;
 	};
 
-	let { children, padding = 25 }: Props = $props();
+	let { children, padding = 32 }: Props = $props();
 
 	let container: HTMLDivElement;
 	let pathElement: SVGPathElement;
@@ -14,12 +16,13 @@
 	let pathData = $state('');
 
 	function calculatePath(rect: DOMRect) {
+		const offset = padding;
 		return `
-			M ${rect.left} ${rect.top}
-			L ${rect.right} ${rect.top}
-			L ${rect.right} ${rect.bottom}
-			L ${rect.left} ${rect.bottom}
-			L ${rect.left} ${rect.top}
+			M ${offset} ${offset}
+			L ${rect.width - offset} ${offset}
+			L ${rect.width - offset} ${rect.height - offset}
+			L ${offset} ${rect.height - offset}
+			L ${offset} ${offset}
 		`;
 	}
 
@@ -32,7 +35,6 @@
 	// Update path length whenever pathData changes
 	$effect(() => {
 		if (!pathElement || !pathData) return;
-		// Use requestAnimationFrame to ensure the path has been rendered
 		requestAnimationFrame(() => {
 			pathLength = pathElement.getTotalLength();
 		});
@@ -52,36 +54,62 @@
 	});
 </script>
 
-<div class="border-container" bind:this={container} style:padding={`${padding}px`} style:inset={`${padding}px`}>
-	<div>
+<div class="h-dvh w-full overflow-auto" bind:this={container} style="--padding: {padding}px">
+	<div class="top border-element"></div>
+	<div class="left border-element"></div>
+	<div class="right border-element"></div>
+	<div class="bottom border-element"></div>
+	<div class="content bg-background">
 		{@render children()}
+	</div>
+
+	<!-- SVG Border -->
+	<div class="pointer-events-none fixed inset-0 z-50">
+		<svg width="100%" height="100%" preserveAspectRatio="none">
+			<path
+				bind:this={pathElement}
+				class="border-path stroke-muted-foreground fill-none"
+				d={pathData}
+				style:--path-length={pathLength}
+				stroke-width="2"
+			/>
+		</svg>
 	</div>
 </div>
 
-<div class="svg-container">
-	<svg width="100%" height="100%" preserveAspectRatio="none">
-		<path
-			bind:this={pathElement}
-			class="border-path stroke-muted-foreground fill-none stroke-2"
-			d={pathData}
-			style:--path-length={pathLength}
-		/>
-	</svg>
-</div>
-
 <style>
-	.border-container {
+	.border-element {
 		position: fixed;
-		overflow-y: auto;
+		z-index: 40;
+		@apply bg-background/70 backdrop-blur-sm;
 	}
 
-	.svg-container {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
+	.content {
+		overflow: hidden;
+		padding: calc(var(--padding) * 2);
+	}
+
+	.top,
+	.bottom {
+		inset-inline: 0;
+		height: var(--padding);
+	}
+
+	.bottom {
+		bottom: 0;
+	}
+
+	.left {
+		width: var(--padding);
+		top: var(--padding);
+		bottom: var(--padding);
+	}
+
+	.right {
+		top: var(--padding);
+		bottom: var(--padding);
+		width: var(--padding);
+		right: 0;
 	}
 
 	.border-path {
