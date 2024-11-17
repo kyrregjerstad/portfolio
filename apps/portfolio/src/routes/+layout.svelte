@@ -27,11 +27,10 @@
 <Analytics />
 <SEO {...data.SEO} />
 <Socials />
-<div class="relative h-dvh overflow-hidden">
+<div class="relative overflow-hidden">
 	<Border>
-		<main class="border-foreground no-scrollbar relative flex h-full flex-col overflow-auto p-16">
+		<main class=" no-scrollbar relative flex flex-col p-16">
 			{@render children()}
-			<Footer />
 		</main>
 	</Border>
 	<Toaster />

@@ -5,6 +5,7 @@
 		children: Snippet;
 		padding?: number;
 	};
+	import Footer from '@/components/Footer.svelte';
 
 	let { children, padding = 32 }: Props = $props();
 
@@ -66,6 +67,7 @@
 
 	<div class="bg-background h-dvh overflow-auto">
 		{@render children()}
+		<Footer />
 	</div>
 
 	<div class="pointer-events-none fixed inset-0 z-50">
