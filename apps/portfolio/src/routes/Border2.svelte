@@ -53,11 +53,18 @@
 </script>
 
 <div class="h-dvh w-full overflow-auto" bind:this={container} style="--padding: {padding}px">
-	<div class="top border-element"></div>
-	<div class="left border-element"></div>
-	<div class="right border-element"></div>
-	<div class="bottom border-element"></div>
-	<div class="content bg-background">
+	<div class="border-element fixed inset-x-0 top-0" style="height: var(--padding)"></div>
+	<div
+		class="border-element fixed left-0"
+		style="top: var(--padding); bottom: var(--padding); width: var(--padding)"
+	></div>
+	<div
+		class="border-element fixed right-0"
+		style="top: var(--padding); bottom: var(--padding); width: var(--padding)"
+	></div>
+	<div class="border-element fixed inset-x-0 bottom-0" style="height: var(--padding)"></div>
+
+	<div class="bg-background overflow-hidden" style="padding: calc(var(--padding) * 2)">
 		{@render children()}
 	</div>
 
@@ -76,40 +83,9 @@
 
 <style>
 	.border-element {
-		position: fixed;
-		z-index: 40;
 		background-image: radial-gradient(transparent 1px, #10100e 1px);
-		background-color: transparent;
 		background-size: 4px 4px;
-		@apply backdrop-blur-sm;
-	}
-
-	.content {
-		overflow: hidden;
-		padding: calc(var(--padding) * 2);
-	}
-
-	.top,
-	.bottom {
-		inset-inline: 0;
-		height: var(--padding);
-	}
-
-	.bottom {
-		bottom: 0;
-	}
-
-	.left {
-		width: var(--padding);
-		top: var(--padding);
-		bottom: var(--padding);
-	}
-
-	.right {
-		top: var(--padding);
-		bottom: var(--padding);
-		width: var(--padding);
-		right: 0;
+		@apply z-40 bg-transparent backdrop-blur-sm;
 	}
 
 	.border-path {
