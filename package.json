@@ -6,6 +6,7 @@
 		"dev": "pnpm -r dev",
 		"build": "pnpm -r build",
 		"format": "prettier --cache --write .",
+		"check": "turbo check",
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
 		"prettier-check": "prettier --plugin-search-dir . --check .",
 		"sanity": "pnpm --filter @k/sanity",
