@@ -59,7 +59,7 @@
 		<Divider class="" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
-			<List items={projects} />
+			<List items={projects.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))} />
 		</div>
 		<Divider />
 		<section>
