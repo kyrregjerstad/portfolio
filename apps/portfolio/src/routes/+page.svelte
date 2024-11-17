@@ -85,7 +85,7 @@
 
 	.hero-text {
 		opacity: 1;
-		transition: opacity 1s 5s ease-in-out;
+		transition: opacity 1s 3s ease-in-out;
 	}
 
 	@starting-style {
