@@ -11,6 +11,7 @@
 	import type { Snippet } from 'svelte';
 	import SEO from '@/components/SEO.svelte';
 	import Border from './Border.svelte';
+	import { scrollStore } from '@/lib/stores/scrollStore.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));

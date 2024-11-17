@@ -6,6 +6,7 @@
 	import type { PageData } from './$types';
 	import { scrollToTop } from '@/lib/utils';
 	import List from '@/components/List.svelte';
+	import ProjectCards from './ProjectCards.svelte';
 
 	type Props = {
 		data: PageData & {
@@ -55,9 +56,9 @@
 	<div class="from-background gradient-blur dots absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent"></div>
 	<div class="mx-auto max-w-7xl">
 		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
-		<div>
-			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
-			<List items={projects.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))} />
+		<div class="min-h-screen">
+			<h2 class="bg-background sticky top-8 z-10 pb-4 text-4xl font-bold">Projects</h2>
+			<ProjectCards {projects} />
 		</div>
 		<Divider />
 		<section>

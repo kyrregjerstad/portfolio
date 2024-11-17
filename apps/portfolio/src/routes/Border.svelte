@@ -6,6 +6,7 @@
 		padding?: number;
 	};
 	import Footer from '@/components/Footer.svelte';
+	import { scrollStore } from '@/lib/stores/scrollStore.svelte';
 
 	let { children, padding = 32 }: Props = $props();
 
@@ -65,7 +66,13 @@
 	></div>
 	<div class="border-element fixed inset-x-0 bottom-0" style="height: var(--padding)"></div>
 
-	<div class="bg-background h-dvh overflow-auto" id="page-content">
+	<div
+		class="bg-background h-dvh overflow-auto"
+		id="page-content"
+		onscroll={(e) => {
+			scrollStore.scrollY = e.currentTarget.scrollTop || 0;
+		}}
+	>
 		{@render children()}
 		<Footer />
 	</div>
