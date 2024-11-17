@@ -4,14 +4,13 @@
 	import { browser } from '$app/environment';
 	import { Toaster } from 'svelte-sonner';
 	import posthog from 'posthog-js';
-	import Border from './Border.svelte';
 	import Analytics from '@/components/Analytics.svelte';
 	import Footer from '@/components/Footer.svelte';
 	import Socials from '@/components/Socials.svelte';
-	import type { LayoutData, LayoutServerData } from './$types';
+	import type { LayoutServerData } from './$types';
 	import type { Snippet } from 'svelte';
 	import SEO from '@/components/SEO.svelte';
-	import Border2 from './Border2.svelte';
+	import Border from './Border.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -29,11 +28,11 @@
 <SEO {...data.SEO} />
 <Socials />
 <div class="relative h-dvh overflow-hidden">
-	<Border2>
-		<main class="border-foreground flex h-full flex-col overflow-auto">
+	<Border>
+		<main class="border-foreground no-scrollbar relative flex h-full flex-col overflow-auto p-16">
 			{@render children()}
 			<Footer />
 		</main>
-	</Border2>
+	</Border>
 	<Toaster />
 </div>
