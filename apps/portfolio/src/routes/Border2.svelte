@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
-	import { cn } from '$lib/utils';
 
 	type Props = {
 		children: Snippet;
 		padding?: number;
-		backgroundColor?: string;
 	};
 
 	let { children, padding = 32 }: Props = $props();
@@ -63,7 +61,6 @@
 		{@render children()}
 	</div>
 
-	<!-- SVG Border -->
 	<div class="pointer-events-none fixed inset-0 z-50">
 		<svg width="100%" height="100%" preserveAspectRatio="none">
 			<path
@@ -81,7 +78,10 @@
 	.border-element {
 		position: fixed;
 		z-index: 40;
-		@apply bg-background/70 backdrop-blur-sm;
+		background-image: radial-gradient(transparent 1px, #10100e 1px);
+		background-color: transparent;
+		background-size: 4px 4px;
+		@apply backdrop-blur-sm;
 	}
 
 	.content {
