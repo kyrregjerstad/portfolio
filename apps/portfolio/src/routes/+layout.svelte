@@ -28,13 +28,10 @@
 <Analytics />
 <SEO {...data.SEO} />
 <Socials />
-<div class="border-background relative h-dvh overflow-hidden">
-	<!-- <Border firstVisit={data.firstVisit} /> -->
+<div class="relative h-dvh overflow-hidden">
 	<Border2>
-		<main class="border-foreground no-scrollbar flex h-full min-h-[calc(100dvh_-_5rem)] flex-col overflow-auto">
-			<div class="flex w-full flex-col">
-				{@render children()}
-			</div>
+		<main class="border-foreground flex h-full flex-col overflow-auto">
+			{@render children()}
 			<Footer />
 		</main>
 	</Border2>

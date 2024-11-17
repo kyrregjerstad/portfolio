@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
 
 	type Props = {
 		children: Snippet;
@@ -91,7 +91,7 @@
 	.border-path {
 		stroke-dasharray: var(--path-length);
 		stroke-dashoffset: var(--path-length);
-		animation: draw-border 3.5s 500ms ease-in-out forwards;
+		animation: draw-border 3.5s 500ms cubic-bezier(0.4, 0, 0.35, 1) forwards;
 	}
 
 	@keyframes draw-border {
