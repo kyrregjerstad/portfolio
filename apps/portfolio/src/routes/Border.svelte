@@ -65,7 +65,7 @@
 	></div>
 	<div class="border-element fixed inset-x-0 bottom-0" style="height: var(--padding)"></div>
 
-	<div class="bg-background h-dvh overflow-auto">
+	<div class="bg-background h-dvh overflow-auto" id="page-content">
 		{@render children()}
 		<Footer />
 	</div>

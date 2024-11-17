@@ -57,7 +57,7 @@ export const flyAndScale = (
 
 // since we are wrapping the body and using the frame around the whole page, we need to scroll to the top of the page manually
 export function scrollToTop() {
-	const mainElement = document.querySelector('main');
+	const mainElement = document.getElementById('page-content');
 	mainElement?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
