@@ -37,16 +37,14 @@
 				Hei, I'm Kyrre!
 			</h1>
 			<h2 class="text-pretty text-lg sm:mb-12 lg:text-xl">
-				A fullstack Typescript developer specialized in
-				<strong> SvelteKit </strong>
-				and
-				<strong> NextJS. </strong>
+				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
+				<strong>Next.js</strong>.
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
 			<p class="prose py-8 text-lg">
-				I am passionate about creating visually appealing and functional products that offer a great user experience.
-				Whether building complex web applications or optimizing existing platforms, I am committed to delivering clean,
-				efficient code. Explore my portfolio below to see a range of professional and academic projects I've worked on.
+				I develop clean, performant solutions that solve real business problems. My work spans from crafting intuitive
+				user interfaces to designing scalable backend systems. Check out my projects below to see how I've helped
+				companies ship better products faster.
 			</p>
 		</div>
 	</div>
