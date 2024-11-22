@@ -6,6 +6,7 @@
 	import type { PageData } from './$types';
 	import { scrollToTop } from '@/lib/utils';
 	import List from '@/components/List.svelte';
+	import { MapPin, Pin } from 'lucide-svelte';
 
 	type Props = {
 		data: PageData & {
@@ -32,20 +33,25 @@
 	>
 		<div class="hero-text sm:text-justify">
 			<h1
-				class="mb-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
+				class="flex items-end gap-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
 			>
 				Hei, I'm Kyrre!
 			</h1>
-			<h2 class="text-pretty text-lg sm:mb-12 lg:text-xl">
+
+			<h2 class="text-pretty pt-4 text-lg sm:pb-12 lg:text-xl">
 				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
 				<strong>Next.js</strong>.
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
-			<p class="prose py-8 text-lg">
+			<p class="prose text-lg">
 				I develop clean, performant solutions that solve real business problems. My work spans from crafting intuitive
 				user interfaces to designing scalable backend systems. Check out my projects below to see how I've helped
 				companies ship better products faster.
 			</p>
+			<span class="flex items-center gap-1 text-pretty pt-8 text-sm font-normal">
+				<MapPin size={12} />
+				Berlin
+			</span>
 		</div>
 	</div>
 </div>
