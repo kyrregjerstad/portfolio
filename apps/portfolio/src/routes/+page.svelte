@@ -57,7 +57,7 @@
 	<div class="mx-auto max-w-7xl">
 		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
 		<div class="min-h-screen">
-			<h2 class="bg-background sticky top-8 z-10 pb-4 text-4xl font-bold">Projects</h2>
+			<h2 class=" sticky top-8 z-10 py-4 text-4xl font-bold">Projects</h2>
 			<ProjectCards {projects} />
 		</div>
 		<Divider />
