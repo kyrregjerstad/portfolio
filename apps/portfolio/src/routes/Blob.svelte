@@ -74,6 +74,7 @@
 		aspect-ratio: 1;
 		z-index: 3;
 		pointer-events: none;
+		mix-blend-mode: lighten;
 	}
 
 	:global([data-firstVisit='true'] .intro-animation) {
