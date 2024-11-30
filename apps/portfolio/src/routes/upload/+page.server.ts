@@ -1,20 +1,17 @@
-import { R2_ACCESS_KEY_ID, R2_ACCOUNT_ID, R2_BUCKET_NAME, R2_SECRET_ACCESS_KEY } from '$env/static/private';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { nanoid } from 'nanoid';
+import { R2_ACCOUNT_ID, R2_BUCKET_NAME } from '$env/static/private';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { customAlphabet } from 'nanoid';
+
+// Create a shorter ID generator (6 characters should be enough for personal use)
+
 import type { Actions } from './$types';
 
+import { s3 } from '@/lib/server/s3';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fileUploadSchema } from './fileUploadSchema';
 
-const s3 = new S3Client({
-	region: 'auto',
-	endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-	credentials: {
-		accessKeyId: R2_ACCESS_KEY_ID,
-		secretAccessKey: R2_SECRET_ACCESS_KEY,
-	},
-});
+const generateId = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 6);
 
 export const load = async () => {
 	return {
@@ -38,7 +35,7 @@ export const actions = {
 				return fail(400, { error: 'No file provided' });
 			}
 
-			const fileId = nanoid();
+			const fileId = generateId();
 			const fileExtension = file.name.split('.').pop();
 			const key = `${fileId}${fileExtension ? `.${fileExtension}` : ''}`;
 
@@ -55,9 +52,8 @@ export const actions = {
 				})
 			);
 
-			const url = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${key}`;
-
-			return message(form, 'You have uploaded a valid file!');
+			const url = `/k/${fileId}`;
+			return message(form, { message: 'File uploaded successfully!', url });
 		} catch (err) {
 			console.error(err);
 			return fail(500, { error: 'Failed to upload file' });
