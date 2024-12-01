@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import { Label } from '$lib/components/ui/label';
 
+	import { Card } from '@/lib/components/ui/card';
 	import { fileProxy, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { fileUploadSchema } from './fileUploadSchema';
@@ -40,27 +40,22 @@
 
 		<!-- Show success message and URL if available -->
 		{#if $message}
-			<div class="relative rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
+			<Card class="relative rounded border p-4">
 				<p>{$message.message}</p>
 				{#if uploadedUrl}
 					<div class="mt-2">
 						<p class="font-semibold">File URL:</p>
-						<a
-							href={uploadedUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="break-all text-blue-600 hover:text-blue-800"
-						>
+						<a href={uploadedUrl} class="break-all text-blue-600 hover:text-blue-800">
 							{uploadedUrl}
 						</a>
 					</div>
 				{/if}
-			</div>
+			</Card>
 		{/if}
 
 		<form method="POST" action="?/upload" enctype="multipart/form-data" use:enhance class="space-y-4">
 			<div>
-				<Label for="file">File</Label>
+				<label for="file">File</label>
 				<input id="file" name="file" type="file" bind:files={$file} class="mt-1" accept="*/*" />
 				{#if $errors.file}
 					<p class="text-red-500">{$errors.file}</p>
@@ -68,7 +63,7 @@
 			</div>
 
 			<div>
-				<Label for="expiry">Delete after</Label>
+				<label for="expiry">Delete after</label>
 				<select id="expiry" name="expiryHours" bind:value={$form.expiryHours} class="mt-1 text-black">
 					{#each expiryOptions as option}
 						<option value={option.value}>{option.label}</option>
