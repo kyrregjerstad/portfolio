@@ -1,26 +1,32 @@
-import { R2_ACCOUNT_ID, R2_BUCKET_NAME } from '$env/static/private';
+import { GITHUB_USERNAME, R2_BUCKET_NAME } from '$env/static/private';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { customAlphabet } from 'nanoid';
-
-// Create a shorter ID generator (6 characters should be enough for personal use)
-
 import type { Actions } from './$types';
 
 import { s3 } from '@/lib/server/s3';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fileUploadSchema } from './fileUploadSchema';
+import { redirect } from '@sveltejs/kit';
 
-const generateId = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 6);
+const generateId = customAlphabet('23456789abcdefghjkmnpqrstuvwxyz', 6);
 
-export const load = async () => {
+export const load = async ({ locals }) => {
+	if (locals.user?.username !== GITHUB_USERNAME) {
+		throw redirect(307, '/login');
+	}
+
 	return {
 		form: await superValidate(zod(fileUploadSchema)),
 	};
 };
 
 export const actions = {
-	upload: async ({ request }) => {
+	upload: async ({ request, locals }) => {
+		if (locals.user?.username !== GITHUB_USERNAME) {
+			throw redirect(307, '/login');
+		}
+
 		try {
 			const form = await superValidate(request, zod(fileUploadSchema));
 

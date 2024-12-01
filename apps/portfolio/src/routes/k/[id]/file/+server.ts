@@ -37,7 +37,7 @@ export const GET: RequestHandler = async ({ params }) => {
 		return new Response(obj.Body as ReadableStream, {
 			headers: {
 				'Content-Type': obj.ContentType || 'application/octet-stream',
-				'Content-Disposition': `inline; filename="${obj.Metadata?.originalName || id}"`,
+				'Content-Disposition': `inline; filename="${obj.Metadata?.originalname || id}"`,
 				// Add cache headers - cache for 1 hour unless file is close to expiry
 				'Cache-Control': expiryTime
 					? `public, max-age=${Math.min(3600, Math.floor((expiryTime - Date.now()) / 1000))}`

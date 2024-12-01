@@ -3,6 +3,7 @@
 	import type { PageData } from './$types';
 	import Button from '@/lib/components/ui/button/button.svelte';
 	import { Download } from 'lucide-svelte';
+	import { buttonVariants } from '@/lib/components/ui/button';
 
 	let { data }: { data: PageData } = $props();
 
@@ -23,37 +24,37 @@
 	function downloadFile() {
 		const a = document.createElement('a');
 		a.href = data.fileUrl;
-		a.download = data.metadata.originalName;
+		a.download = data.metadata.originalname;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
 	}
 </script>
 
-<div class="container mx-auto max-w-4xl py-8">
+<div class="container mx-auto min-h-dvh max-w-4xl py-8">
 	<Card class="p-6">
 		<div class="mb-4 flex items-center justify-between">
 			<div>
-				<h1 class="text-2xl font-bold">{data.metadata.originalName}</h1>
+				<h1 class="text-2xl font-bold text-white">{data.metadata.originalname}</h1>
 				<p class="text-muted-foreground text-sm">
 					{formatFileSize(data.size)}
 				</p>
 			</div>
-			<Button onclick={downloadFile} variant="outline">
+			<a href={data.fileUrl} download={data.metadata.originalname} class={buttonVariants({ variant: 'outline' })}>
 				<Download class="mr-2 h-4 w-4" />
 				Download
-			</Button>
+			</a>
 		</div>
 
 		<div class="mt-6">
 			{#if isImage}
 				<img
 					src={data.fileUrl}
-					alt={data.metadata.originalName}
+					alt={data.metadata.originalname}
 					class="max-h-[70vh] w-full rounded-lg object-contain"
 				/>
 			{:else if isPdf}
-				<iframe src={data.fileUrl} title={data.metadata.originalName} class="h-[70vh] w-full rounded-lg"></iframe>
+				<iframe src={data.fileUrl} title={data.metadata.originalname} class="h-[70vh] w-full rounded-lg"></iframe>
 			{:else if isText}
 				<pre class="bg-muted max-h-[70vh] overflow-auto rounded-lg p-4 font-mono">
                   <code>{data.content}</code>
