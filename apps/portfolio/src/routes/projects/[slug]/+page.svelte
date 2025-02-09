@@ -13,7 +13,7 @@
 	import { scrollToTop } from '@/lib/utils';
 
 	let { data, form: likeFormAction } = $props();
-	let { project, nextProject, prevProject, likes } = $derived(data);
+	let { project, nextProject, prevProject, likes, userHasLikedMaxTimes } = $derived(data);
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
@@ -89,7 +89,7 @@
 {/if}
 
 <div class="flex w-full items-center justify-center py-8">
-	<Likes {likes} {likeFormAction} />
+	<Likes {likes} {likeFormAction} {userHasLikedMaxTimes} />
 </div>
 
 <div class="flex-1"></div>

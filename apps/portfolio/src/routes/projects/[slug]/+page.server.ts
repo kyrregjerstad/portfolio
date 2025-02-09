@@ -6,7 +6,7 @@ import { and, eq, sql } from 'drizzle-orm';
 
 import { q, sanityImage } from 'groqd';
 
-export const load = async ({ params }) => {
+export const load = async ({ params, getClientAddress }) => {
 	const { slug } = params;
 
 	// TODO: refactor to be parallel
@@ -52,11 +52,15 @@ export const load = async ({ params }) => {
 	const nextProject = allProjects.projects[projectIndex + 1];
 	const prevProject = allProjects.projects[projectIndex - 1];
 
+	const clientAddress = getClientAddress() || 'unknown';
+	const userHasLikedMaxTimes = (await getPreviousLikesByUser(slug, clientAddress)) >= 12;
+
 	return {
 		project,
 		nextProject,
 		prevProject,
 		likes: await getPageLikes(slug),
+		userHasLikedMaxTimes: userHasLikedMaxTimes,
 	};
 };
 
