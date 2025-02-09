@@ -4,7 +4,7 @@ type Velocity = { x: number; y: number };
 const GRAVITY = 0.1;
 const FADE_RATE = 0.005;
 const INITIAL_SCALE = 0.5;
-const DEFAULT_SPEED = 1; // Speed multiplier for all motion
+const DEFAULT_SPEED = 1;
 
 type ParticlesOptions = {
 	count?: number;
@@ -51,10 +51,7 @@ export class Particles {
 	private speed = $state(DEFAULT_SPEED);
 	private animationFrame: number | null = null;
 
-	constructor(
-		private target: HTMLElement,
-		options: { count?: number; speed?: number } = {}
-	) {
+	constructor(options: ParticlesOptions = {}) {
 		this.count = options.count ?? 8;
 		this.speed = options.speed ?? DEFAULT_SPEED;
 	}
@@ -69,8 +66,8 @@ export class Particles {
 		}
 	}
 
-	trigger() {
-		const rect = this.target.getBoundingClientRect();
+	trigger(target: HTMLElement) {
+		const rect = target.getBoundingClientRect();
 		const position = {
 			x: rect.left + rect.width / 2,
 			y: rect.top + rect.height / 2,
@@ -89,7 +86,11 @@ export class Particles {
 		return this.particles;
 	}
 
-	setSpeed(speed: number) {
-		this.speed = speed;
+	cleanup() {
+		if (this.animationFrame) {
+			cancelAnimationFrame(this.animationFrame);
+			this.animationFrame = null;
+		}
+		this.particles = [];
 	}
 }
