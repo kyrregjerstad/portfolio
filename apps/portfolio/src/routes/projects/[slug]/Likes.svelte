@@ -22,16 +22,11 @@
 		}
 	});
 
-	$effect(() => {
-		if (button) {
-			particles = new Particles(button);
+	const handleMouseDown = () => {
+		if (!particles && button) {
+			particles = new Particles(button, { speed: 0.75 });
 		}
-	});
-
-	const handleMouseDown = (event: MouseEvent) => {
 		likes++; // Optimistically increment likes
-		// scale.set(1.4); // Scale up
-		// setTimeout(() => scale.set(1), 150); // Scale back down
 		particles?.trigger();
 	};
 </script>

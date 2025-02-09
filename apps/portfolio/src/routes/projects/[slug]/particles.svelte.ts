@@ -1,50 +1,66 @@
-import { Spring } from 'svelte/motion';
+type Position = { x: number; y: number };
+type Velocity = { x: number; y: number };
 
-type Options = {
-	count: number;
+const GRAVITY = 0.1;
+const FADE_RATE = 0.005;
+const INITIAL_SCALE = 0.5;
+const DEFAULT_SPEED = 1; // Speed multiplier for all motion
+
+type ParticlesOptions = {
+	count?: number;
+	speed?: number;
+	gravity?: number;
+	fadeRate?: number;
+	initialScale?: number;
 };
 
 class Particle {
 	private static nextId = 0;
-	id: number;
-	position = $state({ x: 0, y: 0 });
-	velocity = $state({ x: 0, y: 0 });
+	readonly id = Particle.nextId++;
+	position = $state<Position>({ x: 0, y: 0 });
+	velocity = $state<Velocity>({ x: 0, y: 0 });
 	opacity = $state(1);
-	scale = $state(0.5 + Math.random() * 0.5);
+	scale = $state(INITIAL_SCALE + Math.random() * INITIAL_SCALE);
+	fadeRate: number;
+	initialScale: number;
+	gravity: number;
 
-	constructor(x: number, y: number) {
-		this.id = Particle.nextId++;
-		this.position = { x, y };
+	constructor(position: Position, options: ParticlesOptions) {
+		this.position = position;
 		this.velocity = {
-			x: (Math.random() - 0.5) * 4,
-			y: -Math.random() * 4 - 3,
+			x: (Math.random() - 0.5) * 4 * (options.speed ?? DEFAULT_SPEED),
+			y: (-Math.random() * 4 - 2) * (options.speed ?? DEFAULT_SPEED),
 		};
-		this.opacity = 1;
-		this.scale = 0.5 + Math.random() * 0.5;
+		this.fadeRate = options.fadeRate ?? FADE_RATE;
+		this.gravity = options.gravity ?? GRAVITY;
+		this.initialScale = options.initialScale ?? INITIAL_SCALE;
+	}
+
+	update(speed = DEFAULT_SPEED) {
+		this.position.x += this.velocity.x * speed;
+		this.position.y += this.velocity.y * speed;
+		this.velocity.y += this.gravity * speed;
+		this.opacity -= this.fadeRate * speed;
+		return this.opacity > 0;
 	}
 }
 
 export class Particles {
-	private target: HTMLElement;
-	private particles: Particle[] = $state([]);
+	private particles = $state<Particle[]>([]);
 	private count = $state(8);
+	private speed = $state(DEFAULT_SPEED);
 	private animationFrame: number | null = null;
 
-	constructor(target: HTMLElement, options: Options = { count: 8 }) {
-		this.target = target;
-		this.count = options.count;
+	constructor(
+		private target: HTMLElement,
+		options: { count?: number; speed?: number } = {}
+	) {
+		this.count = options.count ?? 8;
+		this.speed = options.speed ?? DEFAULT_SPEED;
 	}
 
 	private updateParticles() {
-		this.particles = this.particles
-			.map((p) => {
-				p.position.x += p.velocity.x;
-				p.position.y += p.velocity.y;
-				p.velocity.y += 0.15;
-				p.opacity -= 0.015;
-				return p;
-			})
-			.filter((p) => p.opacity > 0);
+		this.particles = this.particles.filter((p) => p.update(this.speed));
 
 		if (this.particles.length > 0) {
 			this.animationFrame = requestAnimationFrame(() => this.updateParticles());
@@ -53,22 +69,27 @@ export class Particles {
 		}
 	}
 
-	private spawnParticles(x: number, y: number) {
-		this.particles.push(...Array.from({ length: this.count }, () => new Particle(x, y)));
+	trigger() {
+		const rect = this.target.getBoundingClientRect();
+		const position = {
+			x: rect.left + rect.width / 2,
+			y: rect.top + rect.height / 2,
+		};
+
+		const newParticles = Array.from({ length: this.count }, () => new Particle(position, { speed: this.speed }));
+
+		this.particles.push(...newParticles);
+
 		if (!this.animationFrame) {
 			this.updateParticles();
 		}
 	}
 
-	trigger() {
-		const rect = this.target.getBoundingClientRect();
-		const centerX = rect.left + rect.width / 2;
-		const centerY = rect.top + rect.height / 2;
-
-		this.spawnParticles(centerX, centerY);
-	}
-
 	getParticles() {
 		return this.particles;
+	}
+
+	setSpeed(speed: number) {
+		this.speed = speed;
 	}
 }
