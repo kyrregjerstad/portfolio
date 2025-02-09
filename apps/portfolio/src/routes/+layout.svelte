@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '@/app.pcss';
+	import '@/app.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { Toaster } from 'svelte-sonner';
