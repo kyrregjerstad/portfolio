@@ -23,8 +23,11 @@
 	let isDown = $state(false);
 	let heartSFX = $state(new HeartSFX());
 	let isMaxCountReached = $derived(userHasLikedMaxTimes || heartSFX.getMaxCountReached());
+	let isTouchDevice = $state(false);
 
 	$effect(() => {
+		// Check if device supports touch events
+		isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 		return () => {
 			particleSystem.cleanup();
 		};
@@ -49,37 +52,66 @@
 		}
 	}
 
-	async function handleMouseDown(event: Event) {
-		isDown = true;
-		const target = event.target as HTMLElement;
-
+	async function triggerLike(target: HTMLElement) {
 		if (isMaxCountReached) {
 			return;
 		}
 
+		isDown = true;
 		void handleLike();
 
 		setTimeout(() => {
 			particleSystem.trigger(target);
-		}, 150); // short delay to time the animation better
+		}, 150);
 
-		likes++; // Optimistically increment likes
+		likes++;
 		heartSFX.increment();
+
+		// Reset states after animation
+		setTimeout(() => {
+			isDown = false;
+			if (isTouchDevice) {
+				isHovering = false;
+			}
+		}, 200);
+	}
+
+	function handleMouseDown(event: Event) {
+		if (isTouchDevice) return; // Skip for touch devices
+		void triggerLike(event.target as HTMLElement);
+	}
+
+	function handleTouchStart(event: TouchEvent) {
+		event.preventDefault(); // Prevent double-firing on some devices
+		isHovering = true; // Show hover state briefly on touch
+		void triggerLike(event.target as HTMLElement);
 	}
 
 	function handleMouseUp() {
+		if (isTouchDevice) return;
 		setTimeout(() => {
 			isDown = false;
-		}, 200); // short delay to time the animation better
+		}, 200);
 	}
 
 	function handleMouseEnter() {
-		isHovering = true;
+		if (!isTouchDevice) {
+			isHovering = true;
+		}
 	}
 
 	function handleMouseLeave() {
-		isHovering = false;
-		isDown = false;
+		if (!isTouchDevice) {
+			isHovering = false;
+			isDown = false;
+		}
+	}
+
+	function handleTouchEnd() {
+		setTimeout(() => {
+			isHovering = false;
+			isDown = false;
+		}, 200);
 	}
 </script>
 
@@ -91,6 +123,8 @@
 			onmouseup={handleMouseUp}
 			onmouseenter={handleMouseEnter}
 			onmouseleave={handleMouseLeave}
+			ontouchstart={handleTouchStart}
+			ontouchend={handleTouchEnd}
 			class={cn(
 				'z-20 transform select-none transition-transform',
 				{
