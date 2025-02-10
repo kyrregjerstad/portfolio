@@ -72,18 +72,18 @@
 	];
 </script>
 
-<div class="grid grid-cols-3 place-items-center gap-8 py-8 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8">
+<div class="grid grid-cols-3 place-items-center gap-4 pt-4 sm:grid-cols-3 sm:gap-8 md:grid-cols-4 xl:grid-cols-8">
 	{#each technologies as tech}
 		<a
 			href={tech.url}
 			target="_blank"
 			rel="noopener noreferrer"
 			class={cn(
-				'bg-accent-foreground/10 flex aspect-square w-32 flex-col items-center justify-center gap-2 rounded-md backdrop-blur-sm transition-transform hover:scale-110',
+				'bg-accent-foreground/10 flex aspect-square w-20 flex-col items-center justify-center gap-2 rounded-md backdrop-blur-sm transition-transform hover:scale-110 sm:w-32',
 				tech.filler && 'sm:hidden'
 			)}
 		>
-			<svg role="img" viewBox="0 0 24 24" class="size-12 fill-current transition-colors"
+			<svg role="img" viewBox="0 0 24 24" class="size-8 fill-current transition-colors sm:size-12"
 				><title>{tech.icon.title}</title><path d={tech.icon.path} /></svg
 			>
 			<span class="text-center text-sm font-medium">

@@ -3,11 +3,13 @@
 
 	import ContactForm from '@/components/ContactForm.svelte';
 	import Divider from '@/components/Divider.svelte';
-	import type { PageData } from './$types';
-	import { scrollToTop } from '@/lib/utils';
 	import List from '@/components/List.svelte';
-	import { MapPin, Pin } from 'lucide-svelte';
 	import Technologies from '@/components/Technologies.svelte';
+	import { MapPin } from 'lucide-svelte';
+	import type { PageData } from './$types';
+	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
+	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
+	import TwitterIconAnimated from '@/components/icons/TwitterIconAnimated.svelte';
 
 	type Props = {
 		data: PageData & {
@@ -30,7 +32,7 @@
 <Blob />
 <div class="sticky top-16 mx-auto h-full w-full max-w-7xl sm:top-16">
 	<div
-		class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col py-8 sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center"
+		class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center sm:py-8"
 	>
 		<div class="hero-text sm:text-justify">
 			<h1
@@ -38,8 +40,12 @@
 			>
 				Hei, I'm Kyrre!
 			</h1>
+			<span class="flex items-center gap-1 text-pretty text-sm font-normal">
+				<MapPin size={12} />
+				Berlin
+			</span>
 
-			<h2 class="text-pretty pt-4 text-lg sm:pb-12 lg:text-xl">
+			<h2 class="text-pretty pb-8 pt-4 text-lg sm:pb-12 lg:text-xl">
 				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
 				<strong>Next.js</strong>.
 			</h2>
@@ -49,10 +55,25 @@
 				user interfaces to designing scalable backend systems. Check out my projects below to see how I've helped
 				companies ship better products faster.
 			</p>
-			<span class="flex items-center gap-1 text-pretty pt-8 text-sm font-normal">
-				<MapPin size={12} />
-				Berlin
-			</span>
+
+			<div class="flex items-center gap-3 pt-8">
+				<a href="https://github.com/kyrregjerstad" target="_blank" class="transition-transform hover:scale-110">
+					<span class="sr-only">GitHub</span>
+					<GitHubIconAnimated size={2.5} />
+				</a>
+				<a
+					href="https://www.linkedin.com/in/kyrre-gjerstad/"
+					target="_blank"
+					class="transition-transform hover:scale-110"
+				>
+					<span class="sr-only">LinkedIn</span>
+					<LinkedInAnimated size={2.5} />
+				</a>
+				<a href="https://www.twitter.com/kyrregjerstad" target="_blank" class="transition-transform hover:scale-110">
+					<span class="sr-only">Twitter</span>
+					<TwitterIconAnimated size={2.3} />
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -62,7 +83,6 @@
 		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Technologies</h2>
-			<p class="prose text-lg">Here are some of the technologies I use every day.</p>
 			<Technologies />
 		</div>
 		<Divider />
