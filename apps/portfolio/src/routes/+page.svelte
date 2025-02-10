@@ -7,6 +7,7 @@
 	import { scrollToTop } from '@/lib/utils';
 	import List from '@/components/List.svelte';
 	import { MapPin, Pin } from 'lucide-svelte';
+	import Technologies from '@/components/Technologies.svelte';
 
 	type Props = {
 		data: PageData & {
@@ -59,6 +60,12 @@
 	<div class="from-background gradient-blur dots absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent"></div>
 	<div class="mx-auto max-w-7xl">
 		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
+		<div>
+			<h2 class="pb-4 text-3xl font-bold">Technologies</h2>
+			<p class="prose text-lg">Here are some of the technologies I use every day.</p>
+			<Technologies />
+		</div>
+		<Divider />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
 			<List items={projects.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))} />
