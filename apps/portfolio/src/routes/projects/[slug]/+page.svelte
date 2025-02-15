@@ -12,8 +12,11 @@
 	import PortableText from '@/lib/portableText/PortableText.svelte';
 	import { scrollToTop } from '@/lib/utils';
 
-	let { data, form: likeFormAction } = $props();
-	let { project, nextProject, prevProject, likes, userHasLikedMaxTimes } = $derived(data);
+	let { data } = $props();
+	let { project, nextProject, prevProject, likes, previousLikesByUser } = $derived(data);
+	let totalLikesByUser = $derived(previousLikesByUser);
+
+	$inspect('totalLikesByUser page', totalLikesByUser);
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
@@ -89,7 +92,7 @@
 {/if}
 
 <div class="flex w-full items-center justify-center py-8">
-	<Likes {likes} {likeFormAction} {userHasLikedMaxTimes} />
+	<Likes {likes} {totalLikesByUser} />
 </div>
 
 <div class="flex-1"></div>

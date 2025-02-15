@@ -1,15 +1,14 @@
 <script lang="ts">
-	import '@/app.css';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import { Toaster } from 'svelte-sonner';
-	import posthog from 'posthog-js';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import '@/app.css';
 	import Analytics from '@/components/Analytics.svelte';
-	import Footer from '@/components/Footer.svelte';
-	import Socials from '@/components/Socials.svelte';
-	import type { LayoutServerData } from './$types';
-	import type { Snippet } from 'svelte';
 	import SEO from '@/components/SEO.svelte';
+	import Socials from '@/components/Socials.svelte';
+	import posthog from 'posthog-js';
+	import type { Snippet } from 'svelte';
+	import { Toaster } from 'svelte-sonner';
+	import type { LayoutServerData } from './$types';
 	import Border from './Border.svelte';
 
 	if (browser) {

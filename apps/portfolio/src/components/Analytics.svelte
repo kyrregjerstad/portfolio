@@ -9,6 +9,8 @@
 			posthog.init(PUBLIC_POSTHOG_API_KEY, {
 				api_host: 'https://eu.i.posthog.com',
 				person_profiles: 'always',
+				capture_pageview: false,
+				capture_pageleave: false,
 			});
 		}
 	});

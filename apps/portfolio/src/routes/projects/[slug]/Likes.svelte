@@ -5,26 +5,26 @@
 	import { HeartSFX } from './heart-sfx.svelte';
 	import { Particles } from './particles.svelte';
 	import { page } from '$app/state';
+	import { MAX_LIKES_PER_USER } from '@/lib/config';
 
 	type Props = {
 		likes: number;
-		likeFormAction: {
-			likeCount: number;
-			message?: string;
-		} | null;
-		userHasLikedMaxTimes: boolean;
+		totalLikesByUser: number;
 	};
 
-	let { likes, userHasLikedMaxTimes }: Props = $props();
+	let { likes, totalLikesByUser }: Props = $props();
 
 	let particleSystem = $state<Particles>(new Particles({ speed: 0.75 }));
 	let particles = $derived(particleSystem.getParticles() || []);
 	let isHovering = $state(false);
 	let isDown = $state(false);
 	let heartSFX = $state(new HeartSFX());
-	let isMaxCountReached = $derived(userHasLikedMaxTimes || heartSFX.getMaxCountReached());
+
+	let isMaxCountReached = $derived(totalLikesByUser >= MAX_LIKES_PER_USER);
 	let isTouchDevice = $state(false);
 
+	$inspect('totalLikesByUser component', totalLikesByUser);
+	$inspect('isMaxCountReached component', isMaxCountReached);
 	$effect(() => {
 		// Check if device supports touch events
 		isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -34,6 +34,7 @@
 	});
 
 	async function handleLike() {
+		totalLikesByUser++;
 		const response = await fetch(`/api/like/${page.params.slug}`, {
 			method: 'PUT',
 		});
@@ -41,13 +42,18 @@
 		console.log('response', response);
 
 		if (!response.ok) {
-			// likes++;
+			totalLikesByUser--;
 			console.error(response);
 			return;
 		}
 
+		const data = await response.json();
+
+		if (data.likeCount) {
+			// reconcile the likes count with the server
+			likes = data.likeCount;
+		}
 		if (response.status === 400) {
-			const data = await response.json();
 			console.error(data);
 		}
 	}
@@ -65,7 +71,7 @@
 		}, 150);
 
 		likes++;
-		heartSFX.increment();
+		heartSFX.increment(totalLikesByUser);
 
 		// Reset states after animation
 		setTimeout(() => {
@@ -78,6 +84,7 @@
 
 	function handleMouseDown(event: Event) {
 		if (isTouchDevice) return; // Skip for touch devices
+		rotate = randomRotate();
 		void triggerLike(event.target as HTMLElement);
 	}
 
@@ -96,6 +103,7 @@
 
 	function handleMouseEnter() {
 		if (!isTouchDevice) {
+			rotate = randomRotate();
 			isHovering = true;
 		}
 	}
@@ -113,6 +121,12 @@
 			isDown = false;
 		}, 200);
 	}
+
+	function randomRotate() {
+		return Math.random() * 45 - 22.5;
+	}
+
+	let rotate = $state(0);
 </script>
 
 <div class="flex flex-col items-center justify-center gap-2">
@@ -126,14 +140,13 @@
 			ontouchstart={handleTouchStart}
 			ontouchend={handleTouchEnd}
 			class={cn(
-				'z-20 transform select-none transition-transform',
-				{
-					'animate-scale-bounce rotate-12 scale-110': isHovering && !isMaxCountReached,
-				},
+				' z-20 transform select-none transition-transform',
+				isHovering && !isMaxCountReached && `animate-scale-bounce random-rotate`,
 				{
 					'rotate-0 scale-90': isDown && !isMaxCountReached,
 				}
 			)}
+			style={`--rotate: ${rotate}deg`}
 			type="submit">❤️</button
 		>
 		<div class="pointer-events-none fixed inset-0">
@@ -160,3 +173,9 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	.random-rotate {
+		transform: rotate(var(--rotate)) scale(1.5);
+	}
+</style>

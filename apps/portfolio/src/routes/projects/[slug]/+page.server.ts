@@ -53,14 +53,13 @@ export const load = async ({ params, getClientAddress }) => {
 	const prevProject = allProjects.projects[projectIndex - 1];
 
 	const clientAddress = getClientAddress() || 'unknown';
-	const userHasLikedMaxTimes = (await getPreviousLikesByUser(slug, clientAddress)) >= 12;
 
 	return {
 		project,
 		nextProject,
 		prevProject,
 		likes: await getPageLikes(slug),
-		userHasLikedMaxTimes: userHasLikedMaxTimes,
+		previousLikesByUser: await getPreviousLikesByUser(slug, clientAddress),
 	};
 };
 
