@@ -2,24 +2,34 @@
 	import Divider from '@/components/Divider.svelte';
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
-	import TwitterIconAnimated from '@/components/icons/TwitterIconAnimated.svelte';
+	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
 	import { HeartIcon } from 'lucide-svelte';
+	import posthog from 'posthog-js';
 </script>
 
 <Divider class="my-0 sm:my-0" />
 <footer class="flex w-full flex-col items-center justify-center py-12 text-sm">
 	<div class="flex items-center justify-center gap-2">
-		<a href="https://www.linkedin.com/in/kyrre-gjerstad/" target="_blank">
+		<a
+			href="https://www.linkedin.com/in/kyrre-gjerstad/"
+			target="_blank"
+			onclick={() => posthog.capture('click_linkedin')}
+		>
 			<span class="sr-only"> LinkedIn </span>
 			<LinkedInAnimated />
 		</a>
-		<a href="https://github.com/kyrregjerstad" target="_blank">
+		<a href="https://github.com/kyrregjerstad" target="_blank" onclick={() => posthog.capture('click_github')}>
 			<span class="sr-only"> GitHub </span>
 			<GitHubIconAnimated size={4.5} />
 		</a>
-		<a href="https://www.twitter.com/kyrregjerstad" target="_blank">
-			<span class="sr-only"> Twitter </span>
-			<TwitterIconAnimated />
+		<a
+			href="https://bsky.app/profile/kyrre.dev"
+			target="_blank"
+			class="transition-transform hover:scale-110"
+			onclick={() => posthog.capture('click_bsky')}
+		>
+			<span class="sr-only">BSky</span>
+			<BskyAnimated size={2.3} />
 		</a>
 	</div>
 
