@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { spring } from 'svelte/motion';
+	import { Spring } from 'svelte/motion';
 
 	let { innerWidth, innerHeight } = $state({ innerWidth: 0, innerHeight: 0 });
-	const blobX = spring(0, { stiffness: 0.001, damping: 0.09 });
-	const blobY = spring(0, { stiffness: 0.001, damping: 0.09 });
+	let scrollY = $state(0);
+	let blob = new Spring({ x: 0, y: 0, scale: 1 }, { stiffness: 0.001, damping: 0.09 });
 
 	function updateBlobPosition(clientX: number, clientY: number) {
 		const divide = 4;
@@ -14,8 +14,11 @@
 		const deltaX = clientX - centerX;
 		const deltaY = clientY - centerY;
 
-		blobX.set(-deltaX / divide);
-		blobY.set(-deltaY / divide);
+		blob.target = {
+			...blob.current,
+			x: -deltaX / divide,
+			y: -deltaY / divide,
+		};
 	}
 </script>
 
@@ -23,17 +26,24 @@
 	on:mousemove|passive={({ clientX, clientY }) => {
 		updateBlobPosition(clientX, clientY);
 	}}
+	on:mousedown={() => {
+		blob.target = { ...blob.current, scale: 0.8 };
+	}}
+	on:mouseup={() => {
+		blob.target = { ...blob.current, scale: 1 };
+	}}
+	bind:scrollY
 	bind:innerWidth
 	bind:innerHeight
 />
 
 <div class="intro-animation">
-	<div class="blobs-wrapper" style:--x="{$blobX}px" style:--y="{$blobY}px">
+	<div class="blobs-wrapper" style="--x: {blob.current.x}px; --y: {blob.current.y}px; --scale: {blob.current.scale}">
 		<div
 			class="blob"
 			id="blob-1"
-			style:--offsetX="{$blobX}px"
-			style:--offsetY="{$blobY}px"
+			style:--offsetX="{blob.current.x}px"
+			style:--offsetY="{blob.current.y}px"
 			style:--scale-min="0.5"
 			style:--scale-max="1"
 			style:--animation-duration="10s"
@@ -43,8 +53,8 @@
 		<div
 			class="blob"
 			id="blob-2"
-			style:--offsetX="{$blobX * 0.2}px"
-			style:--offsetY="{$blobY * 0.2}px"
+			style:--offsetX="{blob.current.x * 0.2}px"
+			style:--offsetY="{blob.current.y * 0.2}px"
 			style:--scale-min="0.75"
 			style:--scale-max="1.25"
 			style:--animation-duration="8s"
@@ -54,8 +64,8 @@
 		<div
 			class="blob"
 			id="blob-3"
-			style:--offsetX="{$blobX * 0.6}px"
-			style:--offsetY="{$blobY * 0.6}px"
+			style:--offsetX="{blob.current.x * 0.6}px"
+			style:--offsetY="{blob.current.y * 0.6}px"
 			style:--scale-min="1"
 			style:--scale-max="1.25"
 			style:--animation-duration="6s"
@@ -84,10 +94,11 @@
 	.blobs-wrapper {
 		--x: 0px;
 		--y: 0px;
+		--scale: 1;
 		position: absolute;
 		opacity: 0.1;
 
-		transform: translate3d(var(--x), var(--y), 0);
+		transform: translate3d(var(--x), var(--y), 0) scale(var(--scale));
 		filter: blur(20px);
 
 		@media (min-width: 768px) {
