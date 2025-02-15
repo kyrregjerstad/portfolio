@@ -33,7 +33,7 @@
 	let { form: formData, enhance, errors } = form;
 </script>
 
-<form id="contact" method="POST" use:enhance class="flex max-w-lg flex-col gap-4" action="?/submitContactForm">
+<form id="contact" method="POST" use:enhance class="flex max-w-lg flex-col gap-4" action="/contact?/submitContactForm">
 	<Input
 		label="Name"
 		name="name"

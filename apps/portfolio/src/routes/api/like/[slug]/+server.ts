@@ -11,8 +11,6 @@ export const PUT: RequestHandler = async (event) => {
 
 	const res = await likePage(slug, clientAddress);
 
-	console.log('success', res);
-
 	if (res.success) {
 		return new Response(JSON.stringify(res), {
 			status: 200,
@@ -22,6 +20,25 @@ export const PUT: RequestHandler = async (event) => {
 	return new Response(JSON.stringify(res), {
 		status: 400,
 	});
+};
+
+export const GET: RequestHandler = async (event) => {
+	const slug = event.params.slug;
+	const clientAddress = event.getClientAddress();
+	const [likes, totalLikesByUser] = await Promise.all([
+		getPageLikes(slug),
+		getPreviousLikesByUser(slug, clientAddress),
+	]);
+
+	return new Response(
+		JSON.stringify({
+			likes,
+			totalLikesByUser,
+		}),
+		{
+			status: 200,
+		}
+	);
 };
 
 async function getPageLikes(slug: string) {

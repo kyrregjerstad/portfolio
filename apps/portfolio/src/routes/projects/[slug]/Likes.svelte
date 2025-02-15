@@ -6,12 +6,9 @@
 	import HeartButton from './HeartButton.svelte';
 	import { Particles } from './particles.svelte';
 
-	type Props = {
-		likes: number;
-		totalLikesByUser: number;
-	};
-
-	let { likes, totalLikesByUser }: Props = $props();
+	let likes = $state(0);
+	let totalLikesByUser = $state(0);
+	let isLoading = $state(true);
 
 	let particleSystem = $state<Particles>(new Particles({ speed: 0.75 }));
 	let particles = $derived(particleSystem.getParticles() || []);
@@ -21,6 +18,25 @@
 		return () => {
 			particleSystem.cleanup();
 		};
+	});
+
+	async function fetchLikes() {
+		try {
+			const response = await fetch(`/api/like/${page.params.slug}`);
+			if (!response.ok) throw new Error('Failed to fetch likes');
+
+			const data = await response.json();
+			likes = data.likes;
+			totalLikesByUser = data.totalLikesByUser;
+		} catch (error) {
+			console.error('Error fetching likes:', error);
+		} finally {
+			isLoading = false;
+		}
+	}
+
+	$effect(() => {
+		void fetchLikes();
 	});
 
 	async function handleLike() {
@@ -66,7 +82,13 @@
 </script>
 
 <div class="flex flex-col items-center justify-center gap-2">
-	<div class="select-none">{likes}</div>
+	<div class="select-none">
+		{#if isLoading}
+			<span class="text-muted-foreground">...</span>
+		{:else}
+			{likes}
+		{/if}
+	</div>
 	<div class="relative">
 		<HeartButton
 			{isMaxCountReached}
@@ -74,6 +96,7 @@
 			projectTitle={page.data.project.title}
 			onmousedown={({ currentTarget }) => triggerLike(currentTarget)}
 			ontouchstart={({ currentTarget }) => triggerLike(currentTarget)}
+			disabled={isLoading}
 		/>
 		<div class="pointer-events-none fixed inset-0">
 			{#each particles as particle (particle.id)}
@@ -94,7 +117,7 @@
 					y: 50,
 					easing: cubicOut,
 				}}
-				class="text-muted-foreground absolute -right-7 top-[3px] text-xs">max</span
+				class="text-muted-foreground absolute -right-7 top-[3px] select-none text-xs">max</span
 			>
 		{/if}
 	</div>

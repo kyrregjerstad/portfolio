@@ -161,7 +161,7 @@
 				'rotate-0 scale-90': isDown && !isMaxCountReached,
 			},
 			{
-				'pointer-events-none': isMaxCountReached,
+				'pointer-events-none': isMaxCountReached || htmlButtonProps.disabled,
 			}
 		)}
 		style={`--rotate: ${rotate}deg;`}>❤️</button
