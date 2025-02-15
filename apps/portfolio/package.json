@@ -71,7 +71,7 @@
 		"motion": "^11.11.17",
 		"nanoid": "^5.0.0",
 		"openai": "^4.72.0",
-		"posthog-js": "^1.186.1",
+		"posthog-js": "^1.218.1",
 		"simple-icons": "^14.6.0",
 		"svelte-sonner": "^0.3.28",
 		"tailwind-merge": "^2.5.4",
