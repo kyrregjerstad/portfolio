@@ -71,6 +71,7 @@
 		<HeartButton
 			{isMaxCountReached}
 			{totalLikesByUser}
+			projectTitle={page.data.project.title}
 			onmousedown={({ currentTarget }) => triggerLike(currentTarget)}
 			ontouchstart={({ currentTarget }) => triggerLike(currentTarget)}
 		/>

@@ -3,13 +3,15 @@
 	import { Spring } from 'svelte/motion';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { HeartSFX } from './heart-sfx.svelte';
+	import posthog from 'posthog-js';
 
 	type Props = HTMLButtonAttributes & {
 		isMaxCountReached: boolean;
 		totalLikesByUser: number;
+		projectTitle: string;
 	};
 
-	let { isMaxCountReached, totalLikesByUser, ...htmlButtonProps }: Props = $props();
+	let { isMaxCountReached, totalLikesByUser, projectTitle, ...htmlButtonProps }: Props = $props();
 
 	let isHovering = $state(false);
 	let isDown = $state(false);
@@ -77,6 +79,9 @@
 
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		if (isTouchDevice) return; // Skip for touch devices
+		posthog.capture('heart_button_click', {
+			projectTitle: projectTitle,
+		});
 		rotate = randomRotate();
 		htmlButtonProps.onmousedown?.(event);
 
@@ -93,6 +98,9 @@
 
 	function handleTouchStart(event: TouchEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		event.preventDefault(); // Prevent double-firing on some devices
+		posthog.capture('heart_button_click', {
+			projectTitle: projectTitle,
+		});
 		isHovering = true; // Show hover state briefly on touch
 		htmlButtonProps.ontouchstart?.(event);
 
