@@ -3,15 +3,15 @@
 
 	import ContactForm from '@/components/ContactForm.svelte';
 	import Divider from '@/components/Divider.svelte';
-	import List from '@/components/List.svelte';
-	import Technologies from '@/components/Technologies.svelte';
-	import { MapPin } from 'lucide-svelte';
-	import type { PageData } from './$types';
+	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
-	import TwitterIconAnimated from '@/components/icons/BskyAnimated.svelte';
+	import List from '@/components/List.svelte';
+	import Technologies from '@/components/Technologies.svelte';
+	import { buttonVariants } from '@/lib/components/ui/button';
+	import { MapPin } from 'lucide-svelte';
 	import posthog from 'posthog-js';
-	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
+	import type { PageData } from './$types';
 
 	type Props = {
 		data: PageData & {
@@ -34,20 +34,22 @@
 <Blob />
 <div class="sticky top-16 mx-auto h-full w-full max-w-7xl sm:top-16">
 	<div
-		class="relative flex min-h-[calc(100dvh_-_8rem)] w-full flex-col sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center sm:py-8"
+		class="relative flex min-h-[calc(100dvh_+_4rem)] w-full flex-col sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center sm:py-8"
 	>
-		<div class="hero-text sm:text-justify">
-			<h1
-				class="flex items-end gap-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
-			>
-				Hei, I'm Kyrre!
-			</h1>
-			<span class="flex items-center gap-1 text-pretty text-sm font-normal">
-				<MapPin size={12} />
-				Berlin
-			</span>
+		<div class="hero-text flex flex-col gap-8 sm:text-justify">
+			<div>
+				<h1
+					class="flex items-end gap-2 text-pretty break-words text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl"
+				>
+					Hei, I'm Kyrre!
+				</h1>
+				<span class="flex items-center gap-1 text-pretty text-sm font-normal">
+					<MapPin size={12} />
+					Berlin
+				</span>
+			</div>
 
-			<h2 class="text-pretty pb-8 pt-4 text-lg sm:pb-12 lg:text-xl">
+			<h2 class="text-pretty text-lg lg:text-xl">
 				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
 				<strong>Next.js</strong>.
 			</h2>
@@ -58,7 +60,7 @@
 				companies ship better products faster.
 			</p>
 
-			<div class="flex items-center gap-3 pt-8">
+			<div class="flex items-center gap-3">
 				<a
 					href="https://github.com/kyrregjerstad"
 					target="_blank"
@@ -87,6 +89,7 @@
 					<BskyAnimated size={2.3} />
 				</a>
 			</div>
+			<a href="#contact" class={buttonVariants({ class: 'text-background  sm:self-start' })}> Get in touch </a>
 		</div>
 	</div>
 </div>
