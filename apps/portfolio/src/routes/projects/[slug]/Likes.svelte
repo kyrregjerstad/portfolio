@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { cn } from '@/lib/utils';
-	import { cubicOut } from 'svelte/easing';
-	import { fly } from 'svelte/transition';
-	import { HeartSFX } from './heart-sfx.svelte';
-	import { Particles } from './particles.svelte';
 	import { page } from '$app/state';
 	import { MAX_LIKES_PER_USER } from '@/lib/config';
+	import { cubicOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
+	import HeartButton from './HeartButton.svelte';
+	import { Particles } from './particles.svelte';
 
 	type Props = {
 		likes: number;
@@ -16,18 +15,9 @@
 
 	let particleSystem = $state<Particles>(new Particles({ speed: 0.75 }));
 	let particles = $derived(particleSystem.getParticles() || []);
-	let isHovering = $state(false);
-	let isDown = $state(false);
-	let heartSFX = $state(new HeartSFX());
-
 	let isMaxCountReached = $derived(totalLikesByUser >= MAX_LIKES_PER_USER);
-	let isTouchDevice = $state(false);
 
-	$inspect('totalLikesByUser component', totalLikesByUser);
-	$inspect('isMaxCountReached component', isMaxCountReached);
 	$effect(() => {
-		// Check if device supports touch events
-		isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 		return () => {
 			particleSystem.cleanup();
 		};
@@ -38,8 +28,6 @@
 		const response = await fetch(`/api/like/${page.params.slug}`, {
 			method: 'PUT',
 		});
-
-		console.log('response', response);
 
 		if (!response.ok) {
 			totalLikesByUser--;
@@ -58,12 +46,15 @@
 		}
 	}
 
-	async function triggerLike(target: HTMLElement) {
+	async function triggerLike(target: HTMLButtonElement) {
+		if (totalLikesByUser + 1 === MAX_LIKES_PER_USER) {
+			particleSystem.triggerWinner(target);
+		}
+
 		if (isMaxCountReached) {
 			return;
 		}
 
-		isDown = true;
 		void handleLike();
 
 		setTimeout(() => {
@@ -71,84 +62,18 @@
 		}, 150);
 
 		likes++;
-		heartSFX.increment(totalLikesByUser);
-
-		// Reset states after animation
-		setTimeout(() => {
-			isDown = false;
-			if (isTouchDevice) {
-				isHovering = false;
-			}
-		}, 200);
 	}
-
-	function handleMouseDown(event: Event) {
-		if (isTouchDevice) return; // Skip for touch devices
-		rotate = randomRotate();
-		void triggerLike(event.target as HTMLElement);
-	}
-
-	function handleTouchStart(event: TouchEvent) {
-		event.preventDefault(); // Prevent double-firing on some devices
-		isHovering = true; // Show hover state briefly on touch
-		void triggerLike(event.target as HTMLElement);
-	}
-
-	function handleMouseUp() {
-		if (isTouchDevice) return;
-		setTimeout(() => {
-			isDown = false;
-		}, 200);
-	}
-
-	function handleMouseEnter() {
-		if (!isTouchDevice) {
-			rotate = randomRotate();
-			isHovering = true;
-		}
-	}
-
-	function handleMouseLeave() {
-		if (!isTouchDevice) {
-			isHovering = false;
-			isDown = false;
-		}
-	}
-
-	function handleTouchEnd() {
-		setTimeout(() => {
-			isHovering = false;
-			isDown = false;
-		}, 200);
-	}
-
-	function randomRotate() {
-		return Math.random() * 45 - 22.5;
-	}
-
-	let rotate = $state(0);
 </script>
 
 <div class="flex flex-col items-center justify-center gap-2">
 	<div class="select-none">{likes}</div>
 	<div class="relative">
-		<button
-			onmousedown={handleMouseDown}
-			onmouseup={handleMouseUp}
-			onmouseenter={handleMouseEnter}
-			onmouseleave={handleMouseLeave}
-			ontouchstart={handleTouchStart}
-			ontouchend={handleTouchEnd}
-			class={cn(
-				' z-20 transform select-none transition-transform',
-				isHovering && !isMaxCountReached && `animate-scale-bounce random-rotate`,
-				{
-					'rotate-0 scale-90': isDown && !isMaxCountReached,
-				}
-			)}
-			style={`--rotate: ${rotate}deg`}
-			type="submit">❤️</button
-		>
+		<HeartButton
+			{isMaxCountReached}
+			{totalLikesByUser}
+			onmousedown={({ currentTarget }) => triggerLike(currentTarget)}
+			ontouchstart={({ currentTarget }) => triggerLike(currentTarget)}
+		/>
 		<div class="pointer-events-none fixed inset-0">
 			{#each particles as particle (particle.id)}
 				<div
@@ -173,9 +98,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-	.random-rotate {
-		transform: rotate(var(--rotate)) scale(1.5);
-	}
-</style>

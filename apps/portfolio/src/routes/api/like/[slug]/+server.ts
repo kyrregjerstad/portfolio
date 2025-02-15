@@ -3,6 +3,7 @@ import { likesTable } from '@/lib/db/schema.js';
 import { and, eq, sql } from 'drizzle-orm';
 
 import type { RequestHandler } from './$types';
+import { MAX_LIKES_PER_USER } from '@/lib/config';
 
 export const PUT: RequestHandler = async (event) => {
 	const slug = event.params.slug;
@@ -44,10 +45,10 @@ async function likePage(slug: string, userId: string) {
 	const previousLikes = await getPreviousLikesByUser(slug, userId);
 	const likeCount = await getPageLikes(slug);
 
-	if (previousLikes >= 12) {
+	if (previousLikes >= MAX_LIKES_PER_USER) {
 		return {
 			success: false,
-			message: 'Thank you for your support! But you have already liked this page 12 times ;)',
+			message: 'Thank you for your support! But you have already liked this page 13 times ;)',
 			likeCount,
 		};
 	}

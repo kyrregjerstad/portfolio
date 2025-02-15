@@ -5,12 +5,20 @@ export class HeartSFX {
 
 	increment(likes: number) {
 		if (likes < this.maxCount) {
-			this.playSfx(likes);
+			this.playHeartSFX(likes);
+		} else if (likes === this.maxCount) {
+			this.playWinnerSFX();
 		}
 	}
 
-	private playSfx(likes: number) {
+	private playHeartSFX(likes: number) {
 		const audio = new Audio(`/audio/sfx/heart_${likes}.mp3`);
+		audio.volume = 0.25;
+		audio.play();
+	}
+
+	private playWinnerSFX() {
+		const audio = new Audio(`/audio/sfx/winner.mp3`);
 		audio.volume = 0.25;
 		audio.play();
 	}

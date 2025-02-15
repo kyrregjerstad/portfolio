@@ -15,8 +15,6 @@
 	let { data } = $props();
 	let { project, nextProject, prevProject, likes, previousLikesByUser } = $derived(data);
 	let totalLikesByUser = $derived(previousLikesByUser);
-
-	$inspect('totalLikesByUser page', totalLikesByUser);
 </script>
 
 <div class="flex w-full flex-col-reverse justify-between pb-8 sm:flex-row">
