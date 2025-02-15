@@ -36,14 +36,4 @@ export const actions = {
 
 		return message(form, 'Form posted successfully!');
 	},
-
-	setTheme: async ({ cookies, request }) => {
-		const data = await request.formData();
-		const theme = data.get('dark-mode') === 'dark' ? 'dark' : 'light';
-
-		cookies.set('theme', theme, {
-			path: '/',
-			maxAge: 60 * 60 * 24 * 365, // 1 year
-		});
-	},
 };
