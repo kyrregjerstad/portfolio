@@ -10,6 +10,7 @@
 	import { Toaster } from 'svelte-sonner';
 	import type { LayoutServerData } from './$types';
 	import Border from './Border.svelte';
+	import PageTransition from './PageTransition.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -26,6 +27,7 @@
 <Analytics />
 <SEO {...data.SEO} />
 <Socials />
+<PageTransition />
 <div class="relative overflow-hidden">
 	<Border>
 		<main class="no-scrollbar relative flex flex-col p-16">
