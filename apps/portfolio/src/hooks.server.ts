@@ -1,6 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import { validateSessionToken } from './lib/server/auth';
 import { deleteSessionTokenCookie, setSessionTokenCookie } from './lib/server/cookies';
+
 export const handle = (async ({ event, resolve }) => {
 	const themeCookie = event.cookies.get('theme');
 	const visited = event.cookies.get('visited');

@@ -5,7 +5,7 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies, locals }) => {
 	return {
 		page: await runQuery(
 			q('*')
@@ -27,5 +27,6 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		),
 		contactForm: await superValidate(zod(contactSchema)),
 		darkMode: cookies.get('theme') === 'dark',
+		firstVisit: locals.firstVisit,
 	};
 };
