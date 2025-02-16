@@ -11,6 +11,7 @@
 	import type { LayoutServerData } from './$types';
 	import Border from './Border.svelte';
 	import PageTransition from './PageTransition.svelte';
+	import CursorTracker from '@/components/CursorTracker.svelte';
 
 	if (browser) {
 		beforeNavigate(() => posthog.capture('$pageleave'));
@@ -28,6 +29,7 @@
 <SEO {...data.SEO} />
 <Socials />
 <PageTransition />
+<CursorTracker />
 <div class="relative overflow-hidden">
 	<Border>
 		<main class="no-scrollbar relative flex flex-col p-16">

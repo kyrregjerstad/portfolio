@@ -17,7 +17,9 @@
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:push": "drizzle-kit push",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"party:dev": "pnpm dlx partykit dev",
+		"party:deploy": "pnpm dlx partykit deploy"
 	},
 	"devDependencies": {
 		"@accuser/svelte-plausible-analytics": "^1.0.0",
@@ -36,6 +38,7 @@
 		"drizzle-kit": "^0.30.4",
 		"lucide-svelte": "^0.475.0",
 		"mdsvex": "^0.12.3",
+		"partykit": "0.0.111",
 		"postcss": "^8.5.2",
 		"prettier": "^3.5.1",
 		"prettier-plugin-svelte": "^3.3.3",
@@ -55,6 +58,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.749.0",
 		"@libsql/client": "^0.14.0",
+		"@msgpack/msgpack": "^3.0.1",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"@portabletext/toolkit": "^2.0.17",
@@ -72,6 +76,7 @@
 		"motion": "^12.4.3",
 		"nanoid": "^5.1.0",
 		"openai": "^4.85.1",
+		"partysocket": "1.0.3",
 		"posthog-js": "^1.218.2",
 		"simple-icons": "^14.6.0",
 		"svelte-sonner": "^0.3.28",
