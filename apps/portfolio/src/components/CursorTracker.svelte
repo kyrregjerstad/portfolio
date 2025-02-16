@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import PartySocket from 'partysocket';
 	import { onMount } from 'svelte';
+	import { SvelteMap } from 'svelte/reactivity';
 	import CursorBlob from './CursorBlob.svelte';
 	import { PUBLIC_PARTYKIT_URL } from '$env/static/public';
 
@@ -15,9 +16,8 @@
 		presence: Cursor;
 	};
 
-	let users = $state<Record<string, User>>({});
+	const users = new SvelteMap<string, Cursor>();
 	let socket = $state<PartySocket | null>(null);
-
 	let throttleTimeout: number | null = null;
 
 	function updateCursor(event: MouseEvent) {
@@ -53,16 +53,17 @@
 			const data = JSON.parse(event.data);
 
 			if (data.type === 'sync') {
-				users = data.users;
+				users.clear();
+				Object.entries<User>(data.users).forEach(([id, user]) => {
+					users.set(id, user.presence);
+				});
 			} else if (data.type === 'changes') {
 				// Update presence
-				for (const [id, presence] of Object.entries<Cursor>(data.presence)) {
-					users[id] = { presence };
-				}
+				Object.entries(data.presence).forEach(([id, presence]) => {
+					users.set(id, presence as Cursor);
+				});
 				// Remove disconnected users
-				for (const id of data.remove) {
-					delete users[id];
-				}
+				data.remove.forEach((id: string) => users.delete(id));
 			}
 		});
 
@@ -74,8 +75,8 @@
 
 <svelte:window on:mousemove={updateCursor} />
 
-{#each Object.entries(users) as [id, user], index}
+{#each [...users.entries()] as [id, cursor]}
 	{#if id !== socket?.id}
-		<CursorBlob position={user.presence} />
+		<CursorBlob position={cursor} />
 	{/if}
 {/each}
