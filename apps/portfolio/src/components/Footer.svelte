@@ -13,12 +13,16 @@
 		<a
 			href="https://www.linkedin.com/in/kyrre-gjerstad/"
 			target="_blank"
-			onclick={() => posthog.capture('click_linkedin')}
+			onclick={() => posthog.capture('social_link_click', { target: 'linkedin' })}
 		>
 			<span class="sr-only"> LinkedIn </span>
 			<LinkedInAnimated />
 		</a>
-		<a href="https://github.com/kyrregjerstad" target="_blank" onclick={() => posthog.capture('click_github')}>
+		<a
+			href="https://github.com/kyrregjerstad"
+			target="_blank"
+			onclick={() => posthog.capture('social_link_click', { target: 'github' })}
+		>
 			<span class="sr-only"> GitHub </span>
 			<GitHubIconAnimated size={4.5} />
 		</a>
@@ -26,7 +30,7 @@
 			href="https://bsky.app/profile/kyrre.dev"
 			target="_blank"
 			class="transition-transform hover:scale-110"
-			onclick={() => posthog.capture('click_bsky')}
+			onclick={() => posthog.capture('social_link_click', { target: 'bsky' })}
 		>
 			<span class="sr-only">BSky</span>
 			<BskyAnimated size={2.3} />
