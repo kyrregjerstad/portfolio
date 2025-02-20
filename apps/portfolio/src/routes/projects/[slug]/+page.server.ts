@@ -1,6 +1,7 @@
 import { runQuery } from '@/lib/services/sanity';
 import { q, sanityImage } from 'groqd';
 import type { EntryGenerator } from './$types';
+import { getTotalLikesByPage } from '@/lib/db/methods';
 
 export const load = async ({ params }) => {
 	const { slug } = params;
@@ -52,6 +53,8 @@ export const load = async ({ params }) => {
 		project,
 		nextProject,
 		prevProject,
+		slug,
+		likes: await getTotalLikesByPage(slug),
 	};
 };
 

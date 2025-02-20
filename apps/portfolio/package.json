@@ -59,6 +59,7 @@
 		"@aws-sdk/client-s3": "^3.749.0",
 		"@libsql/client": "^0.14.0",
 		"@msgpack/msgpack": "^3.0.1",
+		"@number-flow/svelte": "^0.3.3",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"@portabletext/toolkit": "^2.0.17",

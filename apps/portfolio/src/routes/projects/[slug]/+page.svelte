@@ -11,6 +11,7 @@
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
 	import PortableText from '@/lib/portableText/PortableText.svelte';
 	import { scrollToTop } from '@/lib/utils';
+	import AnimatedCounter from '@/routes/AnimatedCounter.svelte';
 
 	let { data } = $props();
 	let { project, nextProject, prevProject } = $derived(data);
@@ -89,7 +90,7 @@
 {/if}
 
 <div class="flex w-full items-center justify-center py-8">
-	<Likes />
+	<AnimatedCounter initialLikes={data.likes} slug={data.slug} />
 </div>
 
 <div class="flex-1"></div>
