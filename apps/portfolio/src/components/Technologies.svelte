@@ -74,10 +74,7 @@
 
 <div class="grid grid-cols-3 place-items-center gap-4 pt-4 sm:grid-cols-3 sm:gap-8 md:grid-cols-4 xl:grid-cols-8">
 	{#each technologies as tech}
-		<a
-			href={tech.url}
-			target="_blank"
-			rel="noopener noreferrer"
+		<div
 			class={cn(
 				'bg-accent-foreground/10 flex aspect-square w-20 flex-col items-center justify-center gap-2 rounded-md backdrop-blur-sm transition-transform hover:scale-110 sm:w-32',
 				tech.filler && 'sm:hidden'
@@ -89,6 +86,6 @@
 			<span class="text-center text-sm font-medium">
 				{tech.name}
 			</span>
-		</a>
+		</div>
 	{/each}
 </div>
