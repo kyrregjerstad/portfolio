@@ -66,14 +66,21 @@ export class Particles {
 		}
 	}
 
-	trigger(target: HTMLButtonElement) {
+	private getPosition(target: HTMLElement | SVGSVGElement) {
 		const rect = target.getBoundingClientRect();
-		const position = {
+		return {
 			x: rect.left + rect.width / 2,
 			y: rect.top + rect.height / 2,
 		};
+	}
 
-		const newParticles = Array.from({ length: this.count }, () => new Particle(position, { speed: this.speed }));
+	trigger(target: HTMLElement | SVGSVGElement, multiplier = 1) {
+		const position = this.getPosition(target);
+
+		const newParticles = Array.from(
+			{ length: this.count * multiplier },
+			() => new Particle(position, { speed: this.speed })
+		);
 
 		this.particles.push(...newParticles);
 
@@ -82,22 +89,26 @@ export class Particles {
 		}
 	}
 
-	triggerWinner(target: HTMLButtonElement) {
-		const rect = target.getBoundingClientRect();
-		const position = {
-			x: rect.left + rect.width / 2,
-			y: rect.top + rect.height / 2,
-		};
+	async triggerWinner(target: HTMLElement | SVGSVGElement) {
+		const position = this.getPosition(target);
 
-		const newParticles = Array.from(
-			{ length: this.count * 10 },
-			() => new Particle(position, { speed: this.speed * 2, gravity: 0.1 })
-		);
+		const totalParticles = this.count * 10;
+		const batchSize = 4;
+		const delayBetweenBatches = 100;
 
-		this.particles.push(...newParticles);
+		for (let i = 0; i < totalParticles; i += batchSize) {
+			const newParticles = Array.from(
+				{ length: Math.min(batchSize, totalParticles - i) },
+				() => new Particle(position, { speed: this.speed * 2, gravity: 0.1 })
+			);
 
-		if (!this.animationFrame) {
-			this.updateParticles();
+			this.particles.push(...newParticles);
+
+			if (!this.animationFrame) {
+				this.updateParticles();
+			}
+
+			await new Promise((resolve) => setTimeout(resolve, delayBetweenBatches));
 		}
 	}
 

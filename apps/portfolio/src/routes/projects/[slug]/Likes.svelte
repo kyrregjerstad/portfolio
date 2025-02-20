@@ -5,6 +5,7 @@
 	import { fly } from 'svelte/transition';
 	import HeartButton from './HeartButton.svelte';
 	import { Particles } from './particles.svelte';
+	import { HeartIcon } from 'lucide-svelte';
 
 	let likes = $state(0);
 	let totalLikesByUser = $state(0);
@@ -105,7 +106,7 @@
 					style="transform: translate3d({particle.position.x}px, {particle.position
 						.y}px, 0) scale3d({particle.scale}, {particle.scale}, 1); opacity: {particle.opacity};"
 				>
-					❤️
+					<HeartIcon class="size-4" />
 				</div>
 			{/each}
 		</div>

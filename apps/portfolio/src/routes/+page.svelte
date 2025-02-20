@@ -21,7 +21,7 @@
 </script>
 
 <Blob />
-<HeroSection />
+<HeroSection initialLikes={data.totalLikes} />
 <div class="bg-background relative z-[2] w-full">
 	<GradientBlurDots />
 	<div class="mx-auto max-w-7xl">

@@ -1,10 +1,13 @@
 <script lang="ts">
+	import AnimatedCounter from './AnimatedCounter.svelte';
+
 	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
-	import { buttonVariants } from '@/lib/components/ui/button';
 	import { MapPin } from 'lucide-svelte';
 	import posthog from 'posthog-js';
+
+	let { initialLikes }: { initialLikes: number } = $props();
 </script>
 
 <div class="sticky top-16 mx-auto h-full w-full max-w-7xl sm:top-16">
@@ -35,6 +38,8 @@
 				companies ship better products faster.
 			</p>
 
+			<AnimatedCounter {initialLikes} slug="/" />
+
 			<div class="flex items-center gap-3">
 				<a
 					href="https://github.com/kyrregjerstad"
@@ -64,7 +69,6 @@
 					<BskyAnimated size={2.3} />
 				</a>
 			</div>
-			<a href="#contact" class={buttonVariants({ class: 'text-background  sm:self-start' })}> Get in touch </a>
 		</div>
 	</div>
 </div>
