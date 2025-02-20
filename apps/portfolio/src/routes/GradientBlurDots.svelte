@@ -1,4 +1,4 @@
-<div class="from-background gradient-blur dots absolute -top-64 h-64 w-full bg-gradient-to-t to-transparent"></div>
+<div class="from-background gradient-blur dots absolute -top-48 h-48 w-full bg-gradient-to-t to-transparent"></div>
 
 <style>
 	.dots {

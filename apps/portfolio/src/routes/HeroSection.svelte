@@ -10,9 +10,9 @@
 	let { initialLikes }: { initialLikes: number } = $props();
 </script>
 
-<div class="sticky top-16 mx-auto h-full w-full max-w-7xl sm:top-16">
+<div class="sticky top-0 mx-auto h-full w-full max-w-7xl sm:top-16">
 	<div
-		class="relative flex min-h-[calc(100dvh_+_4rem)] w-full flex-col sm:min-h-[calc(100dvh_-_8rem)] sm:justify-center sm:py-8"
+		class="relative flex min-h-[calc(100dvh_+_12rem)] w-full flex-col sm:min-h-[calc(100dvh)] sm:justify-center sm:py-8"
 	>
 		<div class="hero-text flex flex-col gap-8 sm:text-justify">
 			<div>
@@ -27,12 +27,12 @@
 				</span>
 			</div>
 
-			<h2 class="text-pretty text-lg lg:text-xl">
+			<h2 class="text-pretty sm:text-lg lg:text-xl">
 				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
 				<strong>Next.js</strong>.
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
-			<p class="prose text-lg">
+			<p class="prose sm:text-lg">
 				I develop clean, performant solutions that solve real business problems. My work spans from crafting intuitive
 				user interfaces to designing scalable backend systems. Check out my projects below to see how I've helped
 				companies ship better products faster.
