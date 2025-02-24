@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
 	type Props = {
 		position: { x: number; y: number };
 	};
