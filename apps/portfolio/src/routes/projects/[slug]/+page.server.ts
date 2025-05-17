@@ -1,53 +1,27 @@
-import { runQuery } from '@/lib/services/sanity';
-import { q, sanityImage } from 'groqd';
-import type { EntryGenerator } from './$types';
 import { getTotalLikesByPage } from '@/lib/db/methods';
+import { allProjectsQuery, homePageQuery, projectQuery } from '@/lib/server/queries';
+import { runQuery } from '@/lib/services/sanity';
+import type { EntryGenerator } from './$types';
 
 export const load = async ({ params }) => {
 	const { slug } = params;
 
 	const [project, allProjects] = await Promise.all([
-		runQuery(
-			q('*')
-				.filterByType('project')
-				.filter(`slug.current == '${slug}'`)
-				.slice(0)
-				.grab({
-					title: q.string(),
-					description: q.string().nullable(),
-					richDescription: q.array(q.contentBlock()).nullable(),
-					href: q.string(),
-					linkTitle: q.string(),
-					gitHubLink: q.string().nullable(),
-					client: q.string().nullable(),
-					keyFeatures: q.array(q.string()).nullable(),
-					images: sanityImage('images', { isList: true, withAsset: ['blurHash', 'base'] }).nullable(),
-					type: q.union([q.literal('academic'), q.literal('professional'), q.literal('personal')]),
-					technologies: q('technologies').filter().deref().grab({
-						title: q.string(),
-					}),
-				})
-		),
-		runQuery(
-			q('*')
-				.filterByType('page')
-				.filter("title == 'Home'")
-				.slice(0)
-				.grab({
-					projects: q('projects')
-						.filter()
-						.deref()
-						.grab({
-							title: q.string(),
-							slug: q.slug('slug'),
-						}),
-				})
-		),
+		runQuery(projectQuery, {
+			parameters: {
+				slug,
+			},
+		}),
+		runQuery(homePageQuery),
 	]);
 
-	const projectIndex = allProjects.projects.findIndex((p) => p.slug === slug);
-	const nextProject = allProjects.projects[projectIndex + 1];
-	const prevProject = allProjects.projects[projectIndex - 1];
+	if (!project || !allProjects) {
+		throw new Error('Project or home page not found');
+	}
+
+	const projectIndex = allProjects?.findIndex((p) => p.slug === slug) ?? 0;
+	const nextProject = allProjects?.[projectIndex + 1] ?? null;
+	const prevProject = allProjects?.[projectIndex - 1] ?? null;
 
 	return {
 		project,
@@ -59,20 +33,10 @@ export const load = async ({ params }) => {
 };
 
 export const entries: EntryGenerator = async () => {
-	const allProjects = await runQuery(
-		q('*')
-			.filterByType('page')
-			.filter("title == 'Home'")
-			.slice(0)
-			.grab({
-				projects: q('projects')
-					.filter()
-					.deref()
-					.grab({ slug: q.slug('slug') }),
-			})
-	);
+	const allProjects = await runQuery(allProjectsQuery);
+	const slugs = allProjects.projects.map((p) => p.slug).filter((p) => p !== null);
 
-	return allProjects.projects.map((p) => ({ slug: p.slug }));
+	return slugs.map((slug) => ({ slug }));
 };
 
 export const prerender = true;

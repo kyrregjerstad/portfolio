@@ -12,4 +12,4 @@ export const client = createClient({
 	},
 });
 
-export const runQuery = makeSafeQueryRunner((query) => client.fetch(query));
+export const runQuery = makeSafeQueryRunner((query, params) => client.fetch(query, params.parameters));

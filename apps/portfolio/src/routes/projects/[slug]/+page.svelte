@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Likes from './Likes.svelte';
-
 	import Chip from '@/components/Chip.svelte';
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
@@ -12,6 +10,7 @@
 	import PortableText from '@/lib/portableText/PortableText.svelte';
 	import { scrollToTop } from '@/lib/utils';
 	import AnimatedCounter from '@/routes/AnimatedCounter.svelte';
+	import type { PortableTextBlock } from '@portabletext/types';
 
 	let { data } = $props();
 	let { project, nextProject, prevProject } = $derived(data);
@@ -70,7 +69,7 @@
 	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
 	{#key project.title}
 		{#if project.richDescription}
-			<PortableText portableText={project.richDescription} />
+			<PortableText portableText={project.richDescription as PortableTextBlock[]} />
 		{:else}
 			<p>
 				{project.description}
@@ -82,9 +81,9 @@
 {#if project.images && project.images.length > 0}
 	<Gallery
 		images={project.images.map((image, i) => ({
-			src: image.asset.url,
+			src: image.asset?.url ?? '',
 			alt: `Kyrre Gjerstad - ${project.title} screenshot ${i + 1}`,
-			blurHash: image.asset.metadata.blurHash,
+			blurHash: image.asset?.metadata?.blurHash ?? '',
 		}))}
 	/>
 {/if}
