@@ -5,7 +5,7 @@
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
-	import { ExternalLinkIcon, GithubIcon, X } from 'lucide-svelte';
+	import { ExternalLinkIcon, GithubIcon, X } from '@lucide/svelte';
 
 	import Divider from '@/components/Divider.svelte';
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
@@ -66,7 +66,7 @@
 
 <Divider />
 
-<section class="prose w-full max-w-full text-left leading-loose">
+<section class="prose text-foreground prose-bold:text-foreground! w-full max-w-full text-left leading-loose">
 	<!-- Not sure why we need the key here, but it seems to be necessary for the rich description to update -->
 	{#key project.title}
 		{#if project.richDescription}

@@ -83,7 +83,9 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
+	@reference "tailwindcss";
+
 	.border-element {
 		background-image: radial-gradient(transparent 1px, #10100e 1px);
 		background-size: 4px 4px;

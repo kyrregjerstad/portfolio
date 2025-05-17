@@ -2,7 +2,7 @@
 	import { Card } from '@/lib/components/ui/card';
 	import type { PageData } from './$types';
 	import Button from '@/lib/components/ui/button/button.svelte';
-	import { Download } from 'lucide-svelte';
+	import { Download } from '@lucide/svelte';
 	import { buttonVariants } from '@/lib/components/ui/button';
 
 	let { data }: { data: PageData } = $props();
@@ -40,7 +40,7 @@
 					{formatFileSize(data.size)}
 				</p>
 			</div>
-			<a href={data.fileUrl} download={data.metadata.originalname} class={buttonVariants({ variant: 'outline' })}>
+			<a href={data.fileUrl} download={data.metadata.originalname} class={buttonVariants({ variant: 'outline-solid' })}>
 				<Download class="mr-2 h-4 w-4" />
 				Download
 			</a>

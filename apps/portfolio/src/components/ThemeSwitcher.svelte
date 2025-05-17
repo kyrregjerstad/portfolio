@@ -4,7 +4,7 @@
 
 	import { cn } from '@/lib/utils';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { Moon, Sun } from 'lucide-svelte';
+	import { Moon, Sun } from '@lucide/svelte';
 
 	type Props = {
 		darkMode: boolean;

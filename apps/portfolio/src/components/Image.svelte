@@ -35,7 +35,7 @@
 	});
 </script>
 
-<div class="relative aspect-[6/4] overflow-hidden rounded-lg transition-transform hover:scale-[101%]">
+<div class="relative aspect-6/4 overflow-hidden rounded-lg transition-transform hover:scale-[101%]">
 	<canvas
 		bind:this={canvas}
 		class={cn(
@@ -48,7 +48,7 @@
 		src={sanityImgUrl(src).width(800).quality(100).format('webp').url()}
 		{alt}
 		class={cn('h-full max-h-full w-full transform-gpu object-cover object-top', {
-			'blur-sm': loading,
+			'blur-xs': loading,
 			'blur-none': !loading,
 		})}
 		onload={() => (loading = false)}

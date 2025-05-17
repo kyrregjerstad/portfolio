@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
+	import { X } from '@lucide/svelte';
 	import { fly, blur, fade } from 'svelte/transition';
 	import Image from './Image.svelte';
 	import { sanityImgUrl } from '@/lib/utils/sanityImgUrl';
@@ -29,7 +29,7 @@
 <div>
 	{#if selectedImage}
 		<div
-			class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm transition-all"
+			class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs transition-all"
 			transition:blur={{ duration: 350 }}
 		>
 			<div

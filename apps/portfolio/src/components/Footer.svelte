@@ -3,7 +3,7 @@
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
 	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
-	import { HeartIcon } from 'lucide-svelte';
+	import { HeartIcon } from '@lucide/svelte';
 	import posthog from 'posthog-js';
 </script>
 
@@ -38,6 +38,6 @@
 	</div>
 
 	<p class="py-8">
-		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad
+		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-px" /> by Kyrre Gjerstad
 	</p>
 </footer>

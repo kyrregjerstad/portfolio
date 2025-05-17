@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Chip from '@/components/Chip.svelte';
-	import { GraduationCap, Handshake, Heart } from 'lucide-svelte';
+	import { GraduationCap, Handshake, Heart } from '@lucide/svelte';
 
 	type Props = {
 		type: string;

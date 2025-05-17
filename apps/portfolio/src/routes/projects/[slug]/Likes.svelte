@@ -5,7 +5,7 @@
 	import { fly } from 'svelte/transition';
 	import HeartButton from './HeartButton.svelte';
 	import { Particles } from './particles.svelte';
-	import { HeartIcon } from 'lucide-svelte';
+	import { HeartIcon } from '@lucide/svelte';
 
 	let likes = $state(0);
 	let totalLikesByUser = $state(0);
