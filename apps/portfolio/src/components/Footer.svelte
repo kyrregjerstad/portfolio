@@ -8,7 +8,7 @@
 </script>
 
 <Divider class="my-0 sm:my-0" />
-<footer class="flex w-full flex-col items-center justify-center py-12 text-sm">
+<footer class="flex w-full flex-col items-center justify-center gap-8 py-12 text-sm">
 	<div class="flex items-center justify-center gap-2">
 		<a
 			href="https://www.linkedin.com/in/kyrre-gjerstad/"
@@ -36,8 +36,12 @@
 			<BskyAnimated size={2.3} />
 		</a>
 	</div>
+	<div class="flex items-center justify-center gap-2">
+		<a class="hover:underline" href="/about/kyrregjerstad">About</a>
+		<a class="hover:underline" href="/blog">Blog</a>
+	</div>
 
-	<p class="py-8">
+	<p class="">
 		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-px" /> by Kyrre Gjerstad
 	</p>
 </footer>
