@@ -41,6 +41,9 @@ importers:
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
+      '@lucide/svelte':
+        specifier: ^0.511.0
+        version: 0.511.0(svelte@5.20.1)
       '@msgpack/msgpack':
         specifier: ^3.0.1
         version: 3.0.1
@@ -102,8 +105,8 @@ importers:
         specifier: ^14.6.0
         version: 14.6.0
       svelte-sonner:
-        specifier: ^0.3.28
-        version: 0.3.28(svelte@5.20.1)
+        specifier: ^1.0.1
+        version: 1.0.1(svelte@5.20.1)
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.0.1
@@ -142,14 +145,11 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.3)
       bits-ui:
-        specifier: 1.0.0-next.65
-        version: 1.0.0-next.65(svelte@5.20.1)
+        specifier: 1.4.8
+        version: 1.4.8(svelte@5.20.1)
       drizzle-kit:
         specifier: ^0.31.1
         version: 0.31.1
-      lucide-svelte:
-        specifier: ^0.511.0
-        version: 0.511.0(svelte@5.20.1)
       mdsvex:
         specifier: ^0.12.6
         version: 0.12.6(svelte@5.20.1)
@@ -2135,6 +2135,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@lucide/svelte@0.511.0':
+    resolution: {integrity: sha512-aLCSPMUJmHlCuLXzXENXa4Z1NV2mN1iAZAFKk4bEbey+/MdsNlu+/DqwVkgW3Yvj6p8y8Vn5xZ2v9CLmPlA6Vw==}
+    peerDependencies:
+      svelte: ^5
+
   '@mapbox/node-pre-gyp@2.0.0':
     resolution: {integrity: sha512-llMXd39jtP0HpQLVI37Bf1m2ADlEb35GYSh1SDSLsBhR+5iCxiNGlT31yqbNtVHygHAtMy6dWFERpU2JgufhPg==}
     engines: {node: '>=18'}
@@ -3543,11 +3548,11 @@ packages:
   bindings@1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
 
-  bits-ui@1.0.0-next.65:
-    resolution: {integrity: sha512-6pJ2dYP28kkYhvXKyUh22ocTyzciRrx752FJ8+oKUDQ07qnP4O/D8oAFo9pbZVU1MJ3wSMTXkpOVI/DrkJhChQ==}
+  bits-ui@1.4.8:
+    resolution: {integrity: sha512-j34GsdSsJ+ZBl9h/70VkufvrlEgTKQSZvm80eM5VvuhLJWvpfEpn9+k0FVmtDQl9NSPgEVtI9imYhm8nW9Nj/w==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
-      svelte: ^5.0.0-next.1
+      svelte: ^5.11.0
 
   bl@1.2.3:
     resolution: {integrity: sha512-pvcNpa0UU69UT341rO6AYy4FVAIkUHuZXRIWbq+zHnsVcRzDDjIAhGuuYoi0d//cwIwtt4pkpKycWEfjdV+vww==}
@@ -4534,9 +4539,6 @@ packages:
     peerDependenciesMeta:
       jiti:
         optional: true
-
-  esm-env@1.1.4:
-    resolution: {integrity: sha512-oO82nKPHKkzIj/hbtuDYy/JHqBHFlMIW36SDiPCVsj87ntDLcWN+sJ1erdVryd4NxODacFTsdrIE3b7IamqbOg==}
 
   esm-env@1.2.2:
     resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
@@ -5527,6 +5529,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -5608,11 +5611,6 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
-
-  lucide-svelte@0.511.0:
-    resolution: {integrity: sha512-cSBj1UPKt1EXnj3VBUidBqwHyFQ83pLYiTaQ/67Q5thnaP9IPohL2UXjqEzgSXXklYPYQKaAv+kmVdliDWFjWQ==}
-    peerDependencies:
-      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
@@ -6724,10 +6722,15 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runed@0.15.4:
-    resolution: {integrity: sha512-kmbpstUd7v2FdlBM+MT78IyuOVd38tq/e7MHvVb0fnVCsPSPMD/m2Xh+wUhzg9qCJgxRjBbIKu68DlH/x5VXJA==}
+  runed@0.23.4:
+    resolution: {integrity: sha512-9q8oUiBYeXIDLWNK5DfCWlkL0EW3oGbk845VdKlPeia28l751VpfesaB/+7pI6rnbx1I6rqoZ2fZxptOJLxILA==}
     peerDependencies:
-      svelte: ^5.0.0-next.1
+      svelte: ^5.7.0
+
+  runed@0.26.0:
+    resolution: {integrity: sha512-qWFv0cvLVRd8pdl/AslqzvtQyEn5KaIugEernwg9G98uJVSZcs/ygvPBvF80LA46V8pwRvSKnaVLDI3+i2wubw==}
+    peerDependencies:
+      svelte: ^5.7.0
 
   rxjs-exhaustmap-with-trailing@2.1.1:
     resolution: {integrity: sha512-gK7nsKyPFsbjDeJ0NYTcZYGW5TbTFjT3iACa28Pwp3fIf9wT/JUR8vdlKYCjUOZKXYnXEk8eRZ4zcQyEURosIA==}
@@ -7116,16 +7119,16 @@ packages:
       svelte:
         optional: true
 
-  svelte-sonner@0.3.28:
-    resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
+  svelte-sonner@1.0.1:
+    resolution: {integrity: sha512-vz0eqcs9GNnJ2CTtTno7v/jSA0P3r+X+3y/hrJg+FPpB2rZCFywIKNKD3wiRI8449i3LXVcgQ+q5R5ocOd6ydA==}
     peerDependencies:
-      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
+      svelte: ^5.0.0
 
-  svelte-toolbelt@0.4.6:
-    resolution: {integrity: sha512-k8OUvXBUifHZcAlWeY/HLg/4J0v5m2iOfOhn8fDmjt4AP8ZluaDh9eBFus9lFiLX6O5l6vKqI1dKL5wy7090NQ==}
+  svelte-toolbelt@0.7.1:
+    resolution: {integrity: sha512-HcBOcR17Vx9bjaOceUvxkY3nGmbBmCBBbuWLLEWO6jtmWH8f/QoWmbyUfQZrpDINH39en1b8mptfPQT9VKQ1xQ==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
-      svelte: ^5.0.0-next.126
+      svelte: ^5.0.0
 
   svelte@5.20.1:
     resolution: {integrity: sha512-aCARru2WTdzJl55Ws8SK27+kvQwd8tijl4kY7NoDUXUHtTHhxMa8Lf6QNZKmU7cuPu3jjFloDO1j5HgYJNIIWg==}
@@ -7147,6 +7150,9 @@ packages:
   system-architecture@0.1.0:
     resolution: {integrity: sha512-ulAk51I9UVUyJgxlv9M6lFot2WP3e7t8Kz9+IS6D4rVba1tR9kON+Ey69f+1R4Q8cd45Lod6a4IcJIxnzGc/zA==}
     engines: {node: '>=18'}
+
+  tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
 
   tailwind-merge@2.5.4:
     resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
@@ -10091,6 +10097,10 @@ snapshots:
   '@libsql/win32-x64-msvc@0.4.7':
     optional: true
 
+  '@lucide/svelte@0.511.0(svelte@5.20.1)':
+    dependencies:
+      svelte: 5.20.1
+
   '@mapbox/node-pre-gyp@2.0.0':
     dependencies:
       consola: 3.4.2
@@ -11919,7 +11929,7 @@ snapshots:
 
   axios@1.7.7:
     dependencies:
-      follow-redirects: 1.15.9
+      follow-redirects: 1.15.9(debug@4.3.7)
       form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -11974,15 +11984,16 @@ snapshots:
     dependencies:
       file-uri-to-path: 1.0.0
 
-  bits-ui@1.0.0-next.65(svelte@5.20.1):
+  bits-ui@1.4.8(svelte@5.20.1):
     dependencies:
       '@floating-ui/core': 1.6.8
       '@floating-ui/dom': 1.6.12
       '@internationalized/date': 3.5.6
-      esm-env: 1.1.4
-      runed: 0.15.4(svelte@5.20.1)
+      esm-env: 1.2.2
+      runed: 0.23.4(svelte@5.20.1)
       svelte: 5.20.1
-      svelte-toolbelt: 0.4.6(svelte@5.20.1)
+      svelte-toolbelt: 0.7.1(svelte@5.20.1)
+      tabbable: 6.2.0
 
   bl@1.2.3:
     dependencies:
@@ -13183,8 +13194,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  esm-env@1.1.4: {}
-
   esm-env@1.2.2: {}
 
   espree@10.3.0:
@@ -13390,8 +13399,6 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  follow-redirects@1.15.9: {}
-
   follow-redirects@1.15.9(debug@4.3.7):
     optionalDependencies:
       debug: 4.3.7
@@ -13526,7 +13533,7 @@ snapshots:
       '@types/follow-redirects': 1.14.4
       '@types/progress-stream': 2.0.5
       decompress-response: 7.0.0
-      follow-redirects: 1.15.9
+      follow-redirects: 1.15.9(debug@4.3.7)
       is-retry-allowed: 2.2.0
       progress-stream: 2.0.0
       tunnel-agent: 0.6.0
@@ -14290,10 +14297,6 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
-
-  lucide-svelte@0.511.0(svelte@5.20.1):
-    dependencies:
-      svelte: 5.20.1
 
   magic-string@0.25.9:
     dependencies:
@@ -15428,9 +15431,14 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runed@0.15.4(svelte@5.20.1):
+  runed@0.23.4(svelte@5.20.1):
     dependencies:
-      esm-env: 1.1.4
+      esm-env: 1.2.2
+      svelte: 5.20.1
+
+  runed@0.26.0(svelte@5.20.1):
+    dependencies:
+      esm-env: 1.2.2
       svelte: 5.20.1
 
   rxjs-exhaustmap-with-trailing@2.1.1(rxjs@7.8.1):
@@ -16008,13 +16016,15 @@ snapshots:
     optionalDependencies:
       svelte: 5.20.1
 
-  svelte-sonner@0.3.28(svelte@5.20.1):
+  svelte-sonner@1.0.1(svelte@5.20.1):
     dependencies:
+      runed: 0.26.0(svelte@5.20.1)
       svelte: 5.20.1
 
-  svelte-toolbelt@0.4.6(svelte@5.20.1):
+  svelte-toolbelt@0.7.1(svelte@5.20.1):
     dependencies:
       clsx: 2.1.1
+      runed: 0.23.4(svelte@5.20.1)
       style-to-object: 1.0.8
       svelte: 5.20.1
 
@@ -16070,6 +16080,8 @@ snapshots:
       tslib: 2.8.1
 
   system-architecture@0.1.0: {}
+
+  tabbable@6.2.0: {}
 
   tailwind-merge@2.5.4: {}
 
