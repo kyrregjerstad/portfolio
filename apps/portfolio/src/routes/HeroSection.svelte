@@ -28,7 +28,7 @@
 			</div>
 
 			<h2 class="text-pretty sm:text-lg lg:text-xl">
-				I build full-stack web applications with TypeScript, specializing in <strong>SvelteKit</strong> and
+				I build full-stack web applications with TypeScript, specializing in <strong>Next.js</strong> and
 				<strong>Next.js</strong>.
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
@@ -76,7 +76,7 @@
 <style>
 	.hero-text {
 		opacity: 1;
-		transition: opacity 1s 3s ease-in-out;
+		transition: opacity 1s 1s ease-in-out;
 	}
 
 	@starting-style {
