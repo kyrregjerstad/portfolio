@@ -38,6 +38,6 @@
 	</div>
 
 	<p class="py-8">
-		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-[1px]" /> by Kyrre Gjerstad
+		Made with <HeartIcon class="fill-foreground inline size-4 -translate-y-px" /> by Kyrre Gjerstad
 	</p>
 </footer>

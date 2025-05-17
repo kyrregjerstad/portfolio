@@ -22,10 +22,10 @@
 
 <Blob />
 <HeroSection initialLikes={data.totalLikes} />
-<div class="bg-background relative z-[2] w-full">
+<div class="bg-background relative z-2 w-full">
 	<GradientBlurDots />
 	<div class="mx-auto max-w-7xl">
-		<Divider class="!mt-0" delay={data.firstVisit ? 3600 : 0} />
+		<Divider class="mt-0!" delay={data.firstVisit ? 3600 : 0} />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Technologies</h2>
 			<Technologies />

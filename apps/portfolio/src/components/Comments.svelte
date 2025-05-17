@@ -86,7 +86,7 @@
 	{:else}
 		<div class="flex flex-col items-center gap-4">
 			<p class="text-muted-foreground">Join the conversation</p>
-			<a class={buttonVariants({ variant: 'outline' })} href="/login/github?returnTo={$page.url.pathname}#comments">
+			<a class={buttonVariants({ variant: 'outline-solid' })} href="/login/github?returnTo={$page.url.pathname}#comments">
 				Sign in with GitHub
 			</a>
 		</div>

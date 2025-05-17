@@ -12,7 +12,7 @@
 
 <span
 	class={cn(
-		'bg-foreground/20 hover:bg-foreground/30 h-fit w-fit rounded-sm border border-opacity-10 px-2 py-1 text-xs transition-colors sm:px-4 sm:py-2 sm:text-sm',
+		'bg-foreground/20 hover:bg-foreground/30 border-foreground/20 h-fit w-fit rounded-sm border px-2 py-1 text-xs transition-colors sm:px-4 sm:py-2 sm:text-sm',
 		className
 	)}
 >

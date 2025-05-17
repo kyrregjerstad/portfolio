@@ -107,7 +107,7 @@
 <svelte:window bind:innerWidth on:mousemove={handleMouseMove} />
 
 <PageWrapper>
-	<section class="flex min-h-[calc(100dvh_-_5rem)] flex-col items-center gap-4">
+	<section class="flex min-h-[calc(100dvh-5rem)] flex-col items-center gap-4">
 		<a
 			href="/"
 			class="flex items-center gap-2 self-end opacity-50 transition-opacity hover:scale-110 hover:opacity-100"
@@ -115,7 +115,7 @@
 			<X class="size-10 sm:size-6" />
 			<span class="sr-only">home</span>
 		</a>
-		<div class="flex w-full max-w-screen-md flex-col gap-4">
+		<div class="flex w-full max-w-(--breakpoint-md) flex-col gap-4">
 			<!-- svelte-ignore element_invalid_self_closing_tag -->
 			<canvas bind:this={canvas} class="min-h-[431px fadeIn h-auto w-full" />
 			<ParticleControls {settings} bind:showControls onUpdate={updateParticleSystem} />

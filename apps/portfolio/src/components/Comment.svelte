@@ -11,7 +11,7 @@
 	let { comment }: { comment: CommentData } = $props();
 </script>
 
-<div class="bg-card border-muted-foreground w-full rounded-sm border p-6 shadow-sm">
+<div class="bg-card border-muted-foreground w-full rounded-sm border p-6 shadow-xs">
 	<div class="flex-1">
 		<div class="flex items-center justify-between">
 			<h4 class="font-semibold">{comment.displayName}</h4>

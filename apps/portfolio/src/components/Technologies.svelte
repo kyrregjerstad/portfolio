@@ -76,7 +76,7 @@
 	{#each technologies as tech}
 		<div
 			class={cn(
-				'bg-accent-foreground/10 flex aspect-square w-20 flex-col items-center justify-center gap-2 rounded-md backdrop-blur-sm transition-transform hover:scale-110 sm:w-32',
+				'bg-accent-foreground/10 flex aspect-square w-20 flex-col items-center justify-center gap-2 rounded-md backdrop-blur-xs transition-transform hover:scale-110 sm:w-32',
 				tech.filler && 'sm:hidden'
 			)}
 		>
