@@ -37,3 +37,10 @@ export async function getPost(slug: string) {
 		return null;
 	}
 }
+
+export async function getAllPosts() {
+	const posts = await import.meta.glob('../posts/*.md', { eager: true });
+	const postSchemas = Object.values(posts).map((post) => postSchema.safeParse(post));
+
+	return postSchemas.filter((post) => post.success).map((post) => post.data);
+}

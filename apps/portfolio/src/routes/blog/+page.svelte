@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import { Card, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { formatDate } from '@/lib/utils';
 	import { Calendar } from '@lucide/svelte';
-	import type { Category } from '@/lib/types';
 
 	let { data } = $props();
 
