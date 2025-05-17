@@ -88,7 +88,7 @@
 	}
 
 	:global([data-firstVisit='true'] .intro-animation) {
-		animation: intro 10s ease-in-out forwards;
+		animation: intro 3s ease-in-out forwards;
 	}
 
 	.blobs-wrapper {
@@ -197,30 +197,28 @@
 			scale: 0;
 			opacity: 0;
 			translate: -200px 0%;
+			animation-timing-function: ease-in-out;
 		}
 
-		20% {
+		40% {
 			scale: 1;
 			opacity: 0.9;
 			translate: -80% 0%;
+			animation-timing-function: ease-in-out;
 		}
 
-		30% {
+		50% {
 			scale: 1;
 			opacity: 0.9;
 			translate: -80% 0%;
-		}
-
-		60% {
-			scale: 1;
-			opacity: 1;
-			translate: 0% 0%;
+			animation-timing-function: ease-in-out;
 		}
 
 		100% {
 			scale: 1;
 			opacity: 1;
 			translate: 0% 0%;
+			animation-timing-function: ease-in-out;
 		}
 	}
 </style>

@@ -93,7 +93,7 @@
 	.border-path {
 		stroke-dasharray: var(--path-length);
 		stroke-dashoffset: var(--path-length);
-		animation: draw-border 3.5s 500ms cubic-bezier(0.4, 0, 0.35, 1) forwards;
+		animation: draw-border 3.5s cubic-bezier(0.4, 0, 0.35, 1) forwards;
 	}
 
 	@keyframes draw-border {
