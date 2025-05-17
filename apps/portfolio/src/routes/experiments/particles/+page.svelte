@@ -4,7 +4,7 @@
 	import ParticleControls from './ParticleControls.svelte';
 	import { createParticleSystem, getImageData } from './particleSetup';
 	import { ParticleSystem } from './ParticleSystem';
-	import { X } from 'lucide-svelte';
+	import { X } from '@lucide/svelte';
 	import PageWrapper from '@/components/PageWrapper.svelte';
 
 	let canvas = $state<HTMLCanvasElement | null>(null);

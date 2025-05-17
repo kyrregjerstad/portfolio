@@ -5,7 +5,7 @@
 	import { fly } from 'svelte/transition';
 	import { Particles } from './projects/[slug]/particles.svelte';
 	import HeartButton from './projects/[slug]/HeartButton.svelte';
-	import { HeartIcon } from 'lucide-svelte';
+	import { HeartIcon } from '@lucide/svelte';
 
 	type Props = {
 		initialLikes: number;

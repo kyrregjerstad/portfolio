@@ -2,7 +2,7 @@
 	import { Card } from '@/lib/components/ui/card';
 	import type { PageData } from './$types';
 	import Button from '@/lib/components/ui/button/button.svelte';
-	import { Download } from 'lucide-svelte';
+	import { Download } from '@lucide/svelte';
 	import { buttonVariants } from '@/lib/components/ui/button';
 
 	let { data }: { data: PageData } = $props();

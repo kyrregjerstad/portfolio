@@ -5,7 +5,7 @@
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
-	import { ExternalLinkIcon, GithubIcon, X } from 'lucide-svelte';
+	import { ExternalLinkIcon, GithubIcon, X } from '@lucide/svelte';
 
 	import Divider from '@/components/Divider.svelte';
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
+	import { X } from '@lucide/svelte';
 	import { fly, blur, fade } from 'svelte/transition';
 	import Image from './Image.svelte';
 	import { sanityImgUrl } from '@/lib/utils/sanityImgUrl';

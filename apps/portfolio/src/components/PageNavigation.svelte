@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { scrollToTop } from '@/lib/utils';
 	import { cn } from '@/lib/utils/cn';
-	import { ChevronLeft, ChevronRight } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 
 	type Project = {
 		title: string;

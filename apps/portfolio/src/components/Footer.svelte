@@ -3,7 +3,7 @@
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
 	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
-	import { HeartIcon } from 'lucide-svelte';
+	import { HeartIcon } from '@lucide/svelte';
 	import posthog from 'posthog-js';
 </script>
 

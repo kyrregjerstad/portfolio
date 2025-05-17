@@ -4,7 +4,7 @@
 	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
-	import { MapPin } from 'lucide-svelte';
+	import { MapPin } from '@lucide/svelte';
 	import posthog from 'posthog-js';
 
 	let { initialLikes }: { initialLikes: number } = $props();
