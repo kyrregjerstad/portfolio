@@ -4,8 +4,26 @@ title: 'The Pragmatic Guide to Playwright Testing'
 slug: the-pragmatic-guide-to-playwright-testing
 published: true
 publishedAt: '2025-05-16'
-categories: ['testing']
+categories: ['testing', 'automation', 'web development', 'quality assurance']
 author: 'Kyrre Gjerstad'
+description: 'A comprehensive guide to writing effective and maintainable Playwright tests, covering best practices, patterns, and real-world examples.'
+seoTitle: 'The Pragmatic Guide to Playwright Testing: Best Practices & Patterns'
+seoDescription: 'Learn how to write effective and maintainable Playwright tests with this comprehensive guide. Covers best practices, patterns, and real-world examples from production environments.'
+seoKeywords:
+  [
+    'playwright',
+    'testing',
+    'automation',
+    'end-to-end testing',
+    'e2e tests',
+    'web testing',
+    'test automation',
+    'quality assurance',
+    'QA',
+    'javascript testing',
+    'typescript testing',
+  ]
+ogImage: 'https://kyrre.dev/images/blog/playwright-testing-guide.jpg'
 ---
 
 This guide covers techniques and best practices for Playwright testing, building upon my [basic setup guide](/blog/end-to-end-testing-setup). You'll learn patterns and practices that have been proven effective after using Playwright for years in production environments.

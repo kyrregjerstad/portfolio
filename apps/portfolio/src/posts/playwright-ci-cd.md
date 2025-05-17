@@ -3,8 +3,12 @@ title: Continuous Integration for Playwright Tests
 id: 44229f37-6282-4aa0-a03f-c784ef6c6e0e
 published: true
 publishedAt: '2025-04-17'
-categories: ['testing', 'ci-cd']
+categories: ['testing', 'ci-cd', 'automation', 'web development', 'quality assurance']
 slug: playwright-ci-cd
+description: 'A guide to setting up and optimizing continuous integration for Playwright tests.'
+seoTitle: 'Continuous Integration for Playwright Tests: Best Practices & Patterns'
+seoDescription: 'Learn how to set up and optimize continuous integration for Playwright tests, ensuring reliable automated testing across different environments.'
+seoKeywords: ['playwright', 'ci-cd', 'automation', 'web development']
 ---
 
 This guide covers how to set up and optimize continuous integration for your Playwright tests, ensuring reliable automated testing across different environments.

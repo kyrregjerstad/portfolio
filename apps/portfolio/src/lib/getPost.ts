@@ -9,6 +9,11 @@ const postSchema = z.object({
 		publishedAt: z.string(),
 		categories: z.array(z.string()).default([]),
 		author: z.string().default('Kyrre Gjerstad'),
+		description: z.string().optional(),
+		seoTitle: z.string().optional(),
+		seoDescription: z.string().optional(),
+		seoKeywords: z.array(z.string()).default([]),
+		ogImage: z.string().optional(),
 	}),
 	default: z.any(),
 });
