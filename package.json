@@ -10,12 +10,16 @@
 		"prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
 		"prettier-check": "prettier --plugin-search-dir . --check .",
 		"sanity": "pnpm --filter @k/sanity",
-		"portfolio": "pnpm --filter @k/portfolio"
+		"portfolio": "pnpm --filter @k/portfolio",
+		"knip": "knip"
 	},
 	"devDependencies": {
+		"@types/node": "^22.9.0",
+		"knip": "^5.56.0",
 		"prettier": "3.5.1",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"turbo": "^2.4.2",
+		"typescript": "^5.8.3",
 		"unique-names-generator": "^4.7.1",
 		"wrangler": "^3.109.1"
 	},
