@@ -2,12 +2,10 @@
 title: Setting Up End-to-End Testing with Playwright
 id: 407957d5-c857-468a-884b-1e8d32db415a
 published: true
-publishedAt: '2024-11-10'
+publishedAt: '2025-04-10'
 categories: ['playwright', 'testing']
 slug: end-to-end-testing-setup
 ---
-
-# Setting Up End-to-End Testing with Playwright
 
 End-to-end (E2E) testing is crucial for verifying that your web application works correctly from a user's perspective. In this guide, I'll walk through setting up Playwright, covering both monorepo and standard repository structures.
 
@@ -162,4 +160,4 @@ Now that you have Playwright set up, check out our companion guides:
 
 ---
 
-_This guide focuses on setting up Playwright for E2E testing. For best practices and CI/CD setup, see our companion guides._
+_This guide focuses on setting up Playwright for E2E testing. For best practices and CI/CD setup, see our companion guides "[The Pragmatic Guide to Playwright Testing](/blog/the-pragmatic-guide-to-playwright-testing) and "[Continuous Integration for Playwright Tests](/blog/playwright-ci-cd)"._

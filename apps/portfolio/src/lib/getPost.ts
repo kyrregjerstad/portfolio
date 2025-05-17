@@ -28,6 +28,7 @@ export async function getPost(slug: string) {
 
 		return post.data;
 	} catch (e) {
+		console.error(e);
 		return null;
 	}
 }

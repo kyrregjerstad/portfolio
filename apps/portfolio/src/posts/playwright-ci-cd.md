@@ -2,12 +2,10 @@
 title: Continuous Integration for Playwright Tests
 id: 44229f37-6282-4aa0-a03f-c784ef6c6e0e
 published: true
-publishedAt: '2024-11-12'
-categories: ['svelte', 'testing', 'ci-cd']
+publishedAt: '2025-04-17'
+categories: ['testing', 'ci-cd']
 slug: playwright-ci-cd
 ---
-
-# Setting Up Continuous Integration for Playwright Tests
 
 This guide covers how to set up and optimize continuous integration for your Playwright tests, ensuring reliable automated testing across different environments.
 
@@ -208,4 +206,4 @@ A well-configured CI/CD pipeline is crucial for maintaining reliable end-to-end 
 
 ---
 
-_This guide is part of my Playwright testing series. For setup instructions and best practices, see our companion guides "Setting Up End-to-End Testing with SvelteKit and Playwright" and "Playwright Testing Best Practices and Tips"._
+_This guide is part of my Playwright testing series. For setup instructions and best practices, see our companion guides "[Setting Up End-to-End Testing with Playwright](/blog/end-to-end-testing-setup) and "[The Pragmatic Guide to Playwright Testing](/blog/the-pragmatic-guide-to-playwright-testing)"._
