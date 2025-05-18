@@ -6,9 +6,9 @@ publishedAt: '2025-05-12'
 layout: 'blog'
 categories: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 slug: react-19-use
-description: 'A guide'
+description: 'A guide to React.use() and the Promise Lifecycle'
 seoTitle: 'React.use() and the Promise Lifecycle: A New Approach to Data in Components'
-seoDescription: 'Learn how to set up Playwright for end-to-end testing, covering both monorepo and standard repository structures.'
+seoDescription: 'A guide to React.use() and the Promise Lifecycle'
 seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 ---
 
