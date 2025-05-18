@@ -4,22 +4,20 @@ id: 0196dfff-7f2f-744e-99af-0642d0932ee3
 published: true
 publishedAt: '2025-05-12'
 layout: 'blog'
-categories: ['playwright', 'testing', 'automation', 'web development', 'quality assurance']
+categories: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 slug: react-19-use
 description: 'A guide'
-seoTitle: 'Setting Up End-to-End Testing with Playwright: Monorepo vs Standard Repository'
+seoTitle: 'React.use() and the Promise Lifecycle: A New Approach to Data in Components'
 seoDescription: 'Learn how to set up Playwright for end-to-end testing, covering both monorepo and standard repository structures.'
-seoKeywords: ['playwright', 'testing', 'automation', 'web development', 'quality assurance']
+seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 ---
 
-I’ve stared at data fetching code in React components more times than I can count. We’ve all been there, right? That familiar dance of `useState` for `data`, `isLoading`, and `error`. Then, the `useEffect` hook, carefully wired with its dependency array, kicking off our asynchronous request. It works. It’s a pattern many of us have internalized.
+I've stared at data fetching code in React components more times than I can count. We've all been there, right? That dance of managing data, loading and error states. We initiate our asyncronous side-effects with a `useEffect` hook, set up the fetch, manage the lifecycle with a dependency array, and handle race conditions ensuring old requests don't overwrite new data when dependencies change or the component re-renders.
 
-## Table of contents
-
-## Test
+What if we could lose some of that ceremony?
 
 ```tsx
-// The "classic" dance
+// The "classic" way
 function MyComponent({ id }) {
 	const [data, setData] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +50,7 @@ function MyComponent({ id }) {
 		return () => {
 			ignore = true; // Cleanup for unmounted component
 		};
-	}, [id]); // Don't forget the dependency array!
+	}, [id]);
 
 	if (isLoading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error.message}</p>;
@@ -62,16 +60,21 @@ function MyComponent({ id }) {
 }
 ```
 
-It’s… a lot. And while libraries like React Query or SWR have offered elegant abstractions over this, I’ve often wondered: what if React itself gave us a more direct way to deal with the values _inside_ these asynchronous operations, especially Promises?
+It's... a lot. And while libraries like React Query or SWR have offered elegant abstractions over this, I've often wondered: what if React itself gave us a more direct way to deal with the values _inside_ these asynchronous operations, especially Promises?
 
 Enter `React.use()`.
 
-Now, `use` isn't a Hook in the traditional "must be called at the top level" sense. The docs are clear: "Unlike React Hooks, `use` can be called within loops and conditional statements like `if`." This flexibility is interesting, and we'll touch on why that’s powerful for context in a future post. But for today, let's focus on its relationship with Promises and data fetching.
+## Table of contents
+
+## The Dream
+
+Now, `use` isn't a Hook in the traditional "must be called at the top level" sense. The docs are clear: "Unlike React Hooks, `use` can be called within loops and conditional statements like `if`." This flexibility is interesting, and we'll touch on why that's powerful for context in a future post. But for today, let's focus on its relationship with Promises and data fetching.
 
 The dream, when you first hear about `use` and Promises, is something like this:
 
 ```tsx
 // The dream?
+// ⛔ don't do this
 import { use, Suspense } from 'react';
 
 function MessageComponent({ messageId }) {
@@ -93,32 +96,32 @@ function App() {
 
 You pass a Promise to `use`, and it _suspends_ the component if the Promise is pending. If it's wrapped in a `<Suspense>` boundary, React will show the fallback. When the Promise resolves, `use` gives you the resolved value, and your component renders. If it rejects, it throws, and the nearest Error Boundary catches it. Beautiful, right? No more manual `isLoading` or `error` states for this common case!
 
-### The "Uncached Promise" Wrinkle
+### But Why Does It Keep Re-Fetching?
 
-So, I tried the "dream" scenario above. And my browser tab started to hang, or my console screamed with warnings like: "A component was suspended by an uncashed promise. Creating promises inside of client components or hooks is not yet supported..." (The exact warning text might vary, but the sentiment is the same.)
+So, I tried the "dream" scenario above. At first glance, everything seemed to work smoothly - the component rendered and the data loaded without any visible errors. However, when I opened my browser's network inspector, I discovered something concerning: the fetch request was being fired repeatedly in an endless loop, even though the component itself wasn't re-rendering and the Suspense boundary remained stable after the initial load.
 
 What gives?
 
-The issue, as the React docs (and a bit of thinking) clarify, is that if `fetchData()` (or `fetch()` directly) is called _inside_ the `MessageComponent` like that, a _new_ Promise is created on _every render_. If `use(messagePromise)` suspends, React will try to re-render. If `MessageComponent` re-renders and creates a _brand new_ `messagePromise`, `use` sees a new Promise, suspends again, and... you see where this is going. We get an infinite loop, or React wisely stops it with a warning.
+The issue, as the React docs (and a bit of thinking) clarify, is that if `fetch` is called _inside_ the `MessageComponent` like that, a _new_ Promise is created on _every render_. If `use(messagePromise)` suspends, React will try to re-render. If `MessageComponent` re-renders and creates a _brand new_ `messagePromise`, `use` sees a new Promise, suspends again, and... you see where this is going. We get an infinite loop of network requests, even if it's not immediately apparent in the UI.
 
 React needs to be sure that the Promise you pass to `use` is stable across re-renders—the _same_ Promise instance—at least until its underlying data genuinely needs to change.
 
+I also tried to use `useMemo` and the React Compiler to memoize the promise creation, but it didn't work. The promise was still being recreated every time it resolved.
+
+#### The Subtle "State Reset" with Client-Side use
+
+Beyond the direct infinite loop, there's a more subtle behavior to be aware of when use first interacts with a promise in a client component. When a component first suspends or resolves due to `use`, React might perform an internal "state reset". This can cause initialization logic, including the function passed to `useMemo` (even with an empty dependency array `[]`), to run more than once initially.
+
+This means even if you correctly memoize promise creation, you might observe your promise-creating function (and thus your API call) firing a couple of times right at the beginning when the component first mounts and use "settles in." While subsequent normal re-renders will respect the memoization, this initial double-take is a key reason why server-created promises often lead to a cleaner initial data load, as they sidestep this client-side component initialization phase with `use`. We'll see later how event-driven promise creation with `useState` neatly handles its own stability.
+
 ### Solution 1: Let the Server (Component) Handle It
 
-The React documentation offers a very elegant solution, especially potent in the world of Server Components: **create the Promise in a Server Component and pass it down to a Client Component.**
+The React documentation offers a simple solution, especially in the world of Server Components: **create the Promise in a Server Component and pass it down to a Client Component.**
 
 ```tsx
-// --- Server Component (e.g., app/page.js in Next.js) ---
+// --- Server Component (e.g., app/page.tsx in Next.js) ---
 import { Suspense } from 'react';
-import { Message } from './message.js'; // Our Client Component
-
-async function fetchMessagePromise(id) {
-	// This function returns a Promise
-	return fetch(`https://your-api.com/messages/${id}`).then((res) => {
-		if (!res.ok) throw new Error('Failed to fetch message');
-		return res.json();
-	});
-}
+import { Message } from './message.tsx';
 
 export default function MyPage() {
 	const messagePromise = fetchMessagePromise('123'); // Promise created on the server
@@ -132,10 +135,16 @@ export default function MyPage() {
 		</div>
 	);
 }
+
+async function fetchMessagePromise(id) {
+	return fetch(`https://your-api.com/messages/${id}`).then((res) => {
+		if (!res.ok) throw new Error('Failed to fetch message');
+		return res.json();
+	});
+}
 ```
 
 ```tsx
-// --- Client Component (e.g., message.js) ---
 'use client';
 import { use } from 'react';
 
@@ -166,18 +175,6 @@ The classic React tool for caching values across renders is `useMemo`.
 'use client';
 import { use, useMemo, Suspense } from 'react';
 
-async function fetchMessageClientSide(id) {
-	console.log(`Fetching message ${id} client-side`);
-	const res = await fetch(`https://your-api.com/messages/${id}`);
-	if (!res.ok) throw new Error('Failed to fetch message client-side');
-	return res.json();
-}
-
-function MessageDisplay({ messagePromise }) {
-	const messageContent = use(messagePromise);
-	return <p>Client-side message: {messageContent.text}</p>;
-}
-
 export default function ClientFetcherComponent({ messageId }) {
 	// Cache the promise itself!
 	const messagePromise = useMemo(() => {
@@ -190,25 +187,34 @@ export default function ClientFetcherComponent({ messageId }) {
 		</Suspense>
 	);
 }
+
+async function fetchMessageClientSide(id) {
+	const res = await fetch(`https://your-api.com/messages/${id}`);
+	if (!res.ok) throw new Error('Failed to fetch message client-side');
+	return res.json();
+}
+
+function MessageDisplay({ messagePromise }) {
+	const messageContent = use(messagePromise);
+	return <p>Client-side message: {messageContent.text}</p>;
+}
 ```
 
 Here, `useMemo` ensures that `fetchMessageClientSide(messageId)` is only called (and thus a new Promise created) when `messageId` changes. On subsequent re-renders with the same `messageId`, `useMemo` returns the _same cached Promise object_. This satisfies `use`'s need for a stable Promise.
 
-Some folks in the community have built more sophisticated custom caches (often using a `Map` outside the component or in a `useRef`), which can be useful for more complex scenarios like shared caching across multiple components. But for many cases, `useMemo` does the trick.
-
 The React docs caution: "Promises created in Client Components are recreated on every render. Promises passed from a Server Component to a Client Component are stable across re-renders." This strongly guides us towards the Server Component pattern when possible, but client-side caching with `useMemo` (or a similar mechanism) is our escape hatch.
 
-### What About Errors?
+An alternative to `useMemo` is to simply use the React Compiler to memoize the promise creation. In my testing, this worked great and saves us the overhead of memoizing the promise creation manually.
+
+## What About Errors?
 
 So `use` suspends for pending Promises. What happens when a Promise rejects?
 
 1.  **Error Boundaries:** The idiomatic React way. If `use(myPromise)` is called and `myPromise` rejects, `use` will throw. If the component is wrapped in an Error Boundary, the boundary's `fallback` will be displayed.
 
     ```tsx
-    // In some parent component
-    import { ErrorBoundary } from 'react-error-boundary'; // A popular package
+    import { ErrorBoundary } from 'react-error-boundary';
 
-    // ...
     <ErrorBoundary FallbackComponent={ErrorFallbackUI}>
     	<Suspense fallback={<p>Loading...</p>}>
     		<MyDataFetchingComponent />
@@ -232,7 +238,60 @@ So `use` suspends for pending Promises. What happens when a Promise rejects?
 
     The docs specifically note: "`use` cannot be called in a `try-catch` block." This makes sense because `use` itself is the mechanism that _triggers_ the suspension or error throwing behavior that Suspense and Error Boundaries integrate with.
 
-### Parallel Data Fetching
+3.  **Combining Error Boundaries and Suspense:** Since these two patterns are commonly used together with `use`, we can create a convenient wrapper component that handles both error and loading states. Here's a type-safe implementation:
+
+```tsx
+import React, { Suspense, ReactNode } from 'react';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+
+interface SafeSuspenseProps {
+	children: ReactNode;
+	fallback?: ReactNode;
+	errorFallback?: (props: FallbackProps) => ReactNode;
+	onReset?: () => void;
+}
+
+const DefaultErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
+	return (
+		<div>
+			<h2>Something went wrong:</h2>
+			<pre>{error.message}</pre>
+			<button onClick={resetErrorBoundary}>Try again</button>
+		</div>
+	);
+};
+
+export const SafeSuspense = ({
+	children,
+	fallback,
+	errorFallback = DefaultErrorFallback,
+	onReset,
+}: SafeSuspenseProps) => {
+	return (
+		<ErrorBoundary FallbackComponent={errorFallback} onReset={onReset}>
+			<Suspense fallback={fallback}>{children}</Suspense>
+		</ErrorBoundary>
+	);
+};
+```
+
+Now you can use it like this:
+
+```tsx
+<SafeSuspense
+	fallback={<p>Loading...</p>}
+	errorFallback={({ error }) => <p>Error: {error.message}</p>}
+	onReset={() => {
+		// Clear any state or cached data if needed
+	}}
+>
+	<MyDataFetchingComponent />
+</SafeSuspense>
+```
+
+This pattern encapsulates the common error boundary + suspense combination, provides type safety, and includes a default error UI that can be customized when needed.
+
+## Parallel Data Fetching
 
 A common pattern is needing multiple pieces of data. If you `use` them naively and sequentially, you might create a waterfall:
 
@@ -251,8 +310,8 @@ To fetch in parallel, create your Promises first, then `use` them:
 ```tsx
 function MyParallelComponent() {
 	// 1. Start all fetches
-	const promise1 = useMemo(() => fetchData1(), []); // Assuming no deps for simplicity
-	const promise2 = useMemo(() => fetchData2(), []);
+	const promise1 = fetchData1();
+	const promise2 = fetchData2();
 
 	// 2. Then use them. React will suspend until ALL promises passed to `use`
 	//    in this render pass are resolved.
@@ -283,10 +342,10 @@ function MyPromiseAllComponent() {
 
 By initiating all Promises _before_ calling `use` on them (or by using `Promise.all`), you allow them to load concurrently. The component will suspend until all Promises that `use` is "tracking" in that render pass are settled.
 
-### A New Primitive
+## A New Primitive
 
 `React.use()` feels like a new primitive that React is giving us to more ergonomically interact with its concurrent rendering capabilities. For data fetching, it elegantly bridges the gap between initiating an asynchronous operation and consuming its result within a component, while playing nicely with Suspense and Error Boundaries.
 
 The key is remembering that `use` needs a stable Promise. Whether that stability comes from a Server Component prop, `useMemo`, or a more sophisticated cache, ensuring that identity is crucial.
 
-It simplifies a common, boilerplate-heavy pattern, and I'm excited to see how we all integrate it into our applications. The way it handles Promises is quite direct, and it opens up interesting possibilities for how we structure our data flow. The story for `use` with Context is also compelling, but that, as they say, is for another time.
+It simplifies a common, boilerplate-heavy pattern, and I'm excited to see how we all integrate it into our applications. The way it handles Promises is quite direct, and it opens up interesting possibilities for how we structure our data flow. The story for `use` with Context is also compelling, but that is for another time.

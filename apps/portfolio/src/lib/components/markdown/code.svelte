@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="bg-red-500">
+<span class="">
 	{@render children()}
-</div>
+</span>
