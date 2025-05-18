@@ -14,6 +14,10 @@ seoKeywords: ['playwright', 'testing', 'automation', 'web development', 'quality
 
 I’ve stared at data fetching code in React components more times than I can count. We’ve all been there, right? That familiar dance of `useState` for `data`, `isLoading`, and `error`. Then, the `useEffect` hook, carefully wired with its dependency array, kicking off our asynchronous request. It works. It’s a pattern many of us have internalized.
 
+## Table of contents
+
+## Test
+
 ```tsx
 // The "classic" dance
 function MyComponent({ id }) {

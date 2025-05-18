@@ -28,6 +28,8 @@ seoKeywords:
 
 This guide covers techniques and best practices for Playwright testing, building upon my [basic setup guide](/blog/end-to-end-testing-setup). You'll learn patterns and practices that have been proven effective after using Playwright for years in production environments.
 
+## Table of contents
+
 ## User Centric Testing
 
 My favorite part of Playwright is the ability to write tests that are focused on the user's experience rather than the implementation details. Your tests should mirror how real users interact with your application, focusing on what they see and do rather than internal state or DOM structure.

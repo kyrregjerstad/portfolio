@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="max-w-full">
+<div class="bg-red-500">
 	{@render children()}
 </div>

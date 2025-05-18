@@ -3,6 +3,10 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
 
+import rehypeUnwrapImages from 'rehype-unwrap-images';
+import remarkToc from 'remark-toc';
+import rehypeSlug from 'rehype-slug';
+
 const theme = 'github-dark';
 const highlighter = await createHighlighter({
 	themes: [theme],
@@ -24,6 +28,15 @@ const config = {
 			layout: {
 				blog: import.meta.dirname + '/src/lib/layouts/BlogPostLayout.svelte',
 			},
+			remarkPlugins: [
+				[
+					remarkToc,
+					{
+						tight: true,
+					},
+				],
+			],
+			rehypePlugins: [rehypeSlug, rehypeUnwrapImages],
 		}),
 		vitePreprocess(),
 	],

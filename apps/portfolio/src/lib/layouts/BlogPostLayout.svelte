@@ -1,7 +1,8 @@
 <script lang="ts" module>
 	import pre from '$lib/components/markdown/pre.svelte';
+	import code from '$lib/components/markdown/code.svelte';
 
-	export { pre };
+	export { pre, code };
 </script>
 
 <script lang="ts">
