@@ -79,6 +79,7 @@
 		"nanoid": "^5.1.5",
 		"openai": "^4.100.0",
 		"partysocket": "1.1.4",
+		"pixi.js": "^8.9.2",
 		"posthog-js": "^1.242.2",
 		"simple-icons": "^14.13.0",
 		"svelte-sonner": "^1.0.1",

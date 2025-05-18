@@ -12,6 +12,15 @@ seoDescription: 'A guide to React.use() and the Promise Lifecycle'
 seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 ---
 
+<script>
+  import Counter from '../components/Counter.svelte';
+  import Suspense from '../components/visualizations/Suspense.svelte';
+</script>
+
+Try out this interactive counter component:
+
+<Suspense />
+
 I've stared at data fetching code in React components more times than I can count. We've all been there, right? That dance of managing data, loading and error states. We initiate our asynchronous side-effects with a `useEffect` hook, set up the fetch, manage the lifecycle with a dependency array, and handle race conditions ensuring old requests don't overwrite new data when dependencies change or the component re-renders.
 
 What if we could lose some of that ceremony?
