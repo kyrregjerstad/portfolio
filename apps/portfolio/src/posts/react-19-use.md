@@ -3,6 +3,7 @@ title: 'React.use() and the Promise Lifecycle: A New Approach to Data in Compone
 id: 0196dfff-7f2f-744e-99af-0642d0932ee3
 published: true
 publishedAt: '2025-05-12'
+layout: 'blog'
 categories: ['playwright', 'testing', 'automation', 'web development', 'quality assurance']
 slug: react-19-use
 description: 'A guide'

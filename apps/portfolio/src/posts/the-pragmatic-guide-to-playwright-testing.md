@@ -2,6 +2,7 @@
 id: 8f72ac0f-204f-4227-a2a0-c04d2c86fc44
 title: 'The Pragmatic Guide to Playwright Testing'
 slug: the-pragmatic-guide-to-playwright-testing
+layout: blog
 published: true
 publishedAt: '2025-05-16'
 categories: ['testing', 'automation', 'web development', 'quality assurance']
