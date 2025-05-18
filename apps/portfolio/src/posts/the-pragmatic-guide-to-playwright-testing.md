@@ -23,7 +23,6 @@ seoKeywords:
     'javascript testing',
     'typescript testing',
   ]
-ogImage: 'https://kyrre.dev/images/blog/playwright-testing-guide.jpg'
 ---
 
 This guide covers techniques and best practices for Playwright testing, building upon my [basic setup guide](/blog/end-to-end-testing-setup). You'll learn patterns and practices that have been proven effective after using Playwright for years in production environments.
