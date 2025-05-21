@@ -20,7 +20,7 @@
 		"db:studio": "drizzle-kit studio",
 		"party:dev": "pnpm dlx partykit dev",
 		"party:deploy": "pnpm dlx partykit deploy",
-		"postbuild": "npx svelte-sitemap --out-dir .vercel/output/static --domain https://kyrre.dev"
+		"postbuild": "npx svelte-sitemap --out-dir .vercel/output/static --domain https://www.kyrre.dev"
 	},
 	"devDependencies": {
 		"@k/eslint-config": "workspace:*",
