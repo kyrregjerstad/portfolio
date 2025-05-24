@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle } from 'pixi.js';
+	import { initDevtools } from '@pixi/devtools';
+	import gsap from 'gsap';
 
 	let app: Application;
 	let container: HTMLDivElement;
@@ -17,25 +19,45 @@
 	const BOX_WIDTH = 160;
 	const BOX_HEIGHT = 60;
 
+	const POSITIONS = {
+		serverComponent: { x: 0.01, y: 0.5 },
+		suspense: { x: 0.35, y: 0.5 },
+		loadingFallback: { x: 0.35, y: 0.2 },
+		clientComponent: { x: 0.8, y: 0.2 },
+		errorBoundary: { x: 0.8, y: 0.7 },
+	};
+
 	class FlowBox extends Container {
 		private box: Graphics;
 		private fillBox: Graphics;
+		private backgroundBox: Graphics;
 		protected _label: Text;
 		private _progress = 0;
 		private _isFilled = false;
 		private _isActive = false;
+		private activeColor: number;
 
 		constructor(text: string, activeColor = 0x4caf50) {
 			super();
+
+			this.activeColor = activeColor;
+
+			// Background box for flash effect
+			this.backgroundBox = new Graphics();
+			this.backgroundBox.beginFill(activeColor);
+			this.backgroundBox.drawRoundedRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS);
+			this.backgroundBox.endFill();
+			this.backgroundBox.alpha = 0;
 
 			// Main box outline
 			this.box = new Graphics(boxContext);
 
 			// Progress fill box
 			this.fillBox = new Graphics();
-			this.fillBox.fill({ color: activeColor, alpha: 0.3 });
-			this.fillBox.roundRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS);
-			this.fillBox.fill();
+			this.fillBox.beginFill(activeColor);
+			this.fillBox.drawRoundedRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS);
+			this.fillBox.endFill();
+			this.fillBox.alpha = 0.3;
 			this.fillBox.scale.x = 0;
 
 			// Create text
@@ -48,7 +70,35 @@
 			this._label.anchor.set(0.5);
 			this._label.position.set(BOX_WIDTH / 2, BOX_HEIGHT / 2);
 
-			this.addChild(this.fillBox, this.box, this._label);
+			this.addChild(this.backgroundBox, this.fillBox, this.box, this._label);
+		}
+
+		public flash() {
+			return gsap
+				.timeline()
+				.to(this.backgroundBox, {
+					alpha: 0.3,
+					duration: 0.2,
+					ease: 'power2.in',
+				})
+				.to(this.backgroundBox, {
+					alpha: 0,
+					duration: 0.3,
+					ease: 'power2.out',
+				});
+		}
+
+		public setBackgroundFill(fill: boolean) {
+			gsap.to(this.backgroundBox, {
+				alpha: fill ? 0.15 : 0,
+				duration: 0.3,
+				ease: 'power2.inOut',
+			});
+		}
+
+		// Public method to get the fill scale object for animation
+		public getFillScale() {
+			return this.fillBox.scale;
 		}
 
 		public setProgress(progress: number) {
@@ -70,6 +120,7 @@
 			this._isActive = false;
 			this.fillBox.scale.x = 0;
 			this.fillBox.alpha = 0.3;
+			this.backgroundBox.alpha = 0;
 		}
 
 		public get isFilled() {
@@ -80,18 +131,34 @@
 	class FlowArrow extends Container {
 		private arrow: Graphics;
 
-		constructor(fromX: number, fromY: number, toX: number, toY: number) {
+		constructor(fromX: number, fromY: number, toX: number, toY: number, withVerticalFirst = false, turnOffset = 80) {
 			super();
 
 			const arrowContext = new GraphicsContext();
 
-			// Draw line with pixel-perfect rendering
-			arrowContext.moveTo(fromX, fromY).lineTo(toX, toY).stroke({ color: 0xffffff, pixelLine: true });
+			// Draw the path with 90-degree turns
+			arrowContext.moveTo(fromX, fromY);
 
-			// Calculate arrow head
-			const angle = Math.atan2(toY - fromY, toX - fromX);
+			if (withVerticalFirst) {
+				// Go vertical first, then horizontal
+				arrowContext.lineTo(fromX, toY);
+				arrowContext.lineTo(toX - turnOffset, toY); // Stop before the final node
+				arrowContext.lineTo(toX, toY); // Connect to the final node
+			} else {
+				// Go horizontal first, then vertical
+				const midX = toX - turnOffset; // Calculate where to make the turn
+				arrowContext.lineTo(midX, fromY);
+				arrowContext.lineTo(midX, toY);
+				arrowContext.lineTo(toX, toY);
+			}
 
-			// Draw arrow head with fill
+			// Draw the line
+			arrowContext.stroke({ color: 0xffffff, width: 2 });
+
+			// Calculate angle for arrow head (always horizontal since we're using orthogonal paths)
+			const angle = 0; // Arrow always points right
+
+			// Draw arrow head
 			arrowContext
 				.moveTo(toX, toY)
 				.lineTo(
@@ -111,9 +178,8 @@
 	}
 
 	class FlowParticle extends Container {
-		private static successContext = new GraphicsContext().circle(0, 0, 3).fill(0x4caf50);
-
-		private static errorContext = new GraphicsContext().circle(0, 0, 3).fill(0xff5252);
+		private static successContext = new GraphicsContext().circle(0, 0, 20).fill(0x4caf50);
+		private static errorContext = new GraphicsContext().circle(0, 0, 20).fill(0xff5252);
 
 		private particle: Graphics;
 
@@ -145,67 +211,160 @@
 		// Reset all boxes
 		Object.values(boxes).forEach((box) => box.reset());
 
-		let startTime = Date.now();
-		let hasCompleted = false;
+		// Create a master timeline
+		const master = gsap.timeline({
+			onComplete: () => {
+				isRunning = false;
+			},
+		});
 
-		const animate = () => {
-			const elapsed = Date.now() - startTime;
-			const progress = Math.min(1, elapsed / promiseDuration);
+		// Create particle timeline for first phase
+		const particle1Tl = gsap.timeline();
 
-			// Update progress on boxes
-			boxes.suspense.setProgress(progress);
-			if (showLoadingFallback) {
-				boxes.loadingFallback.setProgress(progress);
-			}
+		// Setup first particle (server to suspense)
+		const particle1 = new FlowParticle(false);
+		const startX = boxes.serverComponent.x + BOX_WIDTH;
+		const startY = boxes.serverComponent.y + BOX_HEIGHT / 2;
+		const suspenseX = boxes.suspense.x;
+		const suspenseY = boxes.suspense.y + BOX_HEIGHT / 2;
 
-			// When animation completes
-			if (progress >= 1 && !hasCompleted) {
-				hasCompleted = true;
+		particle1.position.set(startX, startY);
+		particle1.alpha = 0; // Start invisible
+		app.stage.addChild(particle1);
 
-				// Create success/error particle
-				const particle = new FlowParticle(shouldReject);
-				const startX = boxes.suspense.x + BOX_WIDTH;
-				const startY = boxes.suspense.y + (shouldReject ? (BOX_HEIGHT * 3) / 4 : BOX_HEIGHT / 4);
-				const endX = shouldReject ? boxes.errorBoundary.x : boxes.clientComponent.x;
-				const endY = shouldReject ? boxes.errorBoundary.y + BOX_HEIGHT / 2 : boxes.clientComponent.y + BOX_HEIGHT / 2;
+		// First phase: Server Component flash and particle movement
+		master
+			.addLabel('start')
+			.add(boxes.serverComponent.flash())
+			.addLabel('flashComplete')
+			.to(
+				particle1,
+				{
+					alpha: 1,
+					duration: 0.2,
+					ease: 'power1.inOut',
+				},
+				'flashComplete'
+			)
+			.to(
+				particle1.position,
+				{
+					x: (startX + suspenseX) / 2,
+					y: startY,
+					duration: 0.25,
+					ease: 'power1.inOut',
+				},
+				'>'
+			)
+			.to(
+				particle1.position,
+				{
+					x: suspenseX,
+					y: suspenseY,
+					duration: 0.25,
+					ease: 'power1.inOut',
+				},
+				'>'
+			)
+			.to(particle1, {
+				alpha: 0,
+				duration: 0.1,
+				ease: 'none',
+				onComplete: () => {
+					app.stage.removeChild(particle1);
+				},
+			})
+			.addLabel('suspenseStart');
 
-				particle.position.set(startX, startY);
-				app.stage.addChild(particle);
+		// Animate Suspense and Loading Fallback boxes
+		master.to(
+			boxes.suspense.getFillScale(),
+			{
+				x: 1,
+				duration: promiseDuration / 1000,
+				ease: 'none',
+			},
+			'suspenseStart'
+		);
 
-				// Animate particle
-				let particleProgress = 0;
-				const particleDuration = 30; // frames
+		// Animate Loading Fallback box if enabled
+		if (showLoadingFallback) {
+			master.to(
+				boxes.loadingFallback.getFillScale(),
+				{
+					x: 1,
+					duration: promiseDuration / 1000,
+					ease: 'none',
+				},
+				'suspenseStart'
+			);
+		}
 
-				const animateParticle = () => {
-					particleProgress++;
-					particle.position.x = startX + (endX - startX) * (particleProgress / particleDuration);
-					particle.position.y = startY + (endY - startY) * (particleProgress / particleDuration);
-					particle.setAlpha(Math.sin((particleProgress / particleDuration) * Math.PI));
+		// Setup second particle (suspense to final)
+		const particle2 = new FlowParticle(shouldReject);
+		const suspenseEndX = boxes.suspense.x + BOX_WIDTH;
+		const suspenseEndY = boxes.suspense.y + BOX_HEIGHT / 2;
+		const endX = shouldReject ? boxes.errorBoundary.x : boxes.clientComponent.x;
+		const endY = shouldReject ? boxes.errorBoundary.y + BOX_HEIGHT / 2 : boxes.clientComponent.y + BOX_HEIGHT / 2;
 
-					if (particleProgress >= particleDuration) {
-						app.ticker.remove(animateParticle);
-						app.stage.removeChild(particle);
-						// Activate final component
+		particle2.position.set(suspenseEndX, suspenseEndY);
+		particle2.alpha = 0;
+		app.stage.addChild(particle2);
+
+		// Final phase: Move particle2 to destination
+		master
+			.addLabel('finalPhase', `suspenseStart+=${promiseDuration / 1000}`)
+			.set(particle2, { alpha: 1 }, 'finalPhase')
+			.to(
+				particle2.position,
+				{
+					x: endX - 80,
+					y: suspenseEndY,
+					duration: 0.25,
+					ease: 'power1.inOut',
+				},
+				'finalPhase'
+			)
+			.to(
+				particle2.position,
+				{
+					x: endX - 80,
+					y: endY,
+					duration: 0.25,
+					ease: 'power1.inOut',
+				},
+				'>'
+			)
+			.to(
+				particle2.position,
+				{
+					x: endX,
+					y: endY,
+					duration: 0.25,
+					ease: 'power1.inOut',
+				},
+				'>'
+			)
+			.to(
+				particle2,
+				{
+					alpha: 0,
+					duration: 0.1,
+					ease: 'none',
+					onComplete: () => {
+						app.stage.removeChild(particle2);
+						// Activate final component and fill background
 						if (shouldReject) {
 							boxes.errorBoundary.setActive(true);
+							boxes.errorBoundary.setBackgroundFill(true);
 						} else {
 							boxes.clientComponent.setActive(true);
+							boxes.clientComponent.setBackgroundFill(true);
 						}
-						isRunning = false;
-					}
-				};
-
-				app.ticker.add(animateParticle);
-				animationCleanup = () => {
-					app.ticker.remove(animate);
-					app.ticker.remove(animateParticle);
-					app.stage.removeChild(particle);
-				};
-			}
-		};
-
-		app.ticker.add(animate);
-		animationCleanup = () => app.ticker.remove(animate);
+					},
+				},
+				'>'
+			);
 	}
 
 	async function initPixi() {
@@ -221,9 +380,8 @@
 			antialias: true,
 			hello: true,
 		});
+		initDevtools(app);
 		container.appendChild(app.canvas);
-
-		const centerY = app.screen.height / 2;
 
 		// Create boxes with different active colors
 		boxes = {
@@ -234,43 +392,82 @@
 			errorBoundary: new FlowBox('ErrorBoundary', 0xff5252),
 		};
 
-		// Position boxes
-		boxes.serverComponent.position.set(50, centerY - BOX_HEIGHT / 2);
-		boxes.suspense.position.set(300, centerY - BOX_HEIGHT / 2);
-		boxes.loadingFallback.position.set(300, centerY - BOX_HEIGHT * 2);
-		boxes.clientComponent.position.set(550, centerY - BOX_HEIGHT / 2);
-		boxes.errorBoundary.position.set(550, centerY + BOX_HEIGHT);
+		// Position boxes using relative positions
+		boxes.serverComponent.position.set(
+			POSITIONS.serverComponent.x * app.screen.width,
+			POSITIONS.serverComponent.y * app.screen.height - BOX_HEIGHT / 2
+		);
+		boxes.suspense.position.set(
+			POSITIONS.suspense.x * app.screen.width,
+			POSITIONS.suspense.y * app.screen.height - BOX_HEIGHT / 2
+		);
+		boxes.loadingFallback.position.set(
+			POSITIONS.loadingFallback.x * app.screen.width,
+			POSITIONS.loadingFallback.y * app.screen.height
+		);
+		boxes.clientComponent.position.set(
+			POSITIONS.clientComponent.x * app.screen.width,
+			POSITIONS.clientComponent.y * app.screen.height
+		);
+		boxes.errorBoundary.position.set(
+			POSITIONS.errorBoundary.x * app.screen.width,
+			POSITIONS.errorBoundary.y * app.screen.height
+		);
 
-		// Create arrows
+		// Create arrows with orthogonal paths
 		const arrows = [
+			// Server Component to Suspense
 			new FlowArrow(
 				boxes.serverComponent.x + BOX_WIDTH,
 				boxes.serverComponent.y + BOX_HEIGHT / 2,
 				boxes.suspense.x,
 				boxes.suspense.y + BOX_HEIGHT / 2
 			),
+			// Suspense to LoadingFallback
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH / 2,
 				boxes.suspense.y,
 				boxes.loadingFallback.x + BOX_WIDTH / 2,
-				boxes.loadingFallback.y + BOX_HEIGHT
+				boxes.loadingFallback.y + BOX_HEIGHT,
+				true // vertical first
 			),
+			// Branch to ClientComponent
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH,
-				boxes.suspense.y + BOX_HEIGHT / 4,
+				boxes.suspense.y + BOX_HEIGHT / 2,
 				boxes.clientComponent.x,
-				boxes.clientComponent.y + BOX_HEIGHT / 2
+				boxes.clientComponent.y + BOX_HEIGHT / 2,
+				false
 			),
+			// Branch to ErrorBoundary
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH,
-				boxes.suspense.y + (BOX_HEIGHT * 3) / 4,
+				boxes.suspense.y + BOX_HEIGHT / 2,
 				boxes.errorBoundary.x,
-				boxes.errorBoundary.y + BOX_HEIGHT / 2
+				boxes.errorBoundary.y + BOX_HEIGHT / 2,
+				false
 			),
 		];
 
 		// Add everything to stage
 		app.stage.addChild(...Object.values(boxes), ...arrows);
+
+		// Add resize handler to update positions when the container is resized
+		const resizeHandler = () => {
+			// Update positions of all elements
+			Object.entries(boxes).forEach(([key, box]) => {
+				const pos = POSITIONS[key as keyof typeof POSITIONS];
+				box.position.set(pos.x * app.screen.width, pos.y * app.screen.height - BOX_HEIGHT / 2);
+			});
+
+			app.stage.removeChild(...arrows);
+			app.stage.addChild(...arrows);
+		};
+
+		window.addEventListener('resize', resizeHandler);
+		animationCleanup = () => {
+			window.removeEventListener('resize', resizeHandler);
+		};
 	}
 
 	$effect(() => {
@@ -288,7 +485,14 @@
 
 <div class="mb-4 space-x-4">
 	<label>
-		Duration: <input type="range" min="500" max="5000" step="100" bind:value={promiseDuration} />
+		Duration: <input
+			type="range"
+			min="100"
+			max="5000"
+			step="100"
+			bind:value={promiseDuration}
+			class="accent-foreground"
+		/>
 		{promiseDuration}ms
 	</label>
 	<label>
