@@ -29,7 +29,7 @@
 
 			<h2 class="text-pretty sm:text-lg lg:text-xl">
 				I build full-stack web applications with TypeScript, specializing in <strong>Next.js</strong> and
-				<strong>Next.js</strong>.
+				<strong>SvelteKit</strong>.
 			</h2>
 			<!-- TODO: idea - make the text crumble or some other effect when the gradient comes over the text -->
 			<p class="prose sm:text-lg">
