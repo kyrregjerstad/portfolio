@@ -41,9 +41,9 @@
 </svelte:head>
 
 <div class="relative flex flex-col gap-8">
-	<article class="prose prose-hr:border-t prose-hr:border-muted-foreground mx-auto max-w-full text-pretty sm:max-w-4xl">
+	<article class="prose prose-hr:border-t prose-hr:border-muted-foreground mx-auto max-w-full text-pretty lg:max-w-4xl">
 		<header>
-			<h1 class="text-pretty">{data.meta.title}</h1>
+			<h1 class="text-pretty text-2xl sm:text-4xl">{data.meta.title}</h1>
 			<p>
 				<time datetime={data.meta.publishedAt}>{formatDate(data.meta.publishedAt)}</time>
 				<span>by</span>

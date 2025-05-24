@@ -44,6 +44,18 @@
 		--tw-prose-quote-borders: var(--color-foreground);
 		--tw-prose-captions: var(--color-foreground);
 		--tw-prose-code: var(--color-foreground);
+
+		:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *, pre *)) {
+			@apply rounded-sm bg-[#24292e] px-1 py-1 font-mono;
+
+			&::before {
+				content: '';
+			}
+
+			&::after {
+				content: '';
+			}
+		}
 	}
 }
 

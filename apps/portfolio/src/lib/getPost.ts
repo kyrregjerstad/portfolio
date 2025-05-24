@@ -5,6 +5,7 @@ const postSchema = z.object({
 		id: z.string().uuid(),
 		title: z.string().min(1),
 		slug: z.string().min(1),
+		layout: z.string().default('blog'),
 		published: z.boolean().default(false),
 		publishedAt: z.string(),
 		categories: z.array(z.string()).default([]),

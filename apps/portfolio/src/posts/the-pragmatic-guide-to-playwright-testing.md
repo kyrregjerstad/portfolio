@@ -2,6 +2,7 @@
 id: 8f72ac0f-204f-4227-a2a0-c04d2c86fc44
 title: 'The Pragmatic Guide to Playwright Testing'
 slug: the-pragmatic-guide-to-playwright-testing
+layout: blog
 published: true
 publishedAt: '2025-05-16'
 categories: ['testing', 'automation', 'web development', 'quality assurance']
@@ -23,10 +24,11 @@ seoKeywords:
     'javascript testing',
     'typescript testing',
   ]
-ogImage: 'https://kyrre.dev/images/blog/playwright-testing-guide.jpg'
 ---
 
 This guide covers techniques and best practices for Playwright testing, building upon my [basic setup guide](/blog/end-to-end-testing-setup). You'll learn patterns and practices that have been proven effective after using Playwright for years in production environments.
+
+## Table of contents
 
 ## User Centric Testing
 

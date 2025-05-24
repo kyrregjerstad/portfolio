@@ -5,6 +5,7 @@ published: true
 publishedAt: '2025-04-10'
 categories: ['playwright', 'testing', 'automation', 'web development', 'quality assurance']
 slug: end-to-end-testing-setup
+layout: blog
 description: 'A guide to setting up Playwright for end-to-end testing, covering both monorepo and standard repository structures.'
 seoTitle: 'Setting Up End-to-End Testing with Playwright: Monorepo vs Standard Repository'
 seoDescription: 'Learn how to set up Playwright for end-to-end testing, covering both monorepo and standard repository structures.'
