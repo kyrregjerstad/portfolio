@@ -1,102 +1,172 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle } from 'pixi.js';
+	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle, Filter } from 'pixi.js';
 	import { initDevtools } from '@pixi/devtools';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import gsap from 'gsap';
 
 	let app: Application;
 	let container: HTMLDivElement;
 
 	// Flow configuration
-	let promiseDuration = $state(2000); // ms
+	let promiseDuration = $state(1000); // ms
 	let shouldReject = $state(false);
 	let showLoadingFallback = $state(true);
 	let isRunning = $state(false);
 
-	const BOX_PADDING = 20;
-	const BOX_RADIUS = 10;
-	const ARROW_HEAD_SIZE = 10;
-	const BOX_WIDTH = 160;
-	const BOX_HEIGHT = 60;
+	const BOX_PADDING = 24;
+	const BOX_RADIUS = 16;
+	const ARROW_HEAD_SIZE = 12;
+	const BOX_WIDTH = 180;
+	const BOX_HEIGHT = 72;
+
+	// Modern color palette
+	const COLORS = {
+		primary: 0x6366f1, // indigo-500
+		primaryLight: 0x818cf8, // indigo-400
+		secondary: 0x8b5cf6, // violet-500
+		success: 0x10b981, // emerald-500
+		successLight: 0x34d399, // emerald-400
+		error: 0xef4444, // red-500
+		errorLight: 0xf87171, // red-400
+		warning: 0xf59e0b, // amber-500
+		background: 0x0f172a, // slate-900
+		surface: 0x1e293b, // slate-800
+		surfaceLight: 0x334155, // slate-700
+		text: 0xf8fafc, // slate-50
+		textSecondary: 0x94a3b8, // slate-400
+		border: 0x475569, // slate-600
+		accent: 0x06b6d4, // cyan-500
+	};
 
 	const POSITIONS = {
-		serverComponent: { x: 0.01, y: 0.5 },
-		suspense: { x: 0.35, y: 0.5 },
-		loadingFallback: { x: 0.35, y: 0.2 },
-		clientComponent: { x: 0.8, y: 0.2 },
-		errorBoundary: { x: 0.8, y: 0.7 },
+		serverComponent: { x: 0.06, y: 0.5 },
+		suspense: { x: 0.4, y: 0.5 },
+		loadingFallback: { x: 0.4, y: 0.18 },
+		clientComponent: { x: 0.76, y: 0.25 },
+		errorBoundary: { x: 0.76, y: 0.75 },
 	};
 
 	class FlowBox extends Container {
+		private backgroundGradient: Graphics;
 		private box: Graphics;
 		private fillBox: Graphics;
-		private backgroundBox: Graphics;
+		private glowBox: Graphics;
 		protected _label: Text;
 		private _progress = 0;
 		private _isFilled = false;
 		private _isActive = false;
 		private activeColor: number;
+		private surfaceColor: number;
 
-		constructor(text: string, activeColor = 0x4caf50) {
+		constructor(text: string, activeColor = COLORS.primary, surfaceColor = COLORS.surface) {
 			super();
 
 			this.activeColor = activeColor;
+			this.surfaceColor = surfaceColor;
 
-			// Background box for flash effect
-			this.backgroundBox = new Graphics();
-			this.backgroundBox.beginFill(activeColor);
-			this.backgroundBox.drawRoundedRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS);
-			this.backgroundBox.endFill();
-			this.backgroundBox.alpha = 0;
+			// Glow effect for active state
+			this.glowBox = new Graphics();
+			this.glowBox.beginFill(activeColor);
+			this.glowBox.drawRoundedRect(-4, -4, BOX_WIDTH + 8, BOX_HEIGHT + 8, BOX_RADIUS + 4);
+			this.glowBox.endFill();
+			this.glowBox.alpha = 0;
 
-			// Main box outline
-			this.box = new Graphics(boxContext);
+			// Background with gradient
+			this.backgroundGradient = new Graphics();
+			const gradientContext = new GraphicsContext().roundRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS).fill({
+				color: surfaceColor,
+				alpha: 0.9,
+			});
+			this.backgroundGradient = new Graphics(gradientContext);
 
-			// Progress fill box
+			// Progress fill box with gradient
 			this.fillBox = new Graphics();
 			this.fillBox.beginFill(activeColor);
 			this.fillBox.drawRoundedRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS);
 			this.fillBox.endFill();
-			this.fillBox.alpha = 0.3;
+			this.fillBox.alpha = 0.2;
 			this.fillBox.scale.x = 0;
 
-			// Create text
+			// Main box outline with enhanced styling
+			this.box = new Graphics(this.createBoxContext());
+
+			// Create enhanced text with better typography
 			const style = new TextStyle({
-				fontFamily: 'Arial',
-				fontSize: 16,
-				fill: 0xffffff,
+				fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
+				fontSize: 14,
+				fontWeight: '600',
+				fill: COLORS.text,
+				letterSpacing: 0.5,
+				dropShadow: {
+					alpha: 0.3,
+					angle: Math.PI / 4,
+					blur: 4,
+					color: 0x000000,
+					distance: 2,
+				},
 			});
 			this._label = new Text(text, style);
 			this._label.anchor.set(0.5);
 			this._label.position.set(BOX_WIDTH / 2, BOX_HEIGHT / 2);
 
-			this.addChild(this.backgroundBox, this.fillBox, this.box, this._label);
+			this.addChild(this.glowBox, this.backgroundGradient, this.fillBox, this.box, this._label);
+		}
+
+		private createBoxContext() {
+			return new GraphicsContext().roundRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS).stroke({
+				width: 2,
+				color: COLORS.border,
+				alpha: 0.8,
+			});
 		}
 
 		public flash() {
 			return gsap
 				.timeline()
-				.to(this.backgroundBox, {
-					alpha: 0.3,
-					duration: 0.2,
+				.to(this.glowBox, {
+					alpha: 0.4,
+					duration: 0.15,
 					ease: 'power2.in',
 				})
-				.to(this.backgroundBox, {
+				.to(
+					this.fillBox,
+					{
+						alpha: 0.6,
+						duration: 0.15,
+						ease: 'power2.in',
+					},
+					0
+				)
+				.to(this.glowBox, {
 					alpha: 0,
-					duration: 0.3,
+					duration: 0.4,
 					ease: 'power2.out',
-				});
+				})
+				.to(
+					this.fillBox,
+					{
+						alpha: 0.2,
+						duration: 0.4,
+						ease: 'power2.out',
+					},
+					'-=0.4'
+				);
 		}
 
 		public setBackgroundFill(fill: boolean) {
-			gsap.to(this.backgroundBox, {
-				alpha: fill ? 0.15 : 0,
-				duration: 0.3,
+			gsap.to(this.glowBox, {
+				alpha: fill ? 0.2 : 0,
+				duration: 0.5,
+				ease: 'power2.inOut',
+			});
+			gsap.to(this.backgroundGradient, {
+				alpha: fill ? 1 : 0.9,
+				duration: 0.5,
 				ease: 'power2.inOut',
 			});
 		}
 
-		// Public method to get the fill scale object for animation
 		public getFillScale() {
 			return this.fillBox.scale;
 		}
@@ -110,7 +180,12 @@
 		public setActive(active: boolean) {
 			this._isActive = active;
 			if (active) {
-				this.fillBox.alpha = 0.6;
+				this.fillBox.alpha = 0.4;
+				gsap.to(this.glowBox, {
+					alpha: 0.3,
+					duration: 0.3,
+					ease: 'power2.inOut',
+				});
 			}
 		}
 
@@ -119,8 +194,9 @@
 			this._isFilled = false;
 			this._isActive = false;
 			this.fillBox.scale.x = 0;
-			this.fillBox.alpha = 0.3;
-			this.backgroundBox.alpha = 0;
+			this.fillBox.alpha = 0.2;
+			this.glowBox.alpha = 0;
+			this.backgroundGradient.alpha = 0.9;
 		}
 
 		public get isFilled() {
@@ -136,29 +212,42 @@
 
 			const arrowContext = new GraphicsContext();
 
-			// Draw the path with 90-degree turns
+			// Enhanced arrow styling with gradient effect
 			arrowContext.moveTo(fromX, fromY);
 
-			if (withVerticalFirst) {
-				// Go vertical first, then horizontal
+			let finalDirection = { x: 0, y: 0 }; // Track the final segment direction
+
+			// Check if this is a pure vertical arrow (same X coordinates)
+			if (Math.abs(fromX - toX) < 5) {
+				// Pure vertical arrow
+				arrowContext.lineTo(toX, toY);
+				finalDirection = { x: 0, y: toY > fromY ? 1 : -1 }; // Down or up
+			} else if (withVerticalFirst) {
 				arrowContext.lineTo(fromX, toY);
-				arrowContext.lineTo(toX - turnOffset, toY); // Stop before the final node
-				arrowContext.lineTo(toX, toY); // Connect to the final node
+				arrowContext.lineTo(toX - turnOffset, toY);
+				arrowContext.lineTo(toX, toY);
+				// Final segment is horizontal (left to right)
+				finalDirection = { x: 1, y: 0 };
 			} else {
-				// Go horizontal first, then vertical
-				const midX = toX - turnOffset; // Calculate where to make the turn
+				const midX = toX - turnOffset;
 				arrowContext.lineTo(midX, fromY);
 				arrowContext.lineTo(midX, toY);
 				arrowContext.lineTo(toX, toY);
+				// Final segment is horizontal (left to right)
+				finalDirection = { x: 1, y: 0 };
 			}
 
-			// Draw the line
-			arrowContext.stroke({ color: 0xffffff, width: 2 });
+			// Enhanced line styling
+			arrowContext.stroke({
+				color: COLORS.border,
+				width: 2.5,
+				alpha: 0.8,
+			});
 
-			// Calculate angle for arrow head (always horizontal since we're using orthogonal paths)
-			const angle = 0; // Arrow always points right
+			// Calculate proper arrow head angle based on final direction
+			const angle = Math.atan2(finalDirection.y, finalDirection.x);
 
-			// Draw arrow head
+			// Enhanced arrow head
 			arrowContext
 				.moveTo(toX, toY)
 				.lineTo(
@@ -170,7 +259,10 @@
 					toY - ARROW_HEAD_SIZE * Math.sin(angle + Math.PI / 6)
 				)
 				.lineTo(toX, toY)
-				.fill(0xffffff);
+				.fill({
+					color: COLORS.border,
+					alpha: 0.8,
+				});
 
 			this.arrow = new Graphics(arrowContext);
 			this.addChild(this.arrow);
@@ -178,28 +270,52 @@
 	}
 
 	class FlowParticle extends Container {
-		private static successContext = new GraphicsContext().circle(0, 0, 20).fill(0x4caf50);
-		private static errorContext = new GraphicsContext().circle(0, 0, 20).fill(0xff5252);
-
 		private particle: Graphics;
+		private glow: Graphics;
 
 		constructor(isError = false) {
 			super();
-			this.particle = new Graphics(isError ? FlowParticle.errorContext : FlowParticle.successContext);
-			this.particle.alpha = 0.8;
-			this.addChild(this.particle);
+
+			const color = isError ? COLORS.error : COLORS.success;
+			const lightColor = isError ? COLORS.errorLight : COLORS.successLight;
+
+			// Glow effect
+			this.glow = new Graphics();
+			this.glow.beginFill(lightColor);
+			this.glow.drawCircle(0, 0, 16);
+			this.glow.endFill();
+			this.glow.alpha = 0.3;
+
+			// Main particle with gradient
+			this.particle = new Graphics();
+			this.particle.beginFill(color);
+			this.particle.drawCircle(0, 0, 8);
+			this.particle.endFill();
+
+			// Inner highlight
+			const highlight = new Graphics();
+			highlight.beginFill(0xffffff);
+			highlight.drawCircle(-2, -2, 3);
+			highlight.endFill();
+			highlight.alpha = 0.6;
+
+			this.addChild(this.glow, this.particle, highlight);
+
+			// Add subtle pulsing animation
+			gsap.to(this.glow.scale, {
+				x: 1.2,
+				y: 1.2,
+				duration: 1,
+				ease: 'power1.inOut',
+				yoyo: true,
+				repeat: -1,
+			});
 		}
 
 		public setAlpha(alpha: number) {
-			this.particle.alpha = alpha;
+			this.alpha = alpha;
 		}
 	}
-
-	// Create shared GraphicsContext for boxes
-	const boxContext = new GraphicsContext()
-		.roundRect(0, 0, BOX_WIDTH, BOX_HEIGHT, BOX_RADIUS)
-		.stroke({ width: 2, color: 0xffffff })
-		.fill({ color: 0x000000, alpha: 0 });
 
 	let boxes: { [key: string]: FlowBox } = {};
 	let animationCleanup: (() => void) | null = null;
@@ -211,17 +327,14 @@
 		// Reset all boxes
 		Object.values(boxes).forEach((box) => box.reset());
 
-		// Create a master timeline
+		// Create a master timeline with enhanced timing
 		const master = gsap.timeline({
 			onComplete: () => {
 				isRunning = false;
 			},
 		});
 
-		// Create particle timeline for first phase
-		const particle1Tl = gsap.timeline();
-
-		// Setup first particle (server to suspense)
+		// Enhanced particle animations
 		const particle1 = new FlowParticle(false);
 		const startX = boxes.serverComponent.x + BOX_WIDTH;
 		const startY = boxes.serverComponent.y + BOX_HEIGHT / 2;
@@ -229,78 +342,70 @@
 		const suspenseY = boxes.suspense.y + BOX_HEIGHT / 2;
 
 		particle1.position.set(startX, startY);
-		particle1.alpha = 0; // Start invisible
+		particle1.alpha = 0;
 		app.stage.addChild(particle1);
 
-		// First phase: Server Component flash and particle movement
+		// Enhanced animation sequence
 		master
 			.addLabel('start')
 			.add(boxes.serverComponent.flash())
-			.addLabel('flashComplete')
 			.to(
 				particle1,
 				{
 					alpha: 1,
 					duration: 0.2,
-					ease: 'power1.inOut',
+					ease: 'back.out(1.7)',
 				},
-				'flashComplete'
-			)
-			.to(
-				particle1.position,
-				{
-					x: (startX + suspenseX) / 2,
-					y: startY,
-					duration: 0.25,
-					ease: 'power1.inOut',
-				},
-				'>'
+				'start+=0.1'
 			)
 			.to(
 				particle1.position,
 				{
 					x: suspenseX,
 					y: suspenseY,
-					duration: 0.25,
-					ease: 'power1.inOut',
+					duration: 0.5,
+					ease: 'power2.inOut',
 				},
-				'>'
+				'start+=0.2'
 			)
-			.to(particle1, {
-				alpha: 0,
-				duration: 0.1,
-				ease: 'none',
-				onComplete: () => {
-					app.stage.removeChild(particle1);
+			.addLabel('suspenseStart', 'start+=0.6')
+			.to(
+				particle1,
+				{
+					alpha: 0,
+					duration: 0.15,
+					ease: 'power2.in',
+					onComplete: () => {
+						app.stage.removeChild(particle1);
+					},
 				},
-			})
-			.addLabel('suspenseStart');
+				'suspenseStart-=0.1'
+			);
 
-		// Animate Suspense and Loading Fallback boxes
+		// Enhanced progress animations
 		master.to(
 			boxes.suspense.getFillScale(),
 			{
 				x: 1,
 				duration: promiseDuration / 1000,
-				ease: 'none',
+				ease: 'power1.inOut',
 			},
 			'suspenseStart'
 		);
 
-		// Animate Loading Fallback box if enabled
 		if (showLoadingFallback) {
 			master.to(
 				boxes.loadingFallback.getFillScale(),
 				{
 					x: 1,
 					duration: promiseDuration / 1000,
-					ease: 'none',
+					ease: 'power1.inOut',
 				},
 				'suspenseStart'
 			);
 		}
 
-		// Setup second particle (suspense to final)
+		// Enhanced final particle
 		const particle2 = new FlowParticle(shouldReject);
 		const suspenseEndX = boxes.suspense.x + BOX_WIDTH;
 		const suspenseEndY = boxes.suspense.y + BOX_HEIGHT / 2;
@@ -311,7 +416,6 @@
 		particle2.alpha = 0;
 		app.stage.addChild(particle2);
 
-		// Final phase: Move particle2 to destination
 		master
 			.addLabel('finalPhase', `suspenseStart+=${promiseDuration / 1000}`)
 			.set(particle2, { alpha: 1 }, 'finalPhase')
@@ -320,8 +424,8 @@
 				{
 					x: endX - 80,
 					y: suspenseEndY,
-					duration: 0.25,
-					ease: 'power1.inOut',
+					duration: 0.5,
+					ease: 'power2.inOut',
 				},
 				'finalPhase'
 			)
@@ -330,41 +434,45 @@
 				{
 					x: endX - 80,
 					y: endY,
-					duration: 0.25,
-					ease: 'power1.inOut',
+					duration: 0.5,
+					ease: 'power2.inOut',
 				},
-				'>'
+				'>-=0.05'
 			)
 			.to(
 				particle2.position,
 				{
 					x: endX,
 					y: endY,
-					duration: 0.25,
-					ease: 'power1.inOut',
+					duration: 0.5,
+					ease: 'back.out(1.7)',
 				},
-				'>'
+				'>-=0.05'
 			)
 			.to(
 				particle2,
 				{
 					alpha: 0,
-					duration: 0.1,
-					ease: 'none',
-					onComplete: () => {
-						app.stage.removeChild(particle2);
-						// Activate final component and fill background
-						if (shouldReject) {
-							boxes.errorBoundary.setActive(true);
-							boxes.errorBoundary.setBackgroundFill(true);
-						} else {
-							boxes.clientComponent.setActive(true);
-							boxes.clientComponent.setBackgroundFill(true);
-						}
-					},
+					duration: 0.15,
+					ease: 'power2.in',
 				},
-				'>'
-			);
+				'>-=0.1'
+			)
+			.call(
+				() => {
+					// Activate final component immediately as particle starts fading
+					app.stage.removeChild(particle2);
+					if (shouldReject) {
+						boxes.errorBoundary.setActive(true);
+						boxes.errorBoundary.setBackgroundFill(true);
+					} else {
+						boxes.clientComponent.setActive(true);
+						boxes.clientComponent.setBackgroundFill(true);
+					}
+				},
+				[],
+				'>-=0.15'
+			); // Activate during particle fade
 	}
 
 	async function initPixi() {
@@ -375,7 +483,7 @@
 
 		app = new Application();
 		await app.init({
-			background: '#10100E',
+			backgroundAlpha: 0,
 			resizeTo: container,
 			antialias: true,
 			hello: true,
@@ -383,55 +491,36 @@
 		initDevtools(app);
 		container.appendChild(app.canvas);
 
-		// Create boxes with different active colors
+		// Create boxes with enhanced styling
 		boxes = {
-			serverComponent: new FlowBox('Server Component', 0x2196f3),
-			suspense: new FlowBox('Suspense', 0x2196f3),
-			loadingFallback: new FlowBox('LoadingFallback', 0x2196f3),
-			clientComponent: new FlowBox('ClientComponent', 0x2196f3),
-			errorBoundary: new FlowBox('ErrorBoundary', 0xff5252),
+			serverComponent: new FlowBox('Server Component', COLORS.primary, COLORS.surface),
+			suspense: new FlowBox('Suspense', COLORS.secondary, COLORS.surface),
+			loadingFallback: new FlowBox('LoadingFallback', COLORS.warning, COLORS.surface),
+			clientComponent: new FlowBox('ClientComponent', COLORS.success, COLORS.surface),
+			errorBoundary: new FlowBox('ErrorBoundary', COLORS.error, COLORS.surface),
 		};
 
 		// Position boxes using relative positions
-		boxes.serverComponent.position.set(
-			POSITIONS.serverComponent.x * app.screen.width,
-			POSITIONS.serverComponent.y * app.screen.height - BOX_HEIGHT / 2
-		);
-		boxes.suspense.position.set(
-			POSITIONS.suspense.x * app.screen.width,
-			POSITIONS.suspense.y * app.screen.height - BOX_HEIGHT / 2
-		);
-		boxes.loadingFallback.position.set(
-			POSITIONS.loadingFallback.x * app.screen.width,
-			POSITIONS.loadingFallback.y * app.screen.height
-		);
-		boxes.clientComponent.position.set(
-			POSITIONS.clientComponent.x * app.screen.width,
-			POSITIONS.clientComponent.y * app.screen.height
-		);
-		boxes.errorBoundary.position.set(
-			POSITIONS.errorBoundary.x * app.screen.width,
-			POSITIONS.errorBoundary.y * app.screen.height
-		);
+		Object.entries(boxes).forEach(([key, box]) => {
+			const pos = POSITIONS[key as keyof typeof POSITIONS];
+			box.position.set(pos.x * app.screen.width, pos.y * app.screen.height - BOX_HEIGHT / 2);
+		});
 
-		// Create arrows with orthogonal paths
+		// Create enhanced arrows
 		const arrows = [
-			// Server Component to Suspense
 			new FlowArrow(
 				boxes.serverComponent.x + BOX_WIDTH,
 				boxes.serverComponent.y + BOX_HEIGHT / 2,
 				boxes.suspense.x,
 				boxes.suspense.y + BOX_HEIGHT / 2
 			),
-			// Suspense to LoadingFallback
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH / 2,
 				boxes.suspense.y,
 				boxes.loadingFallback.x + BOX_WIDTH / 2,
 				boxes.loadingFallback.y + BOX_HEIGHT,
-				true // vertical first
+				true
 			),
-			// Branch to ClientComponent
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH,
 				boxes.suspense.y + BOX_HEIGHT / 2,
@@ -439,7 +528,6 @@
 				boxes.clientComponent.y + BOX_HEIGHT / 2,
 				false
 			),
-			// Branch to ErrorBoundary
 			new FlowArrow(
 				boxes.suspense.x + BOX_WIDTH,
 				boxes.suspense.y + BOX_HEIGHT / 2,
@@ -449,12 +537,9 @@
 			),
 		];
 
-		// Add everything to stage
 		app.stage.addChild(...Object.values(boxes), ...arrows);
 
-		// Add resize handler to update positions when the container is resized
 		const resizeHandler = () => {
-			// Update positions of all elements
 			Object.entries(boxes).forEach(([key, box]) => {
 				const pos = POSITIONS[key as keyof typeof POSITIONS];
 				box.position.set(pos.x * app.screen.width, pos.y * app.screen.height - BOX_HEIGHT / 2);
@@ -483,30 +568,48 @@
 	});
 </script>
 
-<div class="mb-4 space-x-4">
-	<label>
-		Duration: <input
-			type="range"
-			min="100"
-			max="5000"
-			step="100"
-			bind:value={promiseDuration}
-			class="accent-foreground"
-		/>
-		{promiseDuration}ms
-	</label>
-	<label>
-		<input type="checkbox" bind:checked={shouldReject} /> Should Reject
-	</label>
-	<label>
-		<input type="checkbox" bind:checked={showLoadingFallback} /> Show Loading
-	</label>
-	<button
-		class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
-		onclick={() => startAnimation()}
-		disabled={isRunning}
-	>
-		{isRunning ? 'Running...' : 'Start Animation'}
-	</button>
+<div class="mb-6 rounded-xl border border-slate-700/50 p-6 backdrop-blur-sm">
+	<div class="flex items-center justify-between gap-6">
+		<div class="flex gap-4">
+			<div class="flex items-center gap-3">
+				<label for="duration" class="text-sm font-medium text-slate-200">Duration:</label>
+				<div class="flex items-center gap-2">
+					<input
+						type="range"
+						id="duration"
+						min="100"
+						max="2000"
+						step="100"
+						bind:value={promiseDuration}
+						class="accent-foreground slider h-2 w-32 cursor-pointer rounded-lg bg-slate-700"
+					/>
+					<span class="min-w-[60px] font-mono text-sm text-slate-300">{promiseDuration}ms</span>
+				</div>
+			</div>
+
+			<!-- Checkboxes -->
+			<div class="flex items-center gap-4">
+				<label class="flex cursor-pointer items-center gap-2">
+					<input type="checkbox" bind:checked={shouldReject} class="h-4 w-4 rounded border-slate-600 bg-slate-700" />
+					<span class="text-sm font-medium text-slate-200">Should Reject</span>
+				</label>
+
+				<label class="flex cursor-pointer items-center gap-2">
+					<input
+						type="checkbox"
+						bind:checked={showLoadingFallback}
+						class="h-4 w-4 rounded border-slate-600 bg-slate-700"
+					/>
+					<span class="text-sm font-medium text-slate-200">Show Loading</span>
+				</label>
+			</div>
+		</div>
+
+		<Button onclick={() => startAnimation()} disabled={isRunning} variant="outline" class="w-38 ">
+			{isRunning ? 'Running...' : 'Start Animation'}
+		</Button>
+	</div>
 </div>
-<div bind:this={container} class="h-[400px] w-full"></div>
+
+<!-- Enhanced canvas container -->
+<div bind:this={container} class="h-[500px] w-full overflow-hidden rounded-xl"></div>

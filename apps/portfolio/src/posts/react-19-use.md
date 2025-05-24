@@ -16,8 +16,6 @@ seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error bou
 	import Suspense from '../components/visualizations/Suspense.svelte';
 </script>
 
-<Suspense />
-
 I've stared at data fetching code in React components more times than I can count. We've all been there, right? That dance of managing data, loading and error states. We initiate our asynchronous side-effects with a `useEffect` hook, set up the fetch, manage the lifecycle with a dependency array, and handle race conditions ensuring old requests don't overwrite new data when dependencies change or the component re-renders.
 
 What if we could lose some of that ceremony?
@@ -296,6 +294,12 @@ Now you can use it like this:
 ```
 
 This pattern encapsulates the common error boundary + suspense combination, provides type safety, and includes a default error UI that can be customized when needed.
+
+### Putting it all together
+
+Try out the full example below:
+
+<Suspense />
 
 ## Parallel Data Fetching
 
