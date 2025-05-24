@@ -6,10 +6,10 @@
 	let { data } = $props();
 
 	const canonicalUrl = `https://kyrre.dev/blog/${data.meta.slug}`;
+	const keywords = data.meta.seoKeywords || data.meta.categories;
 	const pageTitle = data.meta.seoTitle || data.meta.title;
 	const description =
 		data.meta.seoDescription || data.meta.description || `Read ${data.meta.title} by ${data.meta.author}`;
-	const keywords = data.meta.seoKeywords || data.meta.categories;
 	const ogImage = data.meta.ogImage || 'https://kyrre.dev/images/og-kyrre-gjerstad-blog.jpg';
 </script>
 

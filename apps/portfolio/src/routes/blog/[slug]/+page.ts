@@ -15,6 +15,12 @@ export const load: PageLoad = async ({ params, data }) => {
 			commentForm: data.commentForm,
 			content: post.default,
 			meta: post.metadata,
+			socials: {
+				siteName: 'Kyrre Gjerstad | Blog',
+				title: `${post.metadata.title} | Kyrre Gjerstad`,
+				description: post.metadata.description,
+				image: 'https://kyrre.dev/images/og-kyrre-gjerstad-blog.jpg',
+			},
 		};
 	} catch (e) {
 		console.error(e);
