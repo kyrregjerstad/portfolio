@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"@k/eslint-config": "workspace:*",
+		"@pixi/devtools": "^2.0.1",
 		"@playwright/test": "^1.52.0",
 		"@portabletext/svelte": "^3.0.0",
 		"@portabletext/toolkit": "^2.0.17",
@@ -75,6 +76,7 @@
 		"drizzle-orm": "^0.43.1",
 		"fast-blurhash": "^1.1.4",
 		"groqd": "^1.7.0",
+		"gsap": "^3.13.0",
 		"motion": "^12.12.1",
 		"nanoid": "^5.1.5",
 		"openai": "^4.100.0",

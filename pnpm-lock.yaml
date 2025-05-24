@@ -86,6 +86,9 @@ importers:
       groqd:
         specifier: ^1.7.0
         version: 1.7.0
+      gsap:
+        specifier: ^3.13.0
+        version: 3.13.0
       motion:
         specifier: ^12.12.1
         version: 12.12.1(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -107,9 +110,6 @@ importers:
       simple-icons:
         specifier: ^14.13.0
         version: 14.13.0
-      svelte-pixi:
-        specifier: ^7.0.0
-        version: 7.0.0(pixi.js@8.9.2)(svelte@5.30.2)
       svelte-sonner:
         specifier: ^1.0.1
         version: 1.0.1(svelte@5.30.2)
@@ -123,6 +123,9 @@ importers:
       '@k/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@pixi/devtools':
+        specifier: ^2.0.1
+        version: 2.0.1(pixi.js@8.9.2)
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -2315,6 +2318,11 @@ packages:
 
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
+
+  '@pixi/devtools@2.0.1':
+    resolution: {integrity: sha512-TFCqNkJoLNYHDELgQ3bKWvA33twWpoUhQB8Y+hneBdDBunRsqZ5ZzwH7+6E5eVaVn7eeLAXHs9QGRGsxM0fRlw==}
+    peerDependencies:
+      pixi.js: ^7 || ^8
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -5139,6 +5147,9 @@ packages:
     resolution: {integrity: sha512-sa47uf5F//Xc1kSLOa17azsQh79xeDualpYUTrVUvtk8iL5f9a9OlWzjRe47gSRSbYEDvXiXvoiKFUBrXscf3A==}
     engines: {node: '>= 14'}
 
+  gsap@3.13.0:
+    resolution: {integrity: sha512-QL7MJ2WMjm1PHWsoFrAQH/J8wUeqZvMtHO58qdekHpCfhvhSL4gSiz6vJf5EeMP0LOn3ZCprL2ki/gjED8ghVw==}
+
   gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
     hasBin: true
@@ -7502,12 +7513,6 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
-
-  svelte-pixi@7.0.0:
-    resolution: {integrity: sha512-LEEgnjVzmYeUUcI/fJpVpbsa1ofp3nEqAbv693jmLAK1fs2D1ys9KDX0gXCOUyvJBF+oKTkzliMwaCVj0gyBjg==}
-    peerDependencies:
-      pixi.js: '>=7.3.2'
-      svelte: '>=3.0.0 || >=4.0.0'
 
   svelte-sitemap@2.7.0:
     resolution: {integrity: sha512-/0rHrKQuA4MQ7CyHj6d9lD5jSO3woq86LR+ATUS/lx9hxwiQee6awjJ2nzy639Giu6m/Bhzereu9738CkWprfw==}
@@ -10759,6 +10764,10 @@ snapshots:
     optional: true
 
   '@pixi/colord@2.9.6': {}
+
+  '@pixi/devtools@2.0.1(pixi.js@8.9.2)':
+    dependencies:
+      pixi.js: 8.9.2
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -14300,6 +14309,8 @@ snapshots:
       type-fest: 4.41.0
       zod: 3.24.4
 
+  gsap@3.13.0: {}
+
   gunzip-maybe@1.4.2:
     dependencies:
       browserify-zlib: 0.1.4
@@ -16953,11 +16964,6 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.5.3)
       postcss-selector-parser: 7.1.0
     optionalDependencies:
-      svelte: 5.30.2
-
-  svelte-pixi@7.0.0(pixi.js@8.9.2)(svelte@5.30.2):
-    dependencies:
-      pixi.js: 8.9.2
       svelte: 5.30.2
 
   svelte-sitemap@2.7.0:

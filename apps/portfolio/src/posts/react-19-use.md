@@ -13,9 +13,7 @@ seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error bou
 ---
 
 <script>
-  import Counter from '../components/Counter.svelte';
-  import Suspense from '../components/visualizations/Suspense.svelte';
-	import DiagramDemo from '../components/visualizations/DiagramDemo.svelte';
+	import Suspense from '../components/visualizations/Suspense.svelte';
 </script>
 
 <Suspense />
