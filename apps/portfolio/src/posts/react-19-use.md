@@ -2,14 +2,14 @@
 title: 'React.use() and the Promise Lifecycle: A New Approach to Data in Components'
 id: 0196dfff-7f2f-744e-99af-0642d0932ee3
 published: true
-publishedAt: '2025-05-12'
+publishedAt: '2025-05-24'
 layout: 'blog'
 categories: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
 slug: react-19-use
 description: 'A guide to React.use() and the Promise Lifecycle'
 seoTitle: 'React.use() and the Promise Lifecycle: A New Approach to Data in Components'
 seoDescription: 'A guide to React.use() and the Promise Lifecycle'
-seoKeywords: ['react', 'use', 'promise', 'data fetching', 'suspense', 'error boundaries']
+seoKeywords: ['React.use()', 'promise', 'data fetching', 'suspense', 'error boundaries']
 ---
 
 <script>
