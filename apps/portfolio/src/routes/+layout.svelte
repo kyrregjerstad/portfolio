@@ -32,7 +32,7 @@
 <CursorTracker />
 <div class="relative overflow-hidden">
 	<Border>
-		<main class="no-scrollbar relative flex flex-col p-16">
+		<main class="no-scrollbar relative flex flex-col p-10 sm:p-16">
 			{@render children()}
 		</main>
 	</Border>

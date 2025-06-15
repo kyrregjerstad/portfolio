@@ -10,9 +10,9 @@
 	let { initialLikes }: { initialLikes: number } = $props();
 </script>
 
-<div class="sticky top-0 mx-auto h-full w-full max-w-7xl sm:top-16">
+<div class="sticky top-12 mx-auto h-full w-full max-w-7xl sm:top-16">
 	<div
-		class="relative flex min-h-[calc(100dvh+12rem)] w-full flex-col sm:min-h-[calc(100dvh)] sm:justify-center sm:py-8"
+		class="relative flex min-h-[calc(100dvh-5rem)] w-full flex-col sm:min-h-[calc(100dvh-8rem)] sm:justify-center sm:py-8"
 	>
 		<div class="hero-text flex flex-col gap-8 sm:text-justify">
 			<div>
