@@ -3,12 +3,14 @@
 
 	type Props = {
 		children: Snippet;
-		padding?: number;
 	};
 	import Footer from '@/components/Footer.svelte';
+	import { MediaQuery } from 'svelte/reactivity';
 
-	let { children, padding = 32 }: Props = $props();
+	let { children }: Props = $props();
 
+	const isMobile = new MediaQuery('(max-width: 768px)');
+	let padding = $derived(isMobile.current ? 16 : 32);
 	let container: HTMLDivElement;
 	let pathElement: SVGPathElement;
 	let pathLength = $state(0);
