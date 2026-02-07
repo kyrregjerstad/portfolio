@@ -10,7 +10,7 @@
 
 	let { data }: PageProps = $props();
 	let contactForm = $derived(data.contactForm);
-	let projects = $derived(data.page.projects);
+	let projects = $derived(data.page?.projects ?? []);
 
 	const experiments = [
 		{

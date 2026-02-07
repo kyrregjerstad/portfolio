@@ -5,7 +5,7 @@ import type { Actions } from './$types';
 
 import { s3 } from '@/lib/server/s3';
 import { fail, message, superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import { fileUploadSchema } from './fileUploadSchema';
 import { redirect } from '@sveltejs/kit';
 

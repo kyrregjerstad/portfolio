@@ -4,7 +4,7 @@ import { commentsTable, postsTable } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { commentFormSchema } from '@/lib/schema/CommentForm';
 import { fail, message, superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import { error } from '@sveltejs/kit';
 import { getAllPosts, getPost } from '@/lib/getPost';
 import { moderateContent } from '@/lib/server/moderation';

@@ -2,7 +2,7 @@ import { contactSchema } from '@/lib/schema/contactSchema';
 import { runQuery } from '@/lib/services/sanity';
 import { createGroqBuilder } from 'groqd';
 import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types';
 import { getTotalLikes } from '@/lib/db/methods';
 import type * as SanityTypes from '@/lib/services/sanity.types';

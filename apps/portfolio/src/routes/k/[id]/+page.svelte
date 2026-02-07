@@ -40,7 +40,7 @@
 					{formatFileSize(data.size)}
 				</p>
 			</div>
-			<a href={data.fileUrl} download={data.metadata.originalname} class={buttonVariants({ variant: 'outline-solid' })}>
+			<a href={data.fileUrl} download={data.metadata.originalname} class={buttonVariants({ variant: 'outline' })}>
 				<Download class="mr-2 h-4 w-4" />
 				Download
 			</a>

@@ -5,6 +5,8 @@
 		child: PortableTextBlock['children'][number];
 	};
 
+	import TextNode from './TextNode.svelte';
+
 	const { child }: Props = $props();
 
 	const markTagMap: { [key: string]: string } = {
@@ -23,7 +25,7 @@
 
 {#if child.marks && child.marks.length > 0}
 	<svelte:element this={getTag(child.marks[0])}>
-		<svelte:self child={{ ...child, marks: child.marks.slice(1) }} />
+		<TextNode child={{ ...child, marks: child.marks.slice(1) }} />
 	</svelte:element>
 {:else}
 	{child.text}

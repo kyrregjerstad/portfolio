@@ -1,6 +1,6 @@
 import { contactSchema } from '@/lib/schema/contactSchema';
 import { fail, message, superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { zod4 as zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {

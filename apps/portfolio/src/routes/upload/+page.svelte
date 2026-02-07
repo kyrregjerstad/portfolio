@@ -3,7 +3,7 @@
 
 	import { Card } from '@/lib/components/ui/card';
 	import { fileProxy, superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { zod4Client as zodClient } from 'sveltekit-superforms/adapters';
 	import { fileUploadSchema } from './fileUploadSchema';
 
 	let { data } = $props();

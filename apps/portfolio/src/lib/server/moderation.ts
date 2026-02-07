@@ -14,7 +14,7 @@ const moderationResultSchema = z.object({
 		violence: z.boolean(),
 		nonsense: z.boolean(),
 	}),
-	confidence: z.number({ description: 'A number between 0 and 1 indicating the confidence in the moderation result' }),
+	confidence: z.number().describe('A number between 0 and 1 indicating the confidence in the moderation result'),
 	suggestedAction: z.enum(['ALLOW', 'REJECT', 'REVIEW']),
 });
 
@@ -32,7 +32,7 @@ You are a content moderator for a blog comment system. Analyze the comment for:
 Provide a structured response indicating if the content is acceptable and categorize any issues found.`;
 
 export async function moderateContent(content: string): Promise<ModerationResult> {
-	const completion = await openai.beta.chat.completions.parse({
+	const completion = await openai.chat.completions.parse({
 		messages: [
 			{ role: 'system', content: SYSTEM_PROMPT },
 			{ role: 'user', content },
