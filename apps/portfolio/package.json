@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "varlock run -- vite dev",
-		"build": "node -e \"console.log('OP_TOKEN:', process.env.OP_TOKEN ? process.env.OP_TOKEN.slice(0,8)+'... len='+process.env.OP_TOKEN.length : 'MISSING')\" && varlock run -- vite build",
+		"build": "node -e \"console.log('DIAG process.env.OP_TOKEN:', process.env.OP_TOKEN ? process.env.OP_TOKEN.slice(0,8)+'... len='+process.env.OP_TOKEN.length : 'MISSING')\" && node -e \"console.log('DIAG varlock resolves OP_TOKEN as:', require('child_process').execSync('npx varlock printenv OP_TOKEN',{encoding:'utf8'}).trim().slice(0,12)+'...')\" && varlock run -- vite build",
 		"preview": "varlock run -- vite preview",
 		"test": "npm run test:integration && npm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
