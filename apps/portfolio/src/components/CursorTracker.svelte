@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import CursorBlob from './CursorBlob.svelte';
-	import { PUBLIC_PARTYKIT_URL } from '$env/static/public';
+	import { ENV } from 'varlock/env';
 	import { CursorTracker } from '../routes/cursors.svelte';
 
-	const tracker = new CursorTracker(PUBLIC_PARTYKIT_URL);
+	const tracker = new CursorTracker(ENV.PUBLIC_PARTYKIT_URL);
 
 	function updateCursor(event: MouseEvent) {
 		const pageContent = document.querySelector('#page-content');

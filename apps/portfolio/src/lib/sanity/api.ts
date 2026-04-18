@@ -1,21 +1,6 @@
-import {
-	PUBLIC_SANITY_DATASET,
-	PUBLIC_SANITY_PROJECT_ID,
-	PUBLIC_SANITY_API_VERSION,
-	PUBLIC_SANITY_STUDIO_URL,
-} from '$env/static/public';
+import { ENV } from 'varlock/env';
 
-export function assertEnvVar<T>(value: T | undefined, name: string): T {
-	if (value === undefined) {
-		throw new Error(`Missing environment variable: ${name}`);
-	}
-	return value;
-}
-
-export const dataset = assertEnvVar(PUBLIC_SANITY_DATASET, 'PUBLIC_SANITY_DATASET');
-
-export const projectId = assertEnvVar(PUBLIC_SANITY_PROJECT_ID, 'PUBLIC_SANITY_PROJECT_ID');
-
-export const apiVersion = PUBLIC_SANITY_API_VERSION || '2024-05-01';
-
-export const studioUrl = PUBLIC_SANITY_STUDIO_URL || 'http://localhost:3333';
+export const dataset = ENV.PUBLIC_SANITY_DATASET;
+export const projectId = ENV.PUBLIC_SANITY_PROJECT_ID;
+export const apiVersion = ENV.PUBLIC_SANITY_API_VERSION;
+export const studioUrl = ENV.PUBLIC_SANITY_STUDIO_URL;

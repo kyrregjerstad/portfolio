@@ -1,12 +1,12 @@
 <script>
-	import { PUBLIC_PLAUSIBLE_SCRIPT_URL, PUBLIC_POSTHOG_API_KEY } from '$env/static/public';
+	import { ENV } from 'varlock/env';
 
 	import { browser } from '$app/environment';
 	import posthog from 'posthog-js';
 
 	$effect(() => {
 		if (browser) {
-			posthog.init(PUBLIC_POSTHOG_API_KEY, {
+			posthog.init(ENV.PUBLIC_POSTHOG_API_KEY, {
 				api_host: 'https://eu.i.posthog.com',
 				person_profiles: 'always',
 				capture_pageview: false,
@@ -17,5 +17,5 @@
 </script>
 
 <svelte:head>
-	<script defer data-domain="kyrre.dev" src={PUBLIC_PLAUSIBLE_SCRIPT_URL}></script>
+	<script defer data-domain="kyrre.dev" src={ENV.PUBLIC_PLAUSIBLE_SCRIPT_URL}></script>
 </svelte:head>

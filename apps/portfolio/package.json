@@ -14,10 +14,10 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
-		"db:push": "drizzle-kit push",
-		"db:studio": "drizzle-kit studio",
+		"db:generate": "varlock run -- drizzle-kit generate",
+		"db:migrate": "varlock run -- drizzle-kit migrate",
+		"db:push": "varlock run -- drizzle-kit push",
+		"db:studio": "varlock run -- drizzle-kit studio",
 		"party:dev": "pnpm dlx partykit dev",
 		"party:deploy": "pnpm dlx partykit deploy",
 		"postbuild": "npx svelte-sitemap"
@@ -71,6 +71,8 @@
 		"@sanity/client": "^7.21.0",
 		"@sanity/image-url": "^2.1.1",
 		"@uploadthing/svelte": "^7.3.3",
+		"@varlock/1password-plugin": "^0.3.5",
+		"@varlock/vite-integration": "^0.2.10",
 		"arctic": "^3.7.0",
 		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.45.2",
@@ -87,6 +89,7 @@
 		"simple-icons": "^16.16.0",
 		"svelte-sonner": "^1.1.0",
 		"tailwind-merge": "^3.5.0",
-		"tailwind-variants": "^3.2.2"
+		"tailwind-variants": "^3.2.2",
+		"varlock": "^0.9.0"
 	}
 }

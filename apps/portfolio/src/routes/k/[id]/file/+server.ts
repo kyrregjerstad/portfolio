@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { GetObjectCommand, ListObjectsCommand } from '@aws-sdk/client-s3';
 
 import type { RequestHandler } from './$types';
-import { R2_BUCKET_NAME } from '$env/static/private';
+import { ENV } from 'varlock/env';
 import { s3 } from '@/lib/server/s3';
 
 export const GET: RequestHandler = async ({ params }) => {
@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ params }) => {
 		const key = possibleKeys[0];
 		const obj = await s3.send(
 			new GetObjectCommand({
-				Bucket: R2_BUCKET_NAME,
+				Bucket: ENV.R2_BUCKET_NAME,
 				Key: key,
 			})
 		);
@@ -54,7 +54,7 @@ export const GET: RequestHandler = async ({ params }) => {
 async function listObjectsWithPrefix(prefix: string) {
 	try {
 		const command = new ListObjectsCommand({
-			Bucket: R2_BUCKET_NAME,
+			Bucket: ENV.R2_BUCKET_NAME,
 			Prefix: prefix,
 		});
 

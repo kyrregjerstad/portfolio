@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { GetObjectCommand, HeadObjectCommand, ListObjectsCommand } from '@aws-sdk/client-s3';
 
-import { R2_BUCKET_NAME } from '$env/static/private';
+import { ENV } from 'varlock/env';
 import { s3 } from '@/lib/server/s3';
 
 export async function load({ params }) {
@@ -19,7 +19,7 @@ export async function load({ params }) {
 		// Get object metadata first
 		const headResult = await s3.send(
 			new HeadObjectCommand({
-				Bucket: R2_BUCKET_NAME,
+				Bucket: ENV.R2_BUCKET_NAME,
 				Key: key,
 			})
 		);
@@ -39,7 +39,7 @@ export async function load({ params }) {
 		) {
 			const obj = await s3.send(
 				new GetObjectCommand({
-					Bucket: R2_BUCKET_NAME,
+					Bucket: ENV.R2_BUCKET_NAME,
 					Key: key,
 				})
 			);
@@ -66,7 +66,7 @@ export async function load({ params }) {
 async function listObjectsWithPrefix(prefix: string) {
 	try {
 		const command = new ListObjectsCommand({
-			Bucket: R2_BUCKET_NAME,
+			Bucket: ENV.R2_BUCKET_NAME,
 			Prefix: prefix,
 		});
 

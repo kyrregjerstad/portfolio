@@ -1,8 +1,8 @@
 import OpenAI from 'openai';
-import { OPENAI_API_KEY } from '$env/static/private';
+import { ENV } from 'varlock/env';
 
 const openai = new OpenAI({
-	apiKey: OPENAI_API_KEY,
+	apiKey: ENV.OPENAI_API_KEY,
 });
 
 export { openai };

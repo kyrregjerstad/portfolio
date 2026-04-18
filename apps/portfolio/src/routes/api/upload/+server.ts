@@ -1,14 +1,14 @@
 import { error, json } from '@sveltejs/kit';
-import { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME } from '$env/static/private';
+import { ENV } from 'varlock/env';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { nanoid } from 'nanoid';
 
 const s3 = new S3Client({
 	region: 'auto',
-	endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+	endpoint: `https://${ENV.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
 	credentials: {
-		accessKeyId: R2_ACCESS_KEY_ID,
-		secretAccessKey: R2_SECRET_ACCESS_KEY,
+		accessKeyId: ENV.R2_ACCESS_KEY_ID,
+		secretAccessKey: ENV.R2_SECRET_ACCESS_KEY,
 	},
 });
 
@@ -30,7 +30,7 @@ export async function POST({ request }) {
 		// Upload to R2
 		await s3.send(
 			new PutObjectCommand({
-				Bucket: R2_BUCKET_NAME,
+				Bucket: ENV.R2_BUCKET_NAME,
 				Key: key,
 				Body: Buffer.from(await file.arrayBuffer()),
 				ContentType: file.type,
@@ -42,7 +42,7 @@ export async function POST({ request }) {
 		);
 
 		// Generate public URL
-		const url = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${key}`;
+		const url = `https://${ENV.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${key}`;
 
 		return json({
 			success: true,

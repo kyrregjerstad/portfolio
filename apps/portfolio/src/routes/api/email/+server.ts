@@ -1,10 +1,10 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { RESEND_API_KEY } from '$env/static/private';
+import { ENV } from 'varlock/env';
 import { Resend } from 'resend';
 import { contactSchema } from '$lib/schema/contactSchema';
 
-const resend = new Resend(RESEND_API_KEY);
+const resend = new Resend(ENV.RESEND_API_KEY);
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {

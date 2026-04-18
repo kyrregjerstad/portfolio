@@ -1,4 +1,4 @@
-import { GITHUB_USERNAME, R2_BUCKET_NAME } from '$env/static/private';
+import { ENV } from 'varlock/env';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { customAlphabet } from 'nanoid';
 import type { Actions } from './$types';
@@ -12,7 +12,7 @@ import { redirect } from '@sveltejs/kit';
 const generateId = customAlphabet('23456789abcdefghjkmnpqrstuvwxyz', 6);
 
 export const load = async ({ locals }) => {
-	if (locals.user?.username !== GITHUB_USERNAME) {
+	if (locals.user?.username !== ENV.GITHUB_USERNAME) {
 		throw redirect(307, '/login');
 	}
 
@@ -23,7 +23,7 @@ export const load = async ({ locals }) => {
 
 export const actions = {
 	upload: async ({ request, locals }) => {
-		if (locals.user?.username !== GITHUB_USERNAME) {
+		if (locals.user?.username !== ENV.GITHUB_USERNAME) {
 			throw redirect(307, '/login');
 		}
 
@@ -47,7 +47,7 @@ export const actions = {
 
 			await s3.send(
 				new PutObjectCommand({
-					Bucket: R2_BUCKET_NAME,
+					Bucket: ENV.R2_BUCKET_NAME,
 					Key: key,
 					Body: Buffer.from(await file.arrayBuffer()),
 					ContentType: file.type,
