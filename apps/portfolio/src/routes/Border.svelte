@@ -5,12 +5,16 @@
 		children: Snippet;
 	};
 	import Footer from '@/components/Footer.svelte';
-	import { MediaQuery } from 'svelte/reactivity';
 
 	let { children }: Props = $props();
 
-	const isMobile = new MediaQuery('(max-width: 768px)');
-	let padding = $derived(isMobile.current ? 16 : 32);
+	let viewportWidth = $state(0);
+	let viewportHeight = $state(0);
+	let padding = $derived.by(() => {
+		const vmin = Math.min(viewportWidth || 0, viewportHeight || 0);
+		if (!vmin) return 16;
+		return Math.max(10, Math.min(32, vmin * 0.025));
+	});
 	let container: HTMLDivElement;
 	let pathElement: SVGPathElement;
 	let pathLength = $state(0);
@@ -53,7 +57,14 @@
 
 		return () => resizeObserver.disconnect();
 	});
+
+	$effect(() => {
+		padding;
+		updatePath();
+	});
 </script>
+
+<svelte:window bind:innerWidth={viewportWidth} bind:innerHeight={viewportHeight} />
 
 <div class="h-dvh w-full overflow-auto" bind:this={container} style="--padding: {padding}px">
 	<div class="border-element fixed inset-x-0 top-0" style="height: var(--padding)"></div>
@@ -97,7 +108,7 @@
 	.border-path {
 		stroke-dasharray: var(--path-length);
 		stroke-dashoffset: var(--path-length);
-		animation: draw-border 3.5s cubic-bezier(0.4, 0, 0.35, 1) forwards;
+		animation: draw-border 2.2s cubic-bezier(0.4, 0, 0.35, 1) forwards;
 	}
 
 	@keyframes draw-border {
