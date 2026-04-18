@@ -3,7 +3,7 @@
 	import Gallery from '@/components/Gallery.svelte';
 	import LinkButton from '@/components/LinkButton.svelte';
 	import PageNavigation from '@/components/PageNavigation.svelte';
-	import { ExternalLinkIcon, GithubIcon, X } from '@lucide/svelte';
+	import { ExternalLinkIcon, X } from '@lucide/svelte';
 
 	import Divider from '@/components/Divider.svelte';
 	import ProjectTypeChip from '@/components/ProjectTypeChip.svelte';
@@ -41,7 +41,16 @@
 			{/if}
 			{#if project.gitHubLink}
 				<LinkButton href={project.gitHubLink}>
-					<GithubIcon class="size-4 sm:size-6" />
+					<svg
+						class="size-4 sm:size-6"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							d="M12 .5C5.73.5.67 5.57.67 11.84c0 5.01 3.24 9.26 7.74 10.76.57.1.78-.25.78-.55 0-.27-.01-.99-.02-1.95-3.15.68-3.82-1.52-3.82-1.52-.51-1.3-1.26-1.65-1.26-1.65-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.16-1.26-5.16-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.48 3.15-1.17 3.15-1.17.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.64 5.3-5.17 5.59.41.35.77 1.04.77 2.1 0 1.52-.01 2.75-.01 3.12 0 .3.21.66.79.55 4.49-1.5 7.73-5.75 7.73-10.76C23.33 5.57 18.27.5 12 .5z"
+						/>
+					</svg>
 					GitHub
 				</LinkButton>
 			{/if}

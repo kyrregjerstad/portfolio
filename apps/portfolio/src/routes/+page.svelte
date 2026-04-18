@@ -33,7 +33,11 @@
 		<Divider />
 		<div>
 			<h2 class="pb-4 text-3xl font-bold">Projects</h2>
-			<List items={projects.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))} />
+			<List
+				items={projects
+					.filter((project): project is typeof project & { title: string } => project.title !== null)
+					.map((project) => ({ ...project, slug: `/projects/${project.slug}` }))}
+			/>
 		</div>
 		<Divider />
 		<section>

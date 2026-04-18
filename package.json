@@ -14,14 +14,14 @@
 		"knip": "knip"
 	},
 	"devDependencies": {
-		"@types/node": "^25.2.1",
-		"knip": "^5.83.1",
-		"prettier": "3.8.1",
+		"@types/node": "^25.6.0",
+		"knip": "^6.4.1",
+		"prettier": "3.8.3",
 		"prettier-plugin-tailwindcss": "^0.7.2",
-		"turbo": "^2.8.3",
-		"typescript": "^5.9.3",
+		"turbo": "^2.9.6",
+		"typescript": "^6.0.3",
 		"unique-names-generator": "^4.7.1",
-		"wrangler": "^4.63.0"
+		"wrangler": "^4.83.0"
 	},
 	"packageManager": "pnpm@10.1.0"
 }
