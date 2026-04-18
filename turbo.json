@@ -2,7 +2,7 @@
 	"$schema": "https://turbo.build/schema.json",
 	"tasks": {
 		"build": {
-			"outputs": ["dist/**"],
+			"outputs": ["dist/**", ".svelte-kit/**", ".vercel/**"],
 			"env": [
 				"PRIVATE_GITHUB_TOKEN",
 				"PRIVATE_SENDGRID_API_KEY",
