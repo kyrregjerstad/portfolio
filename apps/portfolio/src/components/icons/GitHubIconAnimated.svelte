@@ -65,17 +65,6 @@
 		animation: tailGroupAnimation 1500ms linear normal forwards infinite;
 	}
 
-	#github-logo-3.hover #octocatIcon {
-		animation: octocatIconAnimation 1500ms linear normal forwards infinite;
-	}
-
-	#github-logo-3.hover #tail {
-		animation: tailAnimation 1500ms linear normal forwards infinite;
-	}
-	#github-logo-3.hover #tailGroup {
-		animation: tailGroupAnimation 1500ms linear normal forwards infinite;
-	}
-
 	@keyframes groupScaleAnimation {
 		0% {
 			transform: translate(176.516104px, 174.507897px) scale(1, 1);

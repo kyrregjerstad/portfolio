@@ -3,6 +3,7 @@ import { createGroqBuilder } from 'groqd';
 import type { PageServerLoad } from './$types';
 import { getTotalLikes } from '@/lib/db/methods';
 import type * as SanityTypes from '@/lib/services/sanity.types';
+import type { Post } from '@/lib/types';
 
 const q = createGroqBuilder<{
 	schemaTypes: SanityTypes.AllSanitySchemaTypes;
@@ -23,11 +24,15 @@ const homePageQuery = q.star
 		}),
 	}));
 
-export const load: PageServerLoad = async ({ cookies, locals }) => {
+export const load: PageServerLoad = async ({ cookies, locals, fetch }) => {
+	const postsResponse = await fetch('/api/posts');
+	const posts: Post[] = await postsResponse.json();
+
 	return {
 		page: await runQuery(homePageQuery),
 		darkMode: cookies.get('theme') === 'dark',
 		totalLikes: await getTotalLikes(),
 		firstVisit: locals.firstVisit,
+		posts,
 	};
 };

@@ -6,6 +6,7 @@
 	};
 	let { position }: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	const tween = new Tween(
 		{ x: position.x, y: position.y },
 		{

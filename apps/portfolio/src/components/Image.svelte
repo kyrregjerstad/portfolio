@@ -15,7 +15,7 @@
 	let prevSrc = $state('');
 	let canvas = $state<HTMLCanvasElement | null>(null);
 
-	const pixels = decodeBlurHash(blurHash || '', 500, 500);
+	const pixels = $derived(decodeBlurHash(blurHash || '', 500, 500));
 
 	$effect(() => {
 		if (src !== prevSrc) {

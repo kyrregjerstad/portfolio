@@ -9,7 +9,7 @@
 	};
 	let { portableText, class: className }: Props = $props();
 
-	const nestedLists = nestLists(portableText, 'html');
+	const nestedLists = $derived(nestLists(portableText, 'html'));
 </script>
 
 <div class={className}>

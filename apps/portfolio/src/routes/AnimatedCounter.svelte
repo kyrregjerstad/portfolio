@@ -14,7 +14,8 @@
 
 	let { initialLikes, slug }: Props = $props();
 
-	let count = $state(initialLikes / 1.5); // to have some intro animation
+	// svelte-ignore state_referenced_locally
+	let count = $state(initialLikes / 1.5); // intro animation seed
 	let totalLikesByUser = $state(0);
 	let isLoading = $state(true);
 	let isMaxCountReached = $derived(totalLikesByUser >= MAX_LIKES_PER_USER);

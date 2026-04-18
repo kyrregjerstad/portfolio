@@ -10,6 +10,12 @@
 
 	let { data }: PageProps = $props();
 	let projects = $derived(data.page?.projects ?? []);
+	let posts = $derived(
+		(data.posts ?? []).map((post) => ({
+			title: post.title,
+			slug: `/blog/${post.slug}`,
+		}))
+	);
 
 	const experiments = [
 		{
@@ -42,6 +48,11 @@
 		<section>
 			<h2 class="pb-4 text-3xl font-bold">Experiments</h2>
 			<List items={experiments} />
+		</section>
+		<Divider />
+		<section>
+			<h2 class="pb-4 text-3xl font-bold">Blog</h2>
+			<List items={posts} />
 		</section>
 		<Divider />
 		<section>

@@ -7,11 +7,11 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const isImage = data.contentType?.startsWith('image/');
-	const isPdf = data.contentType === 'application/pdf';
-	const isText = data.contentType?.startsWith('text/');
-	const isVideo = data.contentType?.startsWith('video/');
-	const isAudio = data.contentType?.startsWith('audio/');
+	const isImage = $derived(data.contentType?.startsWith('image/'));
+	const isPdf = $derived(data.contentType === 'application/pdf');
+	const isText = $derived(data.contentType?.startsWith('text/'));
+	const isVideo = $derived(data.contentType?.startsWith('video/'));
+	const isAudio = $derived(data.contentType?.startsWith('audio/'));
 
 	// Format the file size nicely
 	function formatFileSize(bytes: number) {

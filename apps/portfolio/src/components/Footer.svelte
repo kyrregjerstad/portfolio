@@ -3,6 +3,7 @@
 	import GitHubIconAnimated from '@/components/icons/GitHubIconAnimated.svelte';
 	import LinkedInAnimated from '@/components/icons/LinkedInIconAnimated.svelte';
 	import BskyAnimated from '@/components/icons/BskyAnimated.svelte';
+	import { scrollToTop } from '@/lib/utils';
 	import { HeartIcon } from '@lucide/svelte';
 	import posthog from 'posthog-js';
 </script>
@@ -37,8 +38,9 @@
 		</a>
 	</div>
 	<div class="flex items-center justify-center gap-2">
-		<a class="hover:underline" href="/about/kyrregjerstad">About</a>
-		<a class="hover:underline" href="/blog">Blog</a>
+		<a class="hover:underline" href="/" onclick={scrollToTop}>Home</a>
+		<a class="hover:underline" href="/about/kyrregjerstad" onclick={scrollToTop}>About</a>
+		<a class="hover:underline" href="/blog" onclick={scrollToTop}>Blog</a>
 	</div>
 
 	<p class="">

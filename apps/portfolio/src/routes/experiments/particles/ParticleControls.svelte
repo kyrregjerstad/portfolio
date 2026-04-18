@@ -13,6 +13,7 @@
 
 	let { settings, onUpdate, showControls = $bindable(true) }: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	if (!settings.value.colorOverlay) {
 		settings.value.colorOverlay = {
 			enabled: false,

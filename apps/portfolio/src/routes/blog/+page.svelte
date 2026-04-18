@@ -11,12 +11,10 @@
 		'Articles and tutorials about web development, testing, and software engineering by Kyrre Gjerstad.';
 	const canonicalUrl = 'https://kyrre.dev/blog';
 
-	// Get unique categories
-	const categories = [...new Set(data.posts.flatMap((post) => post.categories))];
-
-	// Sort posts by date
-	const sortedPosts = [...data.posts].sort(
-		(a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+	const sortedPosts = $derived(
+		[...data.posts].sort(
+			(a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+		)
 	);
 </script>
 
