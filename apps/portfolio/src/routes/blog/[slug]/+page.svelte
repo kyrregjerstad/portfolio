@@ -63,4 +63,4 @@
 	</article>
 </div>
 <Divider />
-<!-- <Comments commentForm={data.commentForm} isLoggedIn={data.isLoggedIn} postId={data.meta.id} /> -->
+<!-- <Comments slug={data.meta.slug} isLoggedIn={data.isLoggedIn} /> -->

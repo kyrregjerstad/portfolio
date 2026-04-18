@@ -1,32 +1,15 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-
 	import { Card } from '@/lib/components/ui/card';
-	import { fileProxy, superForm } from 'sveltekit-superforms';
-	import { zod4Client as zodClient } from 'sveltekit-superforms/adapters';
-	import { fileUploadSchema } from './fileUploadSchema';
+	import { uploadFile } from '$lib/remote/upload.remote';
 
-	let { data } = $props();
+	const expiryOptions = [
+		{ value: '1', label: '1 hour' },
+		{ value: '24', label: '24 hours' },
+		{ value: '168', label: '1 week' },
+	] as const;
 
-	let expiryOptions = $state([
-		{ value: 1, label: '1 hour' },
-		{ value: 24, label: '24 hours' },
-		{ value: 168, label: '1 week' },
-	]);
-
-	const { form, enhance, errors, submitting, message } = superForm(data.form, {
-		validators: zodClient(fileUploadSchema),
-		onResult: ({ result }) => {
-			// Clear the file input after successful upload
-			if (result.type === 'success') {
-			}
-		},
-	});
-
-	const file = fileProxy(form, 'file');
-
-	// Get the typed message
-	let uploadedUrl = $derived($message?.url) as string | undefined;
+	const { fields } = uploadFile;
 </script>
 
 <div class="container mx-auto max-w-2xl py-8">
@@ -38,44 +21,43 @@
 			</p>
 		</div>
 
-		<!-- Show success message and URL if available -->
-		{#if $message}
+		{#if uploadFile.result}
 			<Card class="relative rounded border p-4">
-				<p>{$message.message}</p>
-				{#if uploadedUrl}
+				<p>{uploadFile.result.message}</p>
+				{#if uploadFile.result.url}
 					<div class="mt-2">
 						<p class="font-semibold">File URL:</p>
-						<a href={uploadedUrl} class="break-all text-blue-600 hover:text-blue-800">
-							{uploadedUrl}
+						<a href={uploadFile.result.url} class="break-all text-blue-600 hover:text-blue-800">
+							{uploadFile.result.url}
 						</a>
 					</div>
 				{/if}
 			</Card>
 		{/if}
 
-		<form method="POST" action="?/upload" enctype="multipart/form-data" use:enhance class="space-y-4">
+		<form {...uploadFile} enctype="multipart/form-data" class="space-y-4">
 			<div>
-				<label for="file">File</label>
-				<input id="file" name="file" type="file" bind:files={$file} class="mt-1" accept="*/*" />
-				{#if $errors.file}
-					<p class="text-red-500">{$errors.file}</p>
-				{/if}
+				<label for={fields.file.as('file').name}>File</label>
+				<input {...fields.file.as('file')} class="mt-1" accept="*/*" />
+				{#each fields.file.issues() as issue}
+					<p class="text-red-500">{issue.message}</p>
+				{/each}
 			</div>
 
 			<div>
-				<label for="expiry">Delete after</label>
-				<select id="expiry" name="expiryHours" bind:value={$form.expiryHours} class="mt-1 text-black">
+				<label for={fields.expiryHours.as('select').name}>Delete after</label>
+				<select {...fields.expiryHours.as('select')} class="mt-1 text-black">
 					{#each expiryOptions as option}
 						<option value={option.value}>{option.label}</option>
 					{/each}
 				</select>
-				{#if $errors.expiryHours}
-					<p class="text-red-500">{$errors.expiryHours}</p>
-				{/if}
+				{#each fields.expiryHours.issues() as issue (issue.message)}
+					<p class="text-red-500">{issue.message}</p>
+				{/each}
 			</div>
 
-			<Button type="submit" disabled={!file || $submitting} class="w-full bg-zinc-500">
-				{$submitting ? 'Uploading...' : 'Upload File'}
+			<Button type="submit" disabled={!!uploadFile.pending} class="w-full bg-zinc-500">
+				{uploadFile.pending ? 'Uploading...' : 'Upload File'}
 			</Button>
 		</form>
 	</div>

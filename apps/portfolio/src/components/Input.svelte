@@ -1,33 +1,25 @@
 <script lang="ts">
-	type Props = {
+	import type { HTMLInputAttributes } from 'svelte/elements';
+
+	type Props = HTMLInputAttributes & {
 		label: string;
-		name: string;
-		type: string;
-		placeholder: string;
-		required: boolean;
-		value: string | number | boolean | null | undefined;
-		error: string[] | undefined;
+		issues?: ReadonlyArray<{ message: string }>;
 	};
 
-	let { label, name, type, placeholder, required, value = $bindable(), error = $bindable() }: Props = $props();
+	let { label, issues, ...rest }: Props = $props();
 </script>
 
 <div class="grid">
-	<label for={name}>
+	<label for={rest.name}>
 		{label}
 	</label>
 	<input
-		{type}
-		{name}
-		id={name}
-		{placeholder}
-		{required}
-		bind:value
+		{...rest}
 		class="bg-card border-muted-foreground focus:border-accent-foreground focus:outline-accent-foreground rounded-sm border p-2"
 	/>
 	<div>
-		{#if error}
-			<p class="text-red-500">{error}</p>
-		{/if}
+		{#each issues ?? [] as issue}
+			<p class="text-red-500">{issue.message}</p>
+		{/each}
 	</div>
 </div>

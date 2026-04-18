@@ -49,6 +49,14 @@ const config = {
 			$lib: './src/lib',
 			'@/*': './src/*',
 		},
+		experimental: {
+			remoteFunctions: true,
+		},
+	},
+	compilerOptions: {
+		experimental: {
+			async: true,
+		},
 	},
 };
 
