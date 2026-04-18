@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle, Filter } from 'pixi.js';
-	import { initDevtools } from '@pixi/devtools';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import { initDevtools } from '@pixi/devtools';
 	import type gsapType from 'gsap';
+	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle } from 'pixi.js';
 
 	let gsap: typeof gsapType;
 
