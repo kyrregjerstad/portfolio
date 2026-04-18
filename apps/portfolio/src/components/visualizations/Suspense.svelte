@@ -3,7 +3,9 @@
 	import { Application, Container, Graphics, GraphicsContext, Text, TextStyle, Filter } from 'pixi.js';
 	import { initDevtools } from '@pixi/devtools';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import gsap from 'gsap';
+	import type gsapType from 'gsap';
+
+	let gsap: typeof gsapType;
 
 	let app: Application;
 	let container: HTMLDivElement;
@@ -321,7 +323,7 @@
 	let animationCleanup: (() => void) | null = null;
 
 	function startAnimation() {
-		if (isRunning) return;
+		if (isRunning || !gsap) return;
 		isRunning = true;
 
 		// Reset all boxes
@@ -480,6 +482,8 @@
 			animationCleanup();
 			animationCleanup = null;
 		}
+
+		gsap = (await import('gsap')).default;
 
 		app = new Application();
 		await app.init({
