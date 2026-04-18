@@ -8,3 +8,4 @@ node_modules
 .turbo
 .partykit
 .env*.local
+.claude/worktrees
