@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { varlockVitePlugin } from '@varlock/vite-integration';
 
 export default defineConfig({
-	plugins: [varlockVitePlugin(), tailwindcss(), sveltekit()],
+	plugins: [varlockVitePlugin({ ssrInjectMode: 'resolved-env' }), tailwindcss(), sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
