@@ -3,31 +3,8 @@
 	"tasks": {
 		"build": {
 			"outputs": ["dist/**", ".svelte-kit/**", ".vercel/**"],
-			"env": [
-				"PRIVATE_GITHUB_TOKEN",
-				"PRIVATE_SENDGRID_API_KEY",
-				"SANITY_STUDIO_PROJECT_ID",
-				"SANITY_STUDIO_DATASET",
-				"SANITY_STUDIO_PREVIEW_URL",
-				"PUBLIC_SANITY_PROJECT_ID",
-				"PUBLIC_SANITY_DATASET",
-				"PUBLIC_SANITY_API_VERSION",
-				"PUBLIC_SANITY_STUDIO_URL",
-				"TURSO_CONNECTION_URL",
-				"TURSO_AUTH_TOKEN",
-				"PUBLIC_POSTHOG_API_KEY",
-				"PUBLIC_POSTHOG_HOST",
-				"PUBLIC_PLAUSIBLE_SCRIPT_URL",
-				"GITHUB_CLIENT_ID",
-				"GITHUB_CLIENT_SECRET",
-				"OPENAI_API_KEY",
-				"R2_ACCOUNT_ID",
-				"R2_ACCESS_KEY_ID",
-				"R2_SECRET_ACCESS_KEY",
-				"R2_TOKEN",
-				"R2_BUCKET_NAME",
-				"GITHUB_USERNAME"
-			]
+			"env": ["OP_TOKEN", "VARLOCK_ENV", "VERCEL_ENV", "VERCEL", "CI"],
+			"inputs": [".env.schema", "$TURBO_DEFAULT$"]
 		},
 		"check": {
 			"dependsOn": ["^check"]
