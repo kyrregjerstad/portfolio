@@ -12,7 +12,6 @@ export const load: PageLoad = async ({ params, data }) => {
 
 		return {
 			isLoggedIn: data.isLoggedIn,
-			commentForm: data.commentForm,
 			content: post.default,
 			meta: post.metadata,
 			socials: {

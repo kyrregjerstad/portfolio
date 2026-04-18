@@ -1,34 +1,25 @@
 <script lang="ts">
-	type Props = {
+	import type { HTMLTextareaAttributes } from 'svelte/elements';
+
+	type Props = HTMLTextareaAttributes & {
 		label: string;
-		name: string;
-		rows?: number;
-		placeholder: string;
-		required: boolean;
-		value: string | number | boolean | null | undefined;
-		error: string[] | undefined;
+		issues?: ReadonlyArray<{ message: string }>;
 	};
 
-	let { label, name, rows, placeholder, required, value = $bindable(), error = $bindable() }: Props = $props();
+	let { label, issues, ...rest }: Props = $props();
 </script>
 
 <div class="grid">
-	<label for={name}>
+	<label for={rest.name}>
 		{label}
 	</label>
 	<textarea
-		{name}
-		id={name}
-		{placeholder}
-		{required}
-		bind:value
-		{rows}
+		{...rest}
 		class="border-muted-foreground bg-card focus:border-accent-foreground focus:outline-accent-foreground rounded-sm border p-2"
-	>
-	</textarea>
+	></textarea>
 	<div>
-		{#if error}
-			<p class="text-red-500">{error}</p>
-		{/if}
+		{#each issues ?? [] as issue}
+			<p class="text-red-500">{issue.message}</p>
+		{/each}
 	</div>
 </div>

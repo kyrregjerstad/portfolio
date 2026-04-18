@@ -1,42 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { buttonVariants } from '@/lib/components/ui/button';
-	import { fetchComments, type FetchComments } from '@/lib/getComments';
-	import type { CommentForm } from '@/lib/schema/CommentForm';
+	import { getComments, submitComment } from '$lib/remote/comments.remote';
 	import { toast } from 'svelte-sonner';
-	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import Comment from './Comment.svelte';
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
-	import { onMount } from 'svelte';
 
 	type Props = {
-		commentForm: SuperValidated<Infer<CommentForm>>;
-		postId: string;
+		slug: string;
 		isLoggedIn: boolean;
 	};
 
-	let { commentForm, postId, isLoggedIn }: Props = $props();
-	let comments = $state<FetchComments>([]);
+	let { slug, isLoggedIn }: Props = $props();
 
-	onMount(async () => {
-		comments = await fetchComments(postId);
-	});
-
-	const form = superForm(commentForm, {
-		onResult: async ({ result }) => {
-			if (result.status === 200) {
-				toast.success('Comment submitted');
-				comments = await fetchComments(postId);
-			} else if (result.status === 401) {
-				toast.error('You must be logged in to submit a comment.');
-			} else {
-				toast.error('Failed to submit comment, please try again later.');
-			}
-		},
-	});
-
-	let { form: formData, enhance, errors, submitting } = form;
+	const { fields } = submitComment;
+	const commentsQuery = $derived(getComments(slug));
 </script>
 
 <section class="flex w-full flex-col items-center pb-16">
@@ -45,42 +24,54 @@
 	{#if isLoggedIn}
 		<form
 			id="contact"
-			method="POST"
-			use:enhance
+			{...submitComment.enhance(async ({ form, submit }) => {
+				try {
+					await submit();
+					const result = submitComment.result;
+					if (result?.ok) {
+						form.reset();
+						toast.success(result.message);
+					} else if (result?.message) {
+						toast.error(result.message);
+					}
+				} catch (e) {
+					if (e instanceof Error && e.message.includes('401')) {
+						toast.error('You must be logged in to submit a comment.');
+					} else {
+						toast.error('Failed to submit comment, please try again later.');
+					}
+				}
+			})}
 			class="mb-8 flex w-full max-w-lg flex-col gap-4"
-			action="?/submitComment"
 		>
 			<Input
 				label="Display Name"
-				name="displayName"
-				type="text"
 				placeholder="Display Name (public)"
 				required
-				bind:value={$formData.displayName}
-				bind:error={$errors.displayName}
+				{...fields.displayName.as('text')}
+				issues={fields.displayName.issues()}
 			/>
 			<TextArea
 				label="Comment"
-				name="content"
 				placeholder="Your comment"
 				required
 				rows={6}
-				bind:value={$formData.content}
-				bind:error={$errors.content}
+				{...fields.content.as('text')}
+				issues={fields.content.issues()}
 			/>
 
 			<!-- 🍯 honeypot 🤖 -->
 			<div class="absolute opacity-0">
-				<input type="checkbox" id="botCheck" name="botCheck" tabindex="-1" />
-				<label for="botCheck"> I'm not a robot </label>
+				<input {...fields.botCheck.as('checkbox')} tabindex={-1} />
+				<label for={fields.botCheck.as('checkbox').name}> I'm not a robot </label>
 			</div>
 
 			<button
 				type="submit"
 				class="bg-card border-muted-foreground text-primary-foreground hover:bg-primary/90 rounded-md border px-4 py-2 font-medium transition-colors disabled:opacity-50"
-				disabled={$submitting}
+				disabled={!!submitComment.pending}
 			>
-				{$submitting ? 'Submitting...' : 'Submit Comment'}
+				{submitComment.pending ? 'Submitting...' : 'Submit Comment'}
 			</button>
 		</form>
 	{:else}
@@ -93,9 +84,12 @@
 	{/if}
 
 	<div class="w-full max-w-2xl space-y-4">
-		{#await comments}
+		{#if commentsQuery.loading}
 			<p class="text-muted-foreground text-center italic">Loading comments...</p>
-		{:then comments}
+		{:else if commentsQuery.error}
+			<p class="text-muted-foreground text-center italic">Failed to load comments.</p>
+		{:else}
+			{@const comments = commentsQuery.current ?? []}
 			{#if comments.length === 0}
 				<p class="text-muted-foreground py-8 text-center italic">No comments yet. Be the first to comment!</p>
 			{:else}
@@ -108,6 +102,6 @@
 					{/each}
 				</div>
 			{/if}
-		{/await}
+		{/if}
 	</div>
 </section>

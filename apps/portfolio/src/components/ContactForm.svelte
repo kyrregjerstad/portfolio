@@ -1,82 +1,67 @@
 <script lang="ts">
-	import type { Infer, SuperValidated } from 'sveltekit-superforms';
-	import { superForm } from 'sveltekit-superforms';
 	import { toast } from 'svelte-sonner';
-	import type { ContactForm } from '$lib/schema/contactSchema';
+	import { submitContactForm } from '$lib/remote/contact.remote';
 	import CustomToast from './CustomToast.svelte';
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
 
-	let { contactForm }: { contactForm: SuperValidated<Infer<ContactForm>> } = $props();
+	const { fields } = submitContactForm;
+</script>
 
-	const form = superForm(contactForm, {
-		onResult: ({ result }) => {
-			if (result.status === 200) {
+<form
+	id="contact"
+	{...submitContactForm.enhance(async ({ form, submit }) => {
+		try {
+			await submit();
+			if (submitContactForm.result?.success) {
+				form.reset();
 				toast.custom(CustomToast, {
 					componentProps: {
 						title: 'Success',
 						message: `Roger that, I'll get back to you soon!`,
 					},
 				});
-			} else if (result.status === 500) {
-				toast.custom(CustomToast, {
-					componentProps: {
-						title: 'Error',
-						message: 'Failed to send message, please try again later.',
-						error: true,
-					},
-				});
 			}
-		},
-	});
-
-	let { form: formData, enhance, errors } = form;
-</script>
-
-<form id="contact" method="POST" use:enhance class="flex max-w-lg flex-col gap-4" action="/contact?/submitContactForm">
-	<Input
-		label="Name"
-		name="name"
-		type="text"
-		placeholder="Your name"
-		required
-		bind:value={$formData.name}
-		bind:error={$errors.name}
-	/>
+		} catch {
+			toast.custom(CustomToast, {
+				componentProps: {
+					title: 'Error',
+					message: 'Failed to send message, please try again later.',
+					error: true,
+				},
+			});
+		}
+	})}
+	class="flex max-w-lg flex-col gap-4"
+>
+	<Input label="Name" placeholder="Your name" required {...fields.name.as('text')} issues={fields.name.issues()} />
 	<Input
 		label="Subject"
-		name="subject"
-		type="text"
 		placeholder="Subject"
 		required
-		bind:value={$formData.subject}
-		bind:error={$errors.subject}
+		{...fields.subject.as('text')}
+		issues={fields.subject.issues()}
 	/>
-
 	<Input
 		label="Email"
-		name="email"
-		type="email"
 		placeholder="Your email"
 		required
-		bind:value={$formData.email}
-		bind:error={$errors.email}
+		{...fields.email.as('email')}
+		issues={fields.email.issues()}
 	/>
-
 	<TextArea
 		label="Message"
-		name="message"
 		placeholder="Your message"
 		required
 		rows={10}
-		bind:value={$formData.message}
-		bind:error={$errors.message}
+		{...fields.message.as('text')}
+		issues={fields.message.issues()}
 	/>
 
 	<!-- 🍯 honeypot 🤖 -->
 	<div class="absolute opacity-0">
-		<input type="checkbox" id="botCheck" name="botCheck" tabindex="-1" />
-		<label for="botCheck"> I'm not a robot </label>
+		<input {...fields.botCheck.as('checkbox')} tabindex={-1} />
+		<label for={fields.botCheck.as('checkbox').name}> I'm not a robot </label>
 	</div>
 
 	<button

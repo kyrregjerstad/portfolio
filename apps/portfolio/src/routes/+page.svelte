@@ -9,7 +9,6 @@
 	import GradientBlurDots from './GradientBlurDots.svelte';
 
 	let { data }: PageProps = $props();
-	let contactForm = $derived(data.contactForm);
 	let projects = $derived(data.page?.projects ?? []);
 
 	const experiments = [
@@ -47,7 +46,7 @@
 		<Divider />
 		<section>
 			<h2 class="pb-4 text-3xl font-bold">Contact</h2>
-			<ContactForm {contactForm} />
+			<ContactForm />
 		</section>
 	</div>
 </div>
