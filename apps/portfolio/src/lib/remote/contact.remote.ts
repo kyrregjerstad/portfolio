@@ -1,8 +1,7 @@
 import { form } from '$app/server';
 import { error } from '@sveltejs/kit';
-import { Resend } from 'resend';
-import { ENV } from 'varlock/env';
 import { z } from 'zod';
+import { sendEmail } from '$lib/server/email';
 
 const contactFormSchema = z.object({
 	name: z
@@ -13,15 +12,13 @@ const contactFormSchema = z.object({
 		.string()
 		.min(3, 'Subject must be over 3 characters')
 		.max(50, 'Subject must be under 50 characters'),
-	email: z.string().email('Invalid email address'),
+	email: z.email('Invalid email address'),
 	message: z
 		.string()
 		.min(10, 'Message must be over 10 characters')
 		.max(500, 'Message must be under 500 characters'),
 	botCheck: z.boolean().optional(),
 });
-
-const resend = new Resend(ENV.RESEND_API_KEY);
 
 export const submitContactForm = form(contactFormSchema, async (data) => {
 	if (data.botCheck) {
@@ -30,16 +27,16 @@ export const submitContactForm = form(contactFormSchema, async (data) => {
 
 	const { name, email, subject, message } = data;
 
-	try {
-		await resend.emails.send({
-			to: 'kyrregjerstad@gmail.com',
-			from: 'hi@kyrre.dev',
-			subject,
-			text: message,
-			html: `<p>new message from ${name}, email: ${email}</p> <p>${message}</p>`,
-		});
-	} catch (e) {
-		console.error(e);
+	const { error: sendError } = await sendEmail({
+		to: 'kyrregjerstad@gmail.com',
+		from: { address: 'hi@mail.kyrre.dev', name: 'Kyrre' },
+		replyTo: email,
+		subject,
+		text: `From: ${name} <${email}>\n\n${message}`,
+	});
+
+	if (sendError) {
+		console.error('CF email send failed', sendError);
 		error(500, 'Failed to send message');
 	}
 

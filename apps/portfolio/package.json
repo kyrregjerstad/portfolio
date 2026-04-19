@@ -84,7 +84,6 @@
 		"partysocket": "1.1.16",
 		"pixi.js": "^8.18.1",
 		"posthog-js": "^1.369.3",
-		"resend": "^6.12.0",
 		"simple-icons": "^16.16.0",
 		"svelte-sonner": "^1.1.0",
 		"tailwind-merge": "^3.5.0",
