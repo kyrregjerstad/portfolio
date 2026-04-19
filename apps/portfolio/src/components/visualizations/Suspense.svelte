@@ -572,9 +572,9 @@
 	});
 </script>
 
-<div class="mb-6 rounded-xl border border-slate-700/50 p-6 backdrop-blur-sm">
-	<div class="flex items-center justify-between gap-6">
-		<div class="flex gap-4">
+<div class="mb-6 rounded-xl border border-slate-700/50 p-4 backdrop-blur-sm sm:p-6">
+	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+		<div class="flex flex-wrap gap-4">
 			<div class="flex items-center gap-3">
 				<label for="duration" class="text-sm font-medium text-slate-200">Duration:</label>
 				<div class="flex items-center gap-2">
@@ -591,11 +591,10 @@
 				</div>
 			</div>
 
-			<!-- Checkboxes -->
-			<div class="flex items-center gap-4">
+			<div class="flex flex-wrap items-center gap-4">
 				<label class="flex cursor-pointer items-center gap-2">
 					<input type="checkbox" bind:checked={shouldReject} class="h-4 w-4 rounded border-slate-600 bg-slate-700" />
-					<span class="text-sm font-medium text-slate-200">Should Reject</span>
+					<span class="text-sm font-medium whitespace-nowrap text-slate-200">Should Reject</span>
 				</label>
 
 				<label class="flex cursor-pointer items-center gap-2">
@@ -604,16 +603,20 @@
 						bind:checked={showLoadingFallback}
 						class="h-4 w-4 rounded border-slate-600 bg-slate-700"
 					/>
-					<span class="text-sm font-medium text-slate-200">Show Loading</span>
+					<span class="text-sm font-medium whitespace-nowrap text-slate-200">Show Loading</span>
 				</label>
 			</div>
 		</div>
 
-		<Button onclick={() => startAnimation()} disabled={isRunning} variant="outline" class="w-38 ">
+		<Button
+			onclick={() => startAnimation()}
+			disabled={isRunning}
+			variant="outline"
+			class="w-full sm:w-38"
+		>
 			{isRunning ? 'Running...' : 'Start Animation'}
 		</Button>
 	</div>
 </div>
 
-<!-- Enhanced canvas container -->
-<div bind:this={container} class="h-[500px] w-full overflow-hidden rounded-xl"></div>
+<div bind:this={container} class="h-[400px] w-full overflow-hidden rounded-xl sm:h-[500px]"></div>
