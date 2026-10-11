@@ -43,9 +43,10 @@
 			content and relevant attachments are sent to OpenAI for classification. Google Pub/Sub carries mailbox change
 			notifications containing my email address and a mailbox history identifier. The worker saves matching documents,
 			their source emails and extracted metadata on my private server. It archives a message only after verifying that
-			the matching documents were saved. On the 18th of each month, it sends the unreported documents and an expense
-			index to my own Discord direct messages. These files then pass through Discord and are subject to Discord's
-			retention policies. No expense claims or payments are submitted automatically.
+			the matching documents were saved. Two Monday-to-Friday working days before my monthly expense deadline on the
+			20th, it sends the unreported documents and an expense index to my own Discord direct messages. These files then
+			pass through Discord and are subject to Discord's retention policies. No expense claims or payments are submitted
+			automatically.
 		</p>
 		<h2>AI processing and sharing</h2>
 		<p>
