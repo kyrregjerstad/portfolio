@@ -11,7 +11,7 @@
 	<a href="/hermes" class="text-muted-foreground text-sm underline underline-offset-4">Hermes Personal Assistant</a>
 	<header class="mt-8 mb-10">
 		<h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Privacy policy</h1>
-		<p class="text-muted-foreground mt-4 text-sm">Last updated October 10, 2026</p>
+		<p class="text-muted-foreground mt-4 text-sm">Last updated October 11, 2026</p>
 	</header>
 	<div class="prose prose-lg dark:prose-invert max-w-none">
 		<p>
@@ -23,7 +23,9 @@
 		<p>
 			With my authorization, Hermes reads Gmail messages, sender and recipient details, subjects, message content,
 			attachments and mailbox metadata. I use this access to search email, summarize messages and answer questions. The
-			Google authorization is read-only for Gmail and does not allow sending, modifying or deleting email.
+			ordinary assistant connection is read-only for Gmail. A separate expense worker has Gmail read/write authorization
+			to archive matching invoices and receipts after saving and verifying their files. Its email writes are restricted
+			to removing the Inbox label; it has no workflow for sending or deleting email.
 		</p>
 		<p>
 			Hermes reads my list of Google calendars and calendar event details, including titles, descriptions, times,
@@ -34,6 +36,16 @@
 			The linked WhatsApp reader stores available chat and contact information, message content and message metadata,
 			and can retrieve attachments. I use it to find and summarize messages. It has no tools for sending, editing or
 			deleting messages or marking them as read.
+		</p>
+		<h2>Expense collection</h2>
+		<p>
+			The expense worker checks new incoming email for invoices and receipts from my selected work suppliers. Message
+			content and relevant attachments are sent to OpenAI for classification. Google Pub/Sub carries mailbox change
+			notifications containing my email address and a mailbox history identifier. The worker saves matching documents,
+			their source emails and extracted metadata on my private server. It archives a message only after verifying that
+			the matching documents were saved. On the 18th of each month, it sends the unreported documents and an expense
+			index to my own Discord direct messages. These files then pass through Discord and are subject to Discord's
+			retention policies. No expense claims or payments are submitted automatically.
 		</p>
 		<h2>AI processing and sharing</h2>
 		<p>
@@ -54,10 +66,10 @@
 		</p>
 		<h2>Storage and retention</h2>
 		<p>
-			Account credentials and the WhatsApp archive are stored on my private server with restricted file access.
-			Retrieved account content may also appear in the assistant's saved conversations and logs. These records are
-			retained until I delete them. Copies sent to OpenAI, Discord or other involved services are subject to those
-			services' retention policies and account settings.
+			Expense documents, source emails, extracted metadata, delivery records, account credentials and the WhatsApp
+			archive are stored on my private server with restricted file access. Retrieved account content may also appear in
+			the assistant's saved conversations and logs. These records are retained until I delete them. Copies sent to
+			OpenAI, Discord or other involved services are subject to those services' retention policies and account settings.
 		</p>
 		<h2>Disconnecting accounts and deleting data</h2>
 		<p>

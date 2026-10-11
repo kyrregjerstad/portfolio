@@ -22,7 +22,8 @@
 		<ul>
 			<li>
 				<strong>Gmail:</strong> read messages and their metadata to search my inbox, summarize email and find relevant information.
-				The Google connection cannot send, change or delete email.
+				The ordinary assistant connection is read-only. A separate expense worker saves matching work receipts and archives
+				their emails after verifying the saved files. It sends a monthly bundle to my own Discord direct messages.
 			</li>
 			<li>
 				<strong>Google Calendar:</strong> read my calendar list and events, and create, update or delete events on calendars
